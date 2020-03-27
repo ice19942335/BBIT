@@ -16,5 +16,20 @@
 
             public const string RefreshV1 = BaseV1 + "/auth/refresh";
         }
+
+        public static class HouseRoute  
+        {
+            public const string HouseV1 = BaseV1 + "/house";
+        }
+
+        public static class FlatRoute
+        {
+            public const string FlatV1 = BaseV1 + "/flat";
+        }
+            
+        public static class ResidentRoute
+        {
+            public const string ResidentV1 = BaseV1 + "/resident";
+        }
     }
 }

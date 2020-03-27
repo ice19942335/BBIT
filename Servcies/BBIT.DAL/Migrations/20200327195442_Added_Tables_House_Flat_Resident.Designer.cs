@@ -4,14 +4,16 @@ using BBIT.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BBIT.DAL.Migrations
 {
     [DbContext(typeof(BBITContext))]
-    partial class BBITContextModelSnapshot : ModelSnapshot
+    [Migration("20200327195442_Added_Tables_House_Flat_Resident")]
+    partial class Added_Tables_House_Flat_Resident
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

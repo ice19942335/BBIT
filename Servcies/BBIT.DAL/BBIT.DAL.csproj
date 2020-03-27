@@ -5,11 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Domain\BBIT.Domain\BBIT.Domain.csproj" />
+    <Compile Remove="Migrations\20200327195304_Added_Tables_House_Flat_Resident.cs" />
+    <Compile Remove="Migrations\20200327195304_Added_Tables_House_Flat_Resident.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\..\Domain\BBIT.Domain\BBIT.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
