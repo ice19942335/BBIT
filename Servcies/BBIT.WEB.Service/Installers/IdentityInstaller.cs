@@ -1,10 +1,10 @@
 ﻿using BBIT.DAL.Context;
-using BBIT.Domain.Auth.Identity.User;
+using BBIT.Domain.Entities.Auth.Identity.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BBIT.Authentication.WEB_Service.Installers
+namespace BBIT.WEB.Service.Installers
 {
     public class IdentityInstaller : IInstaller
     {

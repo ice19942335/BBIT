@@ -1,4 +1,4 @@
-﻿namespace BBIT.Authentication.WEB_Service.Contracts.V1.Requests.Auth
+﻿namespace BBIT.WEB.Service.Contracts.V1.Requests.Auth
 {
     public class RefreshTokenRequest
     {

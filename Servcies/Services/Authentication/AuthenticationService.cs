@@ -1,8 +1,4 @@
 ﻿using BBIT.DAL.Context;
-using BBIT.Domain.Auth.Identity.User;
-using BBIT.Domain.Auth.JWT;
-using BBIT.Domain.Auth.JWT.Settings;
-using BBIT.Domain.DTO.Auth;
 using Interfaces.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +12,10 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using BBIT.Domain.Entities.Auth.Identity.User;
+using BBIT.Domain.Entities.Auth.JWT;
+using BBIT.Domain.Entities.Auth.JWT.Settings;
+using BBIT.Domain.Entities.DTO.Auth;
 
 namespace Services.Authentication
 {

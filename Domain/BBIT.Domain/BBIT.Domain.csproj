@@ -9,9 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Auth\Identity\User\" />
-    <Folder Include="Auth\JWT\Settings\" />
-    <Folder Include="DTO\Auth\" />
+    <Folder Include="Entities\House\Flat\NewFolder\" />
   </ItemGroup>
 
 </Project>

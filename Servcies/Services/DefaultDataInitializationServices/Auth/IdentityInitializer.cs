@@ -1,8 +1,8 @@
 ﻿using BBIT.DAL.Context;
-using BBIT.Domain.Auth.Identity.User;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading.Tasks;
+using BBIT.Domain.Entities.Auth.Identity.User;
 
 namespace Services.DefaultDataInitializationServices.Auth
 {

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BBIT.Authentication.WEB_Service.Contracts.V1.Requests.Auth;
+﻿using BBIT.WEB.Service.Contracts.V1.Requests.Auth;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace BBIT.Authentication.WEB_Service.SwaggerExamples.Requests.Auth
+namespace BBIT.WEB.Service.SwaggerExamples.Requests.Auth
 {
     public class RefreshTokenRequestExample : IExamplesProvider<RefreshTokenRequest>
     {

@@ -1,7 +1,7 @@
-﻿using BBIT.Authentication.WEB_Service.Contracts.V1.Responses.Auth;
+﻿using BBIT.WEB.Service.Contracts.V1.Responses.Auth;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace BBIT.Authentication.WEB_Service.SwaggerExamples.Responses.Auth
+namespace BBIT.WEB.Service.SwaggerExamples.Responses.Auth
 {
     public class AuthSuccessResponseExample : IExamplesProvider<AuthSuccessResponse>
     {

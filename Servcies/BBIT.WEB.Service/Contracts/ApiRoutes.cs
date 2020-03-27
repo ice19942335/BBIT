@@ -1,4 +1,4 @@
-﻿namespace BBIT.Authentication.WEB_Service.Contracts
+﻿namespace BBIT.WEB.Service.Contracts
 {
     public static class ApiRoutes
     {

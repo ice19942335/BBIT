@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Interfaces.Authentication;
+﻿using Interfaces.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Authentication;
 
-namespace BBIT.Authentication.WEB_Service.Installers
+namespace BBIT.WEB.Service.Installers
 {
     public class ServicesInstaller : IInstaller
     {

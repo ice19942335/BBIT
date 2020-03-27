@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace BBIT.Domain.DTO.Auth
+namespace BBIT.Domain.Entities.DTO.Auth
 {
     public class AuthenticationDto
     {

@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BBIT.Authentication.WEB_Service.Installers
+namespace BBIT.WEB.Service.Installers
 {
     public static class ExtensionsInstaller
     {

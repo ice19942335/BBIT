@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using BBIT.Domain.DTO.Auth;
+using BBIT.Domain.Entities.DTO.Auth;
 
 namespace Interfaces.Authentication
 {

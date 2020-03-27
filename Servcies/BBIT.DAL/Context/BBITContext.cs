@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using BBIT.Domain.Auth.Identity.User;
-using BBIT.Domain.Auth.JWT;
+using BBIT.Domain.Entities.Auth.Identity.User;
+using BBIT.Domain.Entities.Auth.JWT;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

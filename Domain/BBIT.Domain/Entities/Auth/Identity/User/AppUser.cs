@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace BBIT.Domain.Auth.Identity.User
+namespace BBIT.Domain.Entities.Auth.Identity.User
 {
     public class AppUser : IdentityUser
     {

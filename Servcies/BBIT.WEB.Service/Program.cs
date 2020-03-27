@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using BBIT.DAL.Context;
-using BBIT.Domain.Auth.Identity.User;
+using BBIT.Domain.Entities.Auth.Identity.User;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using NLog.Web;
 using Services.DefaultDataInitializationServices.Auth;
 
-namespace BBIT.Authentication.WEB_Service
+namespace BBIT.WEB.Service
 {
     public class Program
     {

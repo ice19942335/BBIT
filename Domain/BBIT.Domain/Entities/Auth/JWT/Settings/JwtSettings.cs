@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BBIT.Domain.Auth.JWT.Settings
+namespace BBIT.Domain.Entities.Auth.JWT.Settings
 {
     public class JwtSettings
     {

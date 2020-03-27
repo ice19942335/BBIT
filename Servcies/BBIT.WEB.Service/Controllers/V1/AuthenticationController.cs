@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using BBIT.Authentication.WEB_Service.Contracts;
-using BBIT.Authentication.WEB_Service.Contracts.V1.Requests.Auth;
-using BBIT.Authentication.WEB_Service.Contracts.V1.Responses.Auth;
+using BBIT.WEB.Service.Contracts;
+using BBIT.WEB.Service.Contracts.V1.Requests.Auth;
+using BBIT.WEB.Service.Contracts.V1.Responses.Auth;
 using Interfaces.Authentication;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BBIT.Authentication.WEB_Service.Controllers.V1
+namespace BBIT.WEB.Service.Controllers.V1
 {
     [EnableCors]
     [Produces("application/json")]

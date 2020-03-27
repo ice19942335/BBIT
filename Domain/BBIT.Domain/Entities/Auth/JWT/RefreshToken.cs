@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using BBIT.Domain.Auth.Identity.User;
+using BBIT.Domain.Entities.Auth.Identity.User;
 
-namespace BBIT.Domain.Auth.JWT
+namespace BBIT.Domain.Entities.Auth.JWT
 {
     public class RefreshToken
     {
