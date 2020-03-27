@@ -28,7 +28,7 @@ namespace BBIT.WEB.Service.Controllers.V1
         }
 
         [HttpGet(ApiRoutes.ResidentRoute.ResidentV1)]
-        public IActionResult GetFlatById(int id)
+        public IActionResult GetFlatById(string id)
         {
             throw new NotImplementedException();
         }

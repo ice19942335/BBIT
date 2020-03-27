@@ -29,7 +29,7 @@ namespace BBIT.WEB.Service.Controllers.V1
         }
 
         [HttpGet(ApiRoutes.HouseRoute.HouseV1)]
-        public IActionResult GetHouseById(int id)
+        public IActionResult GetHouseById(string id)
         {
             throw new NotImplementedException();
         }
