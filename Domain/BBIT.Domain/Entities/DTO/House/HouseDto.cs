@@ -16,5 +16,9 @@ namespace BBIT.Domain.Entities.DTO.House
         public string Country { get; set; }
 
         public string PostCode { get; set; }
+
+        public IEnumerable<string> Errors { get; set; }
+
+        public bool Status { get; set; }
     }
 }

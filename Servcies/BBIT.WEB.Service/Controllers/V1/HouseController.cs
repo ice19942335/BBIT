@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using BBIT.Domain.Entities.DTO.House;
-using BBIT.WEB.Service.Contracts;
+﻿using BBIT.WEB.Service.Contracts;
 using BBIT.WEB.Service.Contracts.V1.Requests.House;
 using BBIT.WEB.Service.Contracts.V1.Responses.House;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
