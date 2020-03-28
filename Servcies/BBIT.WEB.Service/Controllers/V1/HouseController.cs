@@ -1,10 +1,14 @@
-﻿using BBIT.WEB.Service.Contracts;
+﻿using System;
+using System.Threading.Tasks;
+using BBIT.WEB.Service.Contracts;
 using BBIT.WEB.Service.Contracts.V1.Requests.House;
 using BBIT.WEB.Service.Contracts.V1.Responses.House;
+using Interfaces.House;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Services.Mappers.House;
 using Services.StaticHelpers;
 
 namespace BBIT.WEB.Service.Controllers.V1
@@ -14,15 +18,22 @@ namespace BBIT.WEB.Service.Controllers.V1
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin,User")]
     public class HouseController : Controller
     {
+        private readonly IHouseService _houseService;
+
+        public HouseController(IHouseService houseService)
+        {
+            _houseService = houseService;
+        }
+
         /// <summary>
-        /// House creation endpoint. Creating new House in DB and returning created item
+        /// House creation endpoint. Creating new House in DB and returns created item
         /// </summary>
-        /// <response code="200">Success-full creation returning created item</response>
+        /// <response code="200">Success-full creation returns created item</response>
         /// <response code="400">Failed creation returns status and list of errors</response>
         [ProducesResponseType(typeof(SuccessHouseCreationResponse), 200)]
         [ProducesResponseType(typeof(FailedHouseCreationResponse), 400)]
         [HttpPost(ApiRoutes.HouseRoute.HouseV1)]
-        public IActionResult CreateHouse([FromBody] CreateHouseRequest request)
+        public async Task<IActionResult> CreateHouse([FromBody] CreateHouseRequest request)
         {
             //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNull(request))
@@ -30,19 +41,41 @@ namespace BBIT.WEB.Service.Controllers.V1
                     new FailedHouseCreationResponse
                     {
                         Status = false,
-                        Errors = new[] { "Some of properties are null" }
+                        Errors = new[] { "Some of properties are null." }
                     }
                 );
 
-            return Ok();
+            var creationResult = await _houseService.CreateHouse(request.RequestToHouseDto());
+
+            if (!creationResult.Status)
+                return BadRequest(new FailedHouseCreationResponse
+                {
+                    Status = creationResult.Status,
+                    Errors = creationResult.Errors
+                });
+
+            return Ok(new SuccessHouseCreationResponse
+            {
+                Id = creationResult.Id,
+                HouseNumber = creationResult.HouseNumber,
+                StreetName = creationResult.StreetName,
+                City = creationResult.City,
+                Country = creationResult.Country,
+                PostCode = creationResult.PostCode
+            });
         }
 
-        //[AllowAnonymous]
-        //[HttpGet(ApiRoutes.HouseRoute.HouseV1)]
-        //public IActionResult GetAllHouses()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        /// <summary>
+        /// House list endpoint, returns all houses list
+        /// </summary>
+        /// <response code="200">Returns all houses list</response>
+        /// <response code="400">Returns status and list of errors</response>
+        [AllowAnonymous]
+        [HttpGet(ApiRoutes.HouseRoute.HouseV1)]
+        public IActionResult GetAllHouses()
+        {
+            throw new NotImplementedException();
+        }
 
         //[AllowAnonymous]
         //[HttpGet(ApiRoutes.HouseRoute.HouseV1)]

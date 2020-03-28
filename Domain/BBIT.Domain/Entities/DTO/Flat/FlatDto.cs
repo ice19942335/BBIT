@@ -1,4 +1,6 @@
-﻿namespace BBIT.Domain.Entities.DTO.House
+﻿using BBIT.Domain.Entities.DTO.House;
+
+namespace BBIT.Domain.Entities.DTO.Flat
 {
     public class FlatDto
     {

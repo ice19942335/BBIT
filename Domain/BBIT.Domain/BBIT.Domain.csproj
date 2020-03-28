@@ -12,7 +12,6 @@
     <Folder Include="Entities\BBIT.WEB.Service\Contracts\V1\Requests\Auth\" />
     <Folder Include="Entities\BBIT.WEB.Service\Contracts\V1\Requests\House\" />
     <Folder Include="Entities\BBIT.WEB.Service\Contracts\V1\Responses\Auth\" />
-    <Folder Include="Entities\BBIT.WEB.Service\Contracts\V1\Responses\House\" />
   </ItemGroup>
 
 </Project>

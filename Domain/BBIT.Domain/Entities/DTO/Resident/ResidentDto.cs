@@ -1,6 +1,7 @@
 ﻿using System;
+using BBIT.Domain.Entities.DTO.Flat;
 
-namespace BBIT.Domain.Entities.DTO.House
+namespace BBIT.Domain.Entities.DTO.Resident
 {
     public class ResidentDto
     {

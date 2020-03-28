@@ -16,11 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="House\" />
     <Folder Include="Mappers\Flat\" />
-    <Folder Include="Mappers\House\" />
     <Folder Include="Mappers\Resident\" />
-    <Folder Include="Sql\House\" />
   </ItemGroup>
 
 </Project>
