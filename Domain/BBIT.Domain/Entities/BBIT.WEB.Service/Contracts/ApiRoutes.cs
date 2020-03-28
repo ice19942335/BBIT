@@ -27,6 +27,8 @@
         public static class FlatRoute
         {
             public const string FlatV1 = BaseV1 + "/flats";
+
+            public const string FlatByIdV1 = BaseV1 + "/flats/{id}";
         }
             
         public static class ResidentRoute

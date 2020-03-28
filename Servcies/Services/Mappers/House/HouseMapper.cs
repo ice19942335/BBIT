@@ -6,9 +6,10 @@ namespace Services.Mappers.House
 {
     public static class HouseMapper
     {
+        #region CreateHouseRequestToCreateHouseDto
+
         public static CreateHouseDto CreateHouseRequestToCreateHouseDto(this CreateHouseRequest createHouseRequest) =>
             ConvertCreateHouseRequestToCreateHouseDto(createHouseRequest);
-
         private static CreateHouseDto ConvertCreateHouseRequestToCreateHouseDto(CreateHouseRequest createHouseRequest)
         {
             return new CreateHouseDto
@@ -21,9 +22,12 @@ namespace Services.Mappers.House
             };
         }
 
+        #endregion
+
+        #region CreateDtoToHouse
+
         public static BBIT.Domain.Entities.House.House CreateDtoToHouse(this CreateHouseDto createHouseDto) =>
             ConvertCreateHouseDtoToHouse(createHouseDto);
-
         private static BBIT.Domain.Entities.House.House ConvertCreateHouseDtoToHouse(CreateHouseDto createHouseDto)
         {
             return new BBIT.Domain.Entities.House.House
@@ -37,9 +41,12 @@ namespace Services.Mappers.House
             };
         }
 
+        #endregion
+
+        #region HouseToCreateHouseDto
+
         public static CreateHouseDto HouseToCreateHouseDto(this BBIT.Domain.Entities.House.House house) =>
             ConvertCreateHouseToCreateHouseDto(house);
-
         public static CreateHouseDto ConvertCreateHouseToCreateHouseDto(BBIT.Domain.Entities.House.House house)
         {
             return new CreateHouseDto
@@ -54,9 +61,12 @@ namespace Services.Mappers.House
             };
         }
 
+        #endregion
+
+        #region HouseToHouseDto
+
         public static HouseDto HouseToHouseDto(this BBIT.Domain.Entities.House.House house) =>
             ConvertHouseToHouseDto(house);
-
         private static HouseDto ConvertHouseToHouseDto(BBIT.Domain.Entities.House.House house)
         {
             if (house != null)
@@ -76,9 +86,12 @@ namespace Services.Mappers.House
             return null;
         }
 
+        #endregion
+
+        #region UpdateHouseRequestToUpdateHouseDto
+
         public static UpdateHouseDto UpdateHouseRequestToUpdateHouseDto(this UpdateHouseRequest request) =>
             ConvertUpdateHouseRequestToUpdateHouseDto(request);
-
         private static UpdateHouseDto ConvertUpdateHouseRequestToUpdateHouseDto(UpdateHouseRequest request)
         {
             return new UpdateHouseDto
@@ -92,9 +105,12 @@ namespace Services.Mappers.House
             };
         }
 
+        #endregion
+
+        #region UpdateHouseDtoToHouse
+
         public static BBIT.Domain.Entities.House.House UpdateHouseDtoToHouse(this UpdateHouseDto updateHouseDto) =>
             ConvertUpdateHouseDtoToHouse(updateHouseDto);
-
         private static BBIT.Domain.Entities.House.House ConvertUpdateHouseDtoToHouse(UpdateHouseDto updateHouseDto)
         {
             return new BBIT.Domain.Entities.House.House
@@ -108,9 +124,12 @@ namespace Services.Mappers.House
             };
         }
 
+        #endregion
+
+        #region HouseToUpdateHouseDto
+
         public static UpdateHouseDto HouseToUpdateHouseDto(this BBIT.Domain.Entities.House.House house) =>
             ConvertHouseToUpdateHouseDto(house);
-
         private static UpdateHouseDto ConvertHouseToUpdateHouseDto(BBIT.Domain.Entities.House.House house)
         {
             return new UpdateHouseDto
@@ -124,9 +143,12 @@ namespace Services.Mappers.House
             };
         }
 
+        #endregion
+
+        #region UpdateHouseDtoToHouseDto
+
         public static HouseDto UpdateHouseDtoToHouseDto(this UpdateHouseDto updateHouseDto) =>
             ConvertUpdateHouseDtoToHouseDto(updateHouseDto);
-
         private static HouseDto ConvertUpdateHouseDtoToHouseDto(UpdateHouseDto updateHouseDto)
         {
             return new HouseDto
@@ -139,5 +161,7 @@ namespace Services.Mappers.House
                 PostCode = updateHouseDto.PostCode
             };
         }
+
+        #endregion
     }
 }

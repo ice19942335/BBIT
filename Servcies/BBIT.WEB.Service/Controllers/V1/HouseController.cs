@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.House;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House;
-using BBIT.Domain.Entities.DTO.House;
 using Interfaces.House;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
