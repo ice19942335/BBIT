@@ -49,11 +49,16 @@ namespace BBIT.WEB.Service.Controllers.V1
             var creationResult = await _houseService.CreateHouseAsync(request.CreateHouseRequestToCreateHouseDto());
 
             if (!creationResult.Status)
+            {
+                if (creationResult.ServerError)
+                    return StatusCode(500);
+
                 return BadRequest(new FailedHouseCreationResponse
                 {
                     Status = creationResult.Status,
                     Errors = creationResult.Errors
                 });
+            }
 
             return Ok(new SuccessHouseCreationResponse
             {
@@ -78,11 +83,16 @@ namespace BBIT.WEB.Service.Controllers.V1
             var requestResult = _houseService.GetAllHouses();
 
             if (!requestResult.Status)
+            {
+                if (requestResult.ServerError)
+                    return StatusCode(500);
+
                 return BadRequest(new FailedAllHousesResponse
                 {
                     Status = requestResult.Status,
                     Errors = requestResult.Errors
                 });
+            }
 
             return Ok(new SuccessAllHousesResponse
             {
