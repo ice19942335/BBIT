@@ -22,7 +22,7 @@ namespace Services.Sql.House
             Guid id;
             do { id = Guid.NewGuid(); } while (_dbContext.Houses.FirstOrDefault(x => x.Id == id) != null);
 
-            BBIT.Domain.Entities.House.House newHouse = createHouseDto.DtoToHouse();
+            BBIT.Domain.Entities.House.House newHouse = createHouseDto.CreateDtoToHouse();
             newHouse.Id = id;
 
             await _dbContext.Houses.AddAsync(newHouse);
@@ -31,13 +31,33 @@ namespace Services.Sql.House
             {
                 await _dbContext.SaveChangesAsync();
 
-                return newHouse.HouseToDto();
+                return newHouse.HouseToCreateHouseDto();
             }
             catch (Exception e)
             {
                 return new CreateHouseDto
                 {
                     Errors = new[] { "Error on adding new item to the database." },
+                    Status = false
+                };
+            }
+        }
+
+        public AllHousesDto GetAllHouses()
+        {
+            try
+            {
+                return new AllHousesDto
+                {
+                    Houses = _dbContext.Houses.Select(x => x.HouseToHouseDto()),
+                    Status = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new AllHousesDto
+                {
+                    Errors = new[] { "Error on fetch data from database" },
                     Status = false
                 };
             }

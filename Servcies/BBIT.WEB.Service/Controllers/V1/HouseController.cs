@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House;
 using BBIT.WEB.Service.Contracts;
 using BBIT.WEB.Service.Contracts.V1.Requests.House;
 using BBIT.WEB.Service.Contracts.V1.Responses.House;
@@ -45,7 +46,7 @@ namespace BBIT.WEB.Service.Controllers.V1
                     }
                 );
 
-            var creationResult = await _houseService.CreateHouse(request.RequestToHouseDto());
+            var creationResult = await _houseService.CreateHouseAsync(request.CreateHouseRequestToCreateHouseDto());
 
             if (!creationResult.Status)
                 return BadRequest(new FailedHouseCreationResponse
@@ -66,15 +67,28 @@ namespace BBIT.WEB.Service.Controllers.V1
         }
 
         /// <summary>
-        /// House list endpoint, returns all houses list
+        /// House list endpoint, returns all houses
         /// </summary>
-        /// <response code="200">Returns all houses list</response>
+        /// <response code="200">Returns all houses</response>
         /// <response code="400">Returns status and list of errors</response>
         [AllowAnonymous]
         [HttpGet(ApiRoutes.HouseRoute.HouseV1)]
         public IActionResult GetAllHouses()
         {
-            throw new NotImplementedException();
+            var requestResult = _houseService.GetAllHouses();
+
+            if (!requestResult.Status)
+                return BadRequest(new FailedAllHousesResponse
+                {
+                    Status = requestResult.Status,
+                    Errors = requestResult.Errors
+                });
+
+            return Ok(new SuccessAllHousesResponse
+            {
+                Status = requestResult.Status,
+                Houses = requestResult.Houses
+            });
         }
 
         //[AllowAnonymous]

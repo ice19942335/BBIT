@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BBIT.DAL.Context;
 using BBIT.Domain.Entities.DTO.House;
 using Interfaces.House;
@@ -17,11 +18,13 @@ namespace Services.House
             _dbContext = dbContext;
         }
 
-        public async Task<CreateHouseDto> CreateHouse(CreateHouseDto createHouseDto)
+        public async Task<CreateHouseDto> CreateHouseAsync(CreateHouseDto createHouseDto)
         {
             var creationResult = await _sqlHouseService.CreateHouse(createHouseDto);
 
             return creationResult;
         }
+
+        public AllHousesDto GetAllHouses() => _sqlHouseService.GetAllHouses();
     }
 }

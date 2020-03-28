@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BBIT.Domain.Entities.DTO.House;
 
 namespace Interfaces.House
 {
     public interface IHouseService
     {
-        Task<CreateHouseDto> CreateHouse(CreateHouseDto createHouseDto);
+        Task<CreateHouseDto> CreateHouseAsync(CreateHouseDto createHouseDto);
+
+        AllHousesDto GetAllHouses();
     }
 }
