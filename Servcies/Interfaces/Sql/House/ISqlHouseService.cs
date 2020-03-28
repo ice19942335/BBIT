@@ -8,5 +8,9 @@ namespace Interfaces.Sql.House
         Task<CreateHouseDto> CreateHouse(CreateHouseDto createHouseDto);
 
         AllHousesDto GetAllHouses();
+
+        HouseByIdDto GetHouseById(string id);
+
+        Task<UpdateHouseDto> UpdateHouse(UpdateHouseDto updateHouseDto);
     }
 }

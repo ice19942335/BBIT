@@ -1,4 +1,4 @@
-﻿namespace BBIT.WEB.Service.Contracts
+﻿namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts
 {
     public static class ApiRoutes
     {
@@ -19,17 +19,19 @@
 
         public static class HouseRoute  
         {
-            public const string HouseV1 = BaseV1 + "/house";
+            public const string HouseV1 = BaseV1 + "/houses";
+
+            public const string HouseByIdV1 = BaseV1 + "/houses/{id}";
         }
 
         public static class FlatRoute
         {
-            public const string FlatV1 = BaseV1 + "/flat";
+            public const string FlatV1 = BaseV1 + "/flats";
         }
             
         public static class ResidentRoute
         {
-            public const string ResidentV1 = BaseV1 + "/resident";
+            public const string ResidentV1 = BaseV1 + "/residents";
         }
     }
 }

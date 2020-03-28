@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BBIT.WEB.Service.Contracts.V1.Requests.House
+﻿namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.House
 {
     public class CreateHouseRequest
     {

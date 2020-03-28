@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BBIT.WEB.Service.Contracts.V1.Responses.Auth
+namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Auth
 {
     public class AuthFailedResponse
     {

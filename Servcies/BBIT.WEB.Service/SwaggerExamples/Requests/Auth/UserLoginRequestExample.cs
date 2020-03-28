@@ -1,4 +1,4 @@
-﻿using BBIT.WEB.Service.Contracts.V1.Requests.Auth;
+﻿using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Auth;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace BBIT.WEB.Service.SwaggerExamples.Requests.Auth

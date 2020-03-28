@@ -63,7 +63,56 @@ namespace Services.Sql.House
                 _logger.LogError($"Error on fetch data from database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
                 return new AllHousesDto
                 {
-                    Errors = new[] { "Error on fetch data from database" },
+                    Errors = new[] { "Error on fetch data from database." },
+                    ServerError = true,
+                    Status = false
+                };
+            }
+        }
+
+        public HouseByIdDto GetHouseById(string id)
+        {
+            try
+            {
+                return new HouseByIdDto
+                {
+                    House = _dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(id)).HouseToHouseDto(),
+                    Status = true
+                };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error on fetch data from database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
+                return new HouseByIdDto
+                {
+                    Errors = new[] { "Error on fetch data from database." },
+                    ServerError = true,
+                    Status = false
+                };
+            }
+        }
+
+        public async Task<UpdateHouseDto> UpdateHouse(UpdateHouseDto updateHouseDto)
+        {
+            try
+            {
+                BBIT.Domain.Entities.House.House house = updateHouseDto.UpdateHouseDtoToHouse();
+
+                _dbContext.Houses.Update(house);
+
+                await _dbContext.SaveChangesAsync();
+
+                var newUpdateHouseDto = house.HouseToUpdateHouseDto();
+                newUpdateHouseDto.Status = true;
+
+                return newUpdateHouseDto;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error on adding new house into database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
+                return new UpdateHouseDto
+                {
+                    Errors = new[] { "Error on updating house in database." },
                     ServerError = true,
                     Status = false
                 };

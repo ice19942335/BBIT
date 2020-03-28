@@ -1,6 +1,6 @@
-﻿namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House
+﻿namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.House
 {
-    public class SuccessHouseCreationResponse
+    public class UpdateHouseRequest
     {
         public string Id { get; set; }
 

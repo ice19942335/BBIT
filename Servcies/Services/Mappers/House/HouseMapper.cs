@@ -1,12 +1,13 @@
 ﻿using System;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.House;
 using BBIT.Domain.Entities.DTO.House;
-using BBIT.WEB.Service.Contracts.V1.Requests.House;
 
 namespace Services.Mappers.House
 {
     public static class HouseMapper
     {
-        public static CreateHouseDto CreateHouseRequestToCreateHouseDto(this CreateHouseRequest createHouseRequest) => ConvertCreateHouseRequestToCreateHouseDto(createHouseRequest);
+        public static CreateHouseDto CreateHouseRequestToCreateHouseDto(this CreateHouseRequest createHouseRequest) =>
+            ConvertCreateHouseRequestToCreateHouseDto(createHouseRequest);
 
         private static CreateHouseDto ConvertCreateHouseRequestToCreateHouseDto(CreateHouseRequest createHouseRequest)
         {
@@ -20,7 +21,8 @@ namespace Services.Mappers.House
             };
         }
 
-        public static BBIT.Domain.Entities.House.House CreateDtoToHouse(this CreateHouseDto createHouseDto) => ConvertCreateHouseDtoToHouse(createHouseDto);
+        public static BBIT.Domain.Entities.House.House CreateDtoToHouse(this CreateHouseDto createHouseDto) =>
+            ConvertCreateHouseDtoToHouse(createHouseDto);
 
         private static BBIT.Domain.Entities.House.House ConvertCreateHouseDtoToHouse(CreateHouseDto createHouseDto)
         {
@@ -35,7 +37,8 @@ namespace Services.Mappers.House
             };
         }
 
-        public static CreateHouseDto HouseToCreateHouseDto(this BBIT.Domain.Entities.House.House house) => ConvertCreateHouseToCreateHouseDto(house);
+        public static CreateHouseDto HouseToCreateHouseDto(this BBIT.Domain.Entities.House.House house) =>
+            ConvertCreateHouseToCreateHouseDto(house);
 
         public static CreateHouseDto ConvertCreateHouseToCreateHouseDto(BBIT.Domain.Entities.House.House house)
         {
@@ -51,18 +54,89 @@ namespace Services.Mappers.House
             };
         }
 
-        public static HouseDto HouseToHouseDto(this BBIT.Domain.Entities.House.House house) => ConvertHouseToHouseDto(house);
+        public static HouseDto HouseToHouseDto(this BBIT.Domain.Entities.House.House house) =>
+            ConvertHouseToHouseDto(house);
 
         private static HouseDto ConvertHouseToHouseDto(BBIT.Domain.Entities.House.House house)
         {
-            return new HouseDto
+            if (house != null)
+            {
+                return new HouseDto
+                {
+                    Id = house.Id.ToString(),
+                    HouseNumber = house.HouseNumber,
+                    StreetName = house.StreetName,
+                    City = house.City,
+                    Country = house.Country,
+                    PostCode = house.PostCode
+                };
+
+            }
+
+            return null;
+        }
+
+        public static UpdateHouseDto UpdateHouseRequestToUpdateHouseDto(this UpdateHouseRequest request) =>
+            ConvertUpdateHouseRequestToUpdateHouseDto(request);
+
+        private static UpdateHouseDto ConvertUpdateHouseRequestToUpdateHouseDto(UpdateHouseRequest request)
+        {
+            return new UpdateHouseDto
+            {
+                Id = request.Id,
+                HouseNumber = request.HouseNumber,
+                StreetName = request.StreetName,
+                City = request.City,
+                Country = request.Country,
+                PostCode = request.PostCode
+            };
+        }
+
+        public static BBIT.Domain.Entities.House.House UpdateHouseDtoToHouse(this UpdateHouseDto updateHouseDto) =>
+            ConvertUpdateHouseDtoToHouse(updateHouseDto);
+
+        private static BBIT.Domain.Entities.House.House ConvertUpdateHouseDtoToHouse(UpdateHouseDto updateHouseDto)
+        {
+            return new BBIT.Domain.Entities.House.House
+            {
+                Id = Guid.Parse(updateHouseDto.Id),
+                HouseNumber = updateHouseDto.HouseNumber,
+                StreetName = updateHouseDto.StreetName,
+                City = updateHouseDto.City,
+                Country = updateHouseDto.Country,
+                PostCode = updateHouseDto.PostCode
+            };
+        }
+
+        public static UpdateHouseDto HouseToUpdateHouseDto(this BBIT.Domain.Entities.House.House house) =>
+            ConvertHouseToUpdateHouseDto(house);
+
+        private static UpdateHouseDto ConvertHouseToUpdateHouseDto(BBIT.Domain.Entities.House.House house)
+        {
+            return new UpdateHouseDto
             {
                 Id = house.Id.ToString(),
-                HouseNumber = house.HouseNumber,    
+                HouseNumber = house.HouseNumber,
                 StreetName = house.StreetName,
                 City = house.City,
                 Country = house.Country,
                 PostCode = house.PostCode
+            };
+        }
+
+        public static HouseDto UpdateHouseDtoToHouseDto(this UpdateHouseDto updateHouseDto) =>
+            ConvertUpdateHouseDtoToHouseDto(updateHouseDto);
+
+        private static HouseDto ConvertUpdateHouseDtoToHouseDto(UpdateHouseDto updateHouseDto)
+        {
+            return new HouseDto
+            {
+                Id = updateHouseDto.Id,
+                HouseNumber = updateHouseDto.HouseNumber,
+                StreetName = updateHouseDto.StreetName,
+                City = updateHouseDto.City,
+                Country = updateHouseDto.Country,
+                PostCode = updateHouseDto.PostCode
             };
         }
     }

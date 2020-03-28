@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BBIT.WEB.Service.Contracts.V1.Responses.House;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace BBIT.WEB.Service.SwaggerExamples.Responses.House
@@ -19,18 +19,6 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.House
                 City = "London",
                 Country = "United Kingdom",
                 PostCode = "E1 7AD"
-            };
-        }
-    }
-
-    public class FailedHouseCreationResponseExample : IExamplesProvider<FailedHouseCreationResponse>
-    {
-        public FailedHouseCreationResponse GetExamples()
-        {
-            return new FailedHouseCreationResponse
-            {
-                Status = false,
-                Errors = new[] { "Some of properties are null" }
             };
         }
     }
