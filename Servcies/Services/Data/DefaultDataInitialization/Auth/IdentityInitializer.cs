@@ -1,10 +1,10 @@
-﻿using BBIT.DAL.Context;
-using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using BBIT.DAL.Context;
 using BBIT.Domain.Entities.Auth.Identity.User;
+using Microsoft.AspNetCore.Identity;
 
-namespace Services.DefaultDataInitializationServices.Auth
+namespace Services.Data.DefaultDataInitialization.Auth
 {
     public class IdentityInitializer
     {

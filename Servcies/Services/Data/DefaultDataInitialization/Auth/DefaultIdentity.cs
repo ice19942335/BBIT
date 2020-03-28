@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Services.DefaultDataInitializationServices.Auth
+﻿namespace Services.Data.DefaultDataInitialization.Auth
 {
     public static class DefaultIdentity
     {

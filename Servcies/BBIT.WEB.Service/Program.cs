@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
-using Services.DefaultDataInitializationServices.Auth;
+using Services.Data.DefaultDataInitialization.Auth;
 
 namespace BBIT.WEB.Service
 {

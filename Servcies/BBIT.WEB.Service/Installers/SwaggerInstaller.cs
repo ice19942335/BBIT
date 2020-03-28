@@ -18,7 +18,7 @@ namespace BBIT.WEB.Service.Installers
                 {
                     Title = "BBIT Auth Service",
                     Version = "v1",
-                    Description = "Authentication based on JWT token",
+                    Description = "BBIT Data API",
                     Contact = new OpenApiContact
                     {
                         Name = "A.Birula",

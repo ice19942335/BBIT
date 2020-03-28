@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Services.DefaultDataInitializationServices.Auth;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,6 +15,7 @@ using BBIT.Domain.Entities.Auth.Identity.User;
 using BBIT.Domain.Entities.Auth.JWT;
 using BBIT.Domain.Entities.Auth.JWT.Settings;
 using BBIT.Domain.Entities.DTO.Auth;
+using Services.Data.DefaultDataInitialization.Auth;
 
 namespace Services.Authentication
 {
