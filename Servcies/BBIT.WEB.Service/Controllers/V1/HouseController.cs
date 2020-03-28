@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.House;
@@ -189,11 +190,35 @@ namespace BBIT.WEB.Service.Controllers.V1
             });
         }
 
+        /// <summary>
+        /// Delete house endpoint, deleting house from database
+        /// </summary>
+        /// <response code="204">Successfully deleted</response>
+        /// <response code="400">Returns status and list of errors</response>
+        /// <response code="404">Item not found</response>
+        /// <response code="500">Server error</response>
+        [HttpDelete(ApiRoutes.HouseRoute.HouseByIdV1)]
+        [ProducesResponseType(typeof(FailedDeleteHouseResponse), 400)]
+        public async Task<IActionResult> DeleteHouse(string id)
+        {
+            var deletionResult = await _houseService.DeleteHouseAsync(id);
 
-        //[HttpDelete(ApiRoutes.HouseRoute.HouseV1)]
-        //public IActionResult DeleteHouse()
-        //{
-        //    throw new NotImplementedException();
-        //}
+            if (!deletionResult.Status)
+            {
+                if (deletionResult.ServerError)
+                    return StatusCode(500);
+
+                if (deletionResult.Errors.Contains("Item not found."))
+                    return NotFound("Item not found");
+
+                return BadRequest(new FailedDeleteHouseResponse
+                {
+                    Status = false,
+                    Errors = deletionResult.Errors
+                });
+            }
+
+            return NoContent();
+        }
     }
 }

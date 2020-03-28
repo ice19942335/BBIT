@@ -23,5 +23,7 @@ namespace Services.House
         public HouseByIdDto GetHouseById(string id) => _sqlHouseService.GetHouseById(id);
 
         public async Task<UpdateHouseDto> UpdateHouseAsync(UpdateHouseDto updateHouseDto) => await _sqlHouseService.UpdateHouse(updateHouseDto);
+
+        public Task<DeleteHouseDto> DeleteHouseAsync(string id) => _sqlHouseService.DeleteHouseAsync(id);
     }
 }

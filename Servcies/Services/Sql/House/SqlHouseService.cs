@@ -109,10 +109,41 @@ namespace Services.Sql.House
             }
             catch (Exception e)
             {
-                _logger.LogError($"Error on adding new house into database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
+                _logger.LogError($"Error on updating house in database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
                 return new UpdateHouseDto
                 {
                     Errors = new[] { "Error on updating house in database." },
+                    ServerError = true,
+                    Status = false
+                };
+            }
+        }
+
+        public async Task<DeleteHouseDto> DeleteHouseAsync(string id)
+        {
+            try
+            {
+                BBIT.Domain.Entities.House.House house = _dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(id));
+
+                if (house is null)
+                    return new DeleteHouseDto
+                    {
+                        Status = false,
+                        Errors = new[] { "Item not found." },
+                        ServerError = false
+                    };
+
+                _dbContext.Houses.Remove(house);
+                await _dbContext.SaveChangesAsync();
+
+                return new DeleteHouseDto { Status = true };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error on deleting house from database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
+                return new DeleteHouseDto
+                {
+                    Errors = new[] { "Error on deleting house from database." },
                     ServerError = true,
                     Status = false
                 };

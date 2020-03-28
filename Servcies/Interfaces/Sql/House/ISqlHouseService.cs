@@ -12,5 +12,7 @@ namespace Interfaces.Sql.House
         HouseByIdDto GetHouseById(string id);
 
         Task<UpdateHouseDto> UpdateHouse(UpdateHouseDto updateHouseDto);
+
+        Task<DeleteHouseDto> DeleteHouseAsync(string id);
     }
 }
