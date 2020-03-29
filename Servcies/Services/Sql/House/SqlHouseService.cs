@@ -110,10 +110,19 @@ namespace Services.Sql.House
         {
             try
             {
-                BBIT.Domain.Entities.House.House house = updateHouseDto.UpdateHouseDtoToHouse();
+                BBIT.Domain.Entities.House.House house =
+                    _dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(updateHouseDto.Id));
+
+                if (house is null)
+                    return new UpdateHouseDto
+                    {
+                        Errors = new []{ "Item not found" },
+                        Status = false
+                    };
+
+                house = updateHouseDto.UpdateHouseDtoToHouse();
 
                 _dbContext.Houses.Update(house);
-
                 await _dbContext.SaveChangesAsync();
 
                 var newUpdateHouseDto = house.HouseToUpdateHouseDto();

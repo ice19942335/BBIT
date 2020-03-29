@@ -23,5 +23,8 @@ namespace Services.Flat
         public AllFlatsDto GetAllFlats() => _sqlFlatService.GetAllFlats();
 
         public FlatByIdDto GetFlatById(string id) => _sqlFlatService.GetFlatById(id);
+
+        public Task<UpdateFlatDto> UpdateFlatAsync(UpdateFlatDto updateFlatDto) =>
+            _sqlFlatService.UpdateFlatAsync(updateFlatDto);
     }
 }

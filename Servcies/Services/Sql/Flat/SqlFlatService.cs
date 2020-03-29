@@ -129,5 +129,48 @@ namespace Services.Sql.Flat
                 };
             }
         }
+
+        public async Task<UpdateFlatDto> UpdateFlatAsync(UpdateFlatDto updateFlatDto)
+        {
+            try
+            {
+                if (_dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.Flat.House.Id)) is null)
+                    return new UpdateFlatDto
+                    {
+                        Errors = new[] { "House of this flat not exist anymore." },
+                        Status = false
+                    };
+
+                BBIT.Domain.Entities.Flat.Flat flat =
+                    _dbContext.Flats.FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.Flat.Id));
+
+                if (_dbContext.Flats.FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.Flat.Id)) is null)
+                    return new UpdateFlatDto
+                    {
+                        Errors = new[] { "Item not found" },
+                        Status = false
+                    };
+
+                flat = flat.UpdateFlatDtoToFlat(updateFlatDto);
+
+                _dbContext.Flats.Update(flat);
+                await _dbContext.SaveChangesAsync();
+
+                var updatedFlatDto = flat.FlatToUpdateFlatDto();
+                updatedFlatDto.Status = true;
+
+                return updatedFlatDto;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error on updating Flat in database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
+                return new UpdateFlatDto
+                {
+                    Errors = new[] { "Error on updating Flat in database." },
+                    ServerError = true,
+                    Status = false
+                };
+            }
+        }
     }
 }

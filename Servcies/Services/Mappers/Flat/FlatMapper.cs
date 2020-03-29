@@ -126,6 +126,97 @@ namespace Services.Mappers.Flat
 
         #endregion
 
+        #region UpdateFlatRequestToUpdateFlatDto
 
+        public static UpdateFlatDto UpdateFlatRequestToUpdateFlatDto(this UpdateFlatRequest request) =>
+            ConvertUpdateFlatRequestToUpdateFlatDto(request);
+
+        public static UpdateFlatDto ConvertUpdateFlatRequestToUpdateFlatDto(UpdateFlatRequest request)
+        {
+            return new UpdateFlatDto
+            {
+                Flat = new FlatDto
+                {
+                    Id = request.Id,
+                    FlatNumber = request.FlatNumber,
+                    Floor = request.Floor,
+                    AmountOfRooms = request.AmountOfRooms,
+                    AmountOfResidents = request.AmountOfResidents,
+                    TotalArea = request.TotalArea,
+                    HouseRoom = request.HouseRoom,
+                    House = new HouseDto
+                    {
+                        Id = request.House.Id,
+                        HouseNumber = request.House.HouseNumber,
+                        StreetName = request.House.StreetName,
+                        City = request.House.City,
+                        Country = request.House.Country,
+                        PostCode = request.House.PostCode
+                    }
+                }
+            };
+        }
+
+        #endregion
+
+        #region UpdateFlatDtoToFlat
+
+        public static BBIT.Domain.Entities.Flat.Flat UpdateFlatDtoToFlat(this BBIT.Domain.Entities.Flat.Flat flat, UpdateFlatDto updateFlatDto) =>
+            ConvertUpdateFlatRequestToUpdateFlatDto(ref flat, updateFlatDto);
+
+        private static BBIT.Domain.Entities.Flat.Flat ConvertUpdateFlatRequestToUpdateFlatDto(ref BBIT.Domain.Entities.Flat.Flat flat, UpdateFlatDto updateFlatDto)
+        {
+            flat.Id = Guid.Parse(updateFlatDto.Flat.Id);
+            flat.FlatNumber = updateFlatDto.Flat.FlatNumber;
+            flat.Floor = updateFlatDto.Flat.Floor;
+            flat.AmountOfRooms = updateFlatDto.Flat.AmountOfRooms;
+            flat.AmountOfResidents = updateFlatDto.Flat.AmountOfResidents;
+            flat.TotalArea = updateFlatDto.Flat.TotalArea;
+            flat.HouseRoom = updateFlatDto.Flat.HouseRoom;
+
+            flat.House.Id = Guid.Parse(updateFlatDto.Flat.House.Id);
+            flat.House.HouseNumber = updateFlatDto.Flat.House.HouseNumber;
+            flat.House.StreetName = updateFlatDto.Flat.House.StreetName;
+            flat.House.City = updateFlatDto.Flat.House.City;
+            flat.House.Country = updateFlatDto.Flat.House.Country;
+            flat.House.PostCode = updateFlatDto.Flat.House.PostCode;
+
+            return flat;
+        }
+
+        #endregion
+
+        #region FlatToUpdateFlatDto
+
+        public static UpdateFlatDto FlatToUpdateFlatDto(this BBIT.Domain.Entities.Flat.Flat flat) =>
+            ConvertFlatToUpdateFlatDto(flat);
+
+        private static UpdateFlatDto ConvertFlatToUpdateFlatDto(this BBIT.Domain.Entities.Flat.Flat flat)
+        {
+            return new UpdateFlatDto
+            {
+                Flat = new FlatDto
+                {
+                    Id = flat.Id.ToString(),
+                    FlatNumber = flat.FlatNumber,
+                    Floor = flat.Floor,
+                    AmountOfRooms = flat.AmountOfRooms,
+                    AmountOfResidents = flat.AmountOfResidents,
+                    TotalArea = flat.TotalArea,
+                    HouseRoom = flat.HouseRoom,
+                    House = new HouseDto
+                    {
+                        Id = flat.House.Id.ToString(),
+                        HouseNumber = flat.House.HouseNumber,
+                        StreetName = flat.House.StreetName,
+                        City = flat.House.City,
+                        Country = flat.House.Country,
+                        PostCode = flat.House.PostCode
+                    }
+                },
+            };
+        }
+
+        #endregion
     }
 }

@@ -13,5 +13,7 @@ namespace Interfaces.Sql.Flat
         AllFlatsDto GetAllFlats();
 
         FlatByIdDto GetFlatById(string id);
+
+        Task<UpdateFlatDto> UpdateFlatAsync(UpdateFlatDto updateFlatDto);
     }
 }
