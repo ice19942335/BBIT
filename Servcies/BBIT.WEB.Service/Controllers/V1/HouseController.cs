@@ -152,6 +152,7 @@ namespace BBIT.WEB.Service.Controllers.V1
         /// </summary>
         /// <response code="200">Returns updated item</response>
         /// <response code="400">Returns status and list of errors</response>
+        /// <response code="404">Item not found</response>
         /// <response code="500">Server error</response>
         [HttpPut(ApiRoutes.HouseRoute.HouseV1)]
         [ProducesResponseType(typeof(SuccessUpdateHouseResponse), 200)]
@@ -174,6 +175,9 @@ namespace BBIT.WEB.Service.Controllers.V1
             {
                 if (updateHouseResponse.ServerError)
                     return StatusCode(500);
+
+                if (updateHouseResponse.Errors.Contains("Item not found"))
+                    return NotFound("Item not found");
 
                 return BadRequest(new FailedUpdateHouseResponse
                 {

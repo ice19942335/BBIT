@@ -16,7 +16,7 @@ namespace Services.House
             _sqlHouseService = sqlHouseService;
         }
 
-        public async Task<CreateHouseDto> CreateHouseAsync(CreateHouseDto createHouseDto) => await _sqlHouseService.CreateHouse(createHouseDto);
+        public async Task<CreateHouseDto> CreateHouseAsync(CreateHouseDto createHouseDto) => await _sqlHouseService.CreateHouseAsync(createHouseDto);
 
         public AllHousesDto GetAllHouses() => _sqlHouseService.GetAllHouses();
 
@@ -24,6 +24,6 @@ namespace Services.House
 
         public async Task<UpdateHouseDto> UpdateHouseAsync(UpdateHouseDto updateHouseDto) => await _sqlHouseService.UpdateHouse(updateHouseDto);
 
-        public Task<DeleteHouseDto> DeleteHouseAsync(string id) => _sqlHouseService.DeleteHouseAsync(id);
+        public async Task<DeleteHouseDto> DeleteHouseAsync(string id) => await _sqlHouseService.DeleteHouseAsync(id);
     }
 }
