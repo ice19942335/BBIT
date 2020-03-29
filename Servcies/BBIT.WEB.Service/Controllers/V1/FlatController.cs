@@ -98,6 +98,7 @@ namespace BBIT.WEB.Service.Controllers.V1
         /// <response code="200">Returns Flats list</response>
         /// <response code="400">Failed request returns status and list of errors</response>
         /// <response code="500">Server error</response>
+        [AllowAnonymous]
         [ProducesResponseType(typeof(SuccessAllFlatResponse), 200)]
         [ProducesResponseType(typeof(FailedAllFlatResponse), 400)]
         [HttpGet(ApiRoutes.FlatRoute.FlatV1)]
@@ -124,11 +125,42 @@ namespace BBIT.WEB.Service.Controllers.V1
             });
         }
 
-        //[HttpGet(ApiRoutes.FlatRoute.FlatByIdV1)]
-        //public IActionResult GetFlatById(string id)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        /// <summary>
+        /// Flat by id endpoint. Returns flat by provided id
+        /// </summary>
+        /// <response code="200">Returns Flat</response>
+        /// <response code="400">Failed request returns status and list of errors</response>
+        /// <response code="404">Item not found</response>
+        /// <response code="500">Server error</response>
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(SuccessFlatByIdResponse), 200)]
+        [ProducesResponseType(typeof(FailedFlatByIdResponse), 400)]
+        [HttpGet(ApiRoutes.FlatRoute.FlatByIdV1)]
+        public IActionResult GetFlatById(string id)
+        {
+            var requestResult = _flatService.GetFlatById(id);
+
+            if (!requestResult.Status)
+            {
+                if (requestResult.ServerError)
+                    return StatusCode(500);
+
+                if (requestResult.Errors.Contains("Flat not found"))
+                    return NotFound("Flat not found");
+
+                return BadRequest(new FailedFlatByIdResponse
+                {
+                    Errors = requestResult.Errors,
+                    Status = requestResult.Status
+                });
+            }
+
+            return Ok(new SuccessFlatByIdResponse
+            {
+                Flat = requestResult.Flat,
+                Status = requestResult.Status
+            });
+        }
 
         //[HttpPut(ApiRoutes.FlatRoute.FlatV1)]
         //public IActionResult UpdateFlat()
