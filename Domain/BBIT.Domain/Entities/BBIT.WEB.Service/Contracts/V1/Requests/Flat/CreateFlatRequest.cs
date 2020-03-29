@@ -13,7 +13,6 @@ namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Flat
 
         public int AmountOfRooms { get; set; }
 
-        public int AmountOfResidents { get; set; }
 
         public double TotalArea { get; set; }
 

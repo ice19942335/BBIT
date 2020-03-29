@@ -17,7 +17,6 @@ namespace BBIT.WEB.Service.SwaggerExamples.Requests.Flat
                 FlatNumber = 45,
                 Floor = 15,
                 AmountOfRooms = 5,
-                AmountOfResidents = 4,
                 TotalArea = 300,
                 HouseRoom = 400,
                 House = new HouseDto

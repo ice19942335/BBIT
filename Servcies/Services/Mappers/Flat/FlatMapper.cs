@@ -21,7 +21,6 @@ namespace Services.Mappers.Flat
                 FlatNumber = request.FlatNumber,
                 Floor = request.Floor,
                 AmountOfRooms = request.AmountOfRooms,
-                AmountOfResidents = request.AmountOfResidents,
                 TotalArea = request.TotalArea,
                 HouseRoom = request.HouseRoom,
                 House = new HouseDto
