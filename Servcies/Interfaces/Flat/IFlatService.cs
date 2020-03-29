@@ -11,5 +11,7 @@ namespace Interfaces.Flat
         Task<CreateFlatDto> CreateFlatAsync(CreateFlatDto createFlatDto);
 
         AllFlatsDto GetAllFlats();
+
+        FlatByIdDto GetFlatById(string id);
     }
 }

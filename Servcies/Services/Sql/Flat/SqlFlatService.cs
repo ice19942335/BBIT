@@ -95,5 +95,39 @@ namespace Services.Sql.Flat
                 };
             }
         }
+
+        public FlatByIdDto GetFlatById(string id)
+        {
+            try
+            {
+                var flat = _dbContext.Flats
+                    .Include(x => x.House)
+                    .FirstOrDefault(x => x.Id == Guid.Parse(id));
+
+                if (flat is null)
+                    return new FlatByIdDto
+                    {
+                        Errors = new []{ $"Flat not found" },
+                        Status = false,
+                        ServerError = false
+                    };
+
+                return new FlatByIdDto
+                {
+                    Flat = flat.FlatToFlatDto(),
+                    Status = true,
+                };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error on fetch data from database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
+                return new FlatByIdDto
+                {
+                    Errors = new[] { "Error on fetch data from database." },
+                    ServerError = true,
+                    Status = false
+                };
+            }
+        }
     }
 }

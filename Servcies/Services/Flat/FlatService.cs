@@ -21,5 +21,7 @@ namespace Services.Flat
             _sqlFlatService.CreateFlatAsync(createFlatDto);
 
         public AllFlatsDto GetAllFlats() => _sqlFlatService.GetAllFlats();
+
+        public FlatByIdDto GetFlatById(string id) => _sqlFlatService.GetFlatById(id);
     }
 }
