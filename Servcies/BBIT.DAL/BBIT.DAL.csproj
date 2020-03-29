@@ -11,6 +11,8 @@
     <Compile Remove="Migrations\20200329095207_Added_FlatResident_Table_ManyToMany_Between_Flat_and_Resident.Designer.cs" />
     <Compile Remove="Migrations\20200329095319_Added_FlatResident_Table_ManyToMant_Between_Flat_and_Resident.cs" />
     <Compile Remove="Migrations\20200329095319_Added_FlatResident_Table_ManyToMant_Between_Flat_and_Resident.Designer.cs" />
+    <Compile Remove="Migrations\20200329095412_Added_FlatResident_Table_ManyToMany_Between_Flat_and_Resident.cs" />
+    <Compile Remove="Migrations\20200329095412_Added_FlatResident_Table_ManyToMany_Between_Flat_and_Resident.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

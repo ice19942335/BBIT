@@ -18,7 +18,8 @@ namespace BBIT.DAL.Context
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<House> Houses { get; set; }
         public DbSet<Flat> Flats { get; set; }
-        public DbSet<Resident> Residents { get; set; }
+        public DbSet<Resident> Residents { get; set; }  
+        public DbSet<FlatResident> FlatResident { get; set; }
 
         //Fluent API
         protected override void OnModelCreating(ModelBuilder builder)

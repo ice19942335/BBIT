@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
 using Services.Mappers.Flat;
 using Services.StaticHelpers;
@@ -91,11 +92,37 @@ namespace BBIT.WEB.Service.Controllers.V1
                 });
         }
 
-        //[HttpGet(ApiRoutes.FlatRoute.FlatV1)]
-        //public IActionResult GetAllFlats()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        /// <summary>
+        /// All Flats endpoint. Returns list of Flats
+        /// </summary>
+        /// <response code="200">Returns Flats list</response>
+        /// <response code="400">Failed request returns status and list of errors</response>
+        /// <response code="500">Server error</response>
+        [ProducesResponseType(typeof(SuccessAllFlatResponse), 200)]
+        [ProducesResponseType(typeof(FailedAllFlatResponse), 400)]
+        [HttpGet(ApiRoutes.FlatRoute.FlatV1)]
+        public IActionResult GetAllFlats()
+        {
+            var allFlatsResult = _flatService.GetAllFlats();
+
+            if (!allFlatsResult.Status)
+            {
+                if (allFlatsResult.ServerError)
+                    return StatusCode(500);
+
+                return BadRequest(new FailedAllFlatResponse
+                {
+                    Errors = allFlatsResult.Errors,
+                    Status = allFlatsResult.Status
+                });
+            }
+
+            return Ok(new SuccessAllFlatResponse
+            {
+                Flats = allFlatsResult.Flats,
+                Status = allFlatsResult.Status
+            });
+        }
 
         //[HttpGet(ApiRoutes.FlatRoute.FlatByIdV1)]
         //public IActionResult GetFlatById(string id)

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BBIT.DAL.Context;
 using BBIT.Domain.Entities.DTO.Flat;
 using Interfaces.Sql.Flat;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Services.Mappers.Flat;
 
@@ -24,12 +25,21 @@ namespace Services.Sql.Flat
         {
             try
             {
+                var flat = _dbContext.Flats.Include(x => x.House).FirstOrDefault(x => x.FlatNumber == createFlatDto.FlatNumber && x.House.Id == Guid.Parse(createFlatDto.House.Id));
+                if (flat != null)
+                    return new CreateFlatDto
+                    {
+                        Errors = new[] { $"Flat with number: '{createFlatDto.FlatNumber}' in house: '{flat.House.Country}, {flat.House.City}, {flat.House.StreetName}, {flat.House.HouseNumber}' already exist" },
+                        Status = false,
+                        ServerError = false
+                    };
+
                 var house = _dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(createFlatDto.House.Id));
 
                 if (house is null)
                     return new CreateFlatDto
                     {
-                        Errors = new []{ $"House with Id: '{createFlatDto.House.Id}' not found" },
+                        Errors = new[] { $"House with Id: '{createFlatDto.House.Id}' not found" },
                         Status = false,
                         ServerError = false
                     };
@@ -55,6 +65,31 @@ namespace Services.Sql.Flat
                 return new CreateFlatDto
                 {
                     Errors = new[] { "Error on adding new flat into database." },
+                    ServerError = true,
+                    Status = false
+                };
+            }
+        }
+
+        public AllFlatsDto GetAllFlats()
+        {
+            try
+            {
+                var flatsDtoList = _dbContext.Flats.Include(x => x.House).ToList();
+                flatsDtoList.ForEach(x => x.AmountOfResidents = _dbContext.FlatResident.Count(xx => xx.FlatId == x.Id));
+
+                return new AllFlatsDto
+                {
+                    Flats = flatsDtoList.Select(x => x.FlatToFlatDto()),
+                    Status = true
+                };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error on fetch data from database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
+                return new AllFlatsDto
+                {
+                    Errors = new[] { "Error on fetch data from database." },
                     ServerError = true,
                     Status = false
                 };

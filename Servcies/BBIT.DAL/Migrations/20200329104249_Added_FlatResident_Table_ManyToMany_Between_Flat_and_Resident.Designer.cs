@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BBIT.DAL.Migrations
 {
     [DbContext(typeof(BBITContext))]
-    [Migration("20200329095412_Added_FlatResident_Table_ManyToMany_Between_Flat_and_Resident")]
+    [Migration("20200329104249_Added_FlatResident_Table_ManyToMany_Between_Flat_and_Resident")]
     partial class Added_FlatResident_Table_ManyToMany_Between_Flat_and_Resident
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

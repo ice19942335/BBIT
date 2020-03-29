@@ -19,5 +19,7 @@ namespace Services.Flat
 
         public Task<CreateFlatDto> CreateFlatAsync(CreateFlatDto createFlatDto) =>
             _sqlFlatService.CreateFlatAsync(createFlatDto);
+
+        public AllFlatsDto GetAllFlats() => _sqlFlatService.GetAllFlats();
     }
 }

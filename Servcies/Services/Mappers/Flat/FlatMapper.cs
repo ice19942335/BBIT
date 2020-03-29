@@ -97,5 +97,34 @@ namespace Services.Mappers.Flat
         }
 
         #endregion
+
+        #region FlatToFlatDto
+
+        public static FlatDto FlatToFlatDto(this BBIT.Domain.Entities.Flat.Flat flat) => ConvertFlatToFlatDto(flat);
+
+        private static FlatDto ConvertFlatToFlatDto(BBIT.Domain.Entities.Flat.Flat flat)
+        {
+            return new FlatDto
+            {
+                Id = flat.Id.ToString(),
+                FlatNumber = flat.FlatNumber,
+                Floor = flat.Floor,
+                AmountOfRooms = flat.AmountOfRooms,
+                AmountOfResidents = flat.AmountOfResidents,
+                TotalArea = flat.TotalArea,
+                HouseRoom = flat.HouseRoom,
+                House = new HouseDto
+                {
+                    Id = flat.House.Id.ToString(),
+                    HouseNumber = flat.House.HouseNumber,
+                    StreetName = flat.House.StreetName,
+                    City = flat.House.City,
+                    Country = flat.House.Country,
+                    PostCode = flat.House.PostCode
+                }
+            };
+        }
+
+        #endregion
     }
 }

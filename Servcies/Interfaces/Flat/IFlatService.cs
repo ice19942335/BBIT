@@ -9,5 +9,7 @@ namespace Interfaces.Flat
     public interface IFlatService
     {
         Task<CreateFlatDto> CreateFlatAsync(CreateFlatDto createFlatDto);
+
+        AllFlatsDto GetAllFlats();
     }
 }
