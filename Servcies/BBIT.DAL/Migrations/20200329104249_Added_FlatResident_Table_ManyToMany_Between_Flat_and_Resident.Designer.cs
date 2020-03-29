@@ -4,14 +4,16 @@ using BBIT.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BBIT.DAL.Migrations
 {
     [DbContext(typeof(BBITContext))]
-    partial class BBITContextModelSnapshot : ModelSnapshot
+    [Migration("20200329104249_Added_FlatResident_Table_ManyToMany_Between_Flat_and_Resident")]
+    partial class Added_FlatResident_Table_ManyToMany_Between_Flat_and_Resident
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

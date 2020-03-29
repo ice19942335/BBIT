@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using BBIT.Domain.Entities.Flat;
 
-namespace BBIT.Domain.Entities.House
+namespace BBIT.Domain.Entities.Resident
 {
     [Table("Residents")]
     public class Resident : BaseEntity.BaseEntity
@@ -18,6 +20,8 @@ namespace BBIT.Domain.Entities.House
 
         public string Email { get; set; }
 
-        public Flat Flat { get; set; }
+        public Flat.Flat Flat { get; set; }
+
+        public ICollection<FlatResident> FlatResidents { get; set; }
     }
 }

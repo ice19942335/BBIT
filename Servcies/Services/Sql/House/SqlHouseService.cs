@@ -22,6 +22,20 @@ namespace Services.Sql.House
 
         public async Task<CreateHouseDto> CreateHouse(CreateHouseDto createHouseDto)
         {
+            var house = _dbContext.Houses.FirstOrDefault(x =>
+                x.Country == createHouseDto.Country &&
+                x.City == createHouseDto.City &&
+                x.StreetName == createHouseDto.StreetName &&
+                x.HouseNumber == createHouseDto.HouseNumber);
+
+            if (house != null)
+                return new CreateHouseDto
+                {
+                    Errors = new[] { $"House with address: '{house.Country}, {house.City}, {house.StreetName}, {house.HouseNumber}' already exist" },
+                    Status = false,
+                    ServerError = false
+                };
+
             Guid id;
             do { id = Guid.NewGuid(); } while (_dbContext.Houses.FirstOrDefault(x => x.Id == id) != null);
 

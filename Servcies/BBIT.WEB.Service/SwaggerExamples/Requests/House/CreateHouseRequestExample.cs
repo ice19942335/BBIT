@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace BBIT.WEB.Service.SwaggerExamples.Requests.House
 {
-    public class CreateHouseExample : IExamplesProvider<CreateHouseRequest>
+    public class CreateHouseRequestExample : IExamplesProvider<CreateHouseRequest>
     {
         public CreateHouseRequest GetExamples()
         {

@@ -1,12 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Schema;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using BBIT.Domain.Entities.DTO.House;
 
-namespace BBIT.Domain.Entities.House
+namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Flat
 {
-    [Table("Flats")]
-    public class Flat : BaseEntity.BaseEntity
+    public class SuccessFlatCreationResponse
     {
+        public string Id { get; set; }
+
         public int FlatNumber { get; set; }
 
         public int Floor { get; set; }
@@ -19,6 +18,6 @@ namespace BBIT.Domain.Entities.House
 
         public double HouseRoom { get; set; }
 
-        public House House { get; set; }
+        public HouseDto House { get; set; }
     }
 }
