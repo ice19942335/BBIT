@@ -172,7 +172,6 @@ namespace BBIT.WEB.Service.Controllers.V1
         [ProducesResponseType(typeof(SuccessUpdateFlatResponse), 200)]
         [ProducesResponseType(typeof(FailedUpdateFlatResponse), 400)]
         [HttpPut(ApiRoutes.FlatRoute.FlatV1)]
-        [AllowAnonymous]
         public async Task<IActionResult> UpdateFlat([FromBody] UpdateFlatRequest request)
         {
             //Checking all props have values
@@ -209,11 +208,36 @@ namespace BBIT.WEB.Service.Controllers.V1
             });
         }
 
+        /// <summary>
+        /// Delete Flat endpoint. Deleting flat by provided id
+        /// </summary>
+        /// <response code="204">Returns empty body</response>
+        /// <response code="400">Failed request returns status and list of errors</response>
+        /// <response code="404">Item not found</response>
+        /// <response code="500">Server error</response>
+        [ProducesResponseType(typeof(FailedDeleteFlatResponse), 400)]
+        [HttpDelete(ApiRoutes.FlatRoute.FlatByIdV1)]
+        [AllowAnonymous]
+        public async Task<IActionResult> DeleteFlat(string id)
+        {
+            var deleteRequestResult = await _flatService.DeleteFlatAsync(id);
 
-        //[HttpDelete(ApiRoutes.FlatRoute.FlatByIdV1)]
-        //public IActionResult DeleteFlat()
-        //{
-        //    throw new NotImplementedException();
-        //}
+            if (!deleteRequestResult.Status)
+            {
+                if (deleteRequestResult.ServerError)
+                    return StatusCode(500);
+
+                if (deleteRequestResult.Errors.Contains("Item not found."))
+                    return NotFound("Item not found.");
+
+                return BadRequest(new FailedDeleteFlatResponse
+                {
+                    Status = deleteRequestResult.Status,
+                    Errors = deleteRequestResult.Errors
+                });
+            }
+
+            return NoContent();
+        }
     }
 }

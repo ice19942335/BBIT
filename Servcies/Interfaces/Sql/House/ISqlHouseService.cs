@@ -5,7 +5,7 @@ namespace Interfaces.Sql.House
 {
     public interface ISqlHouseService
     {
-        Task<CreateHouseDto> CreateHouse(CreateHouseDto createHouseDto);
+        Task<CreateHouseDto> CreateHouseAsync(CreateHouseDto createHouseDto);
 
         AllHousesDto GetAllHouses();
 

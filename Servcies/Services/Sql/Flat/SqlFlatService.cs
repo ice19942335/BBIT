@@ -172,5 +172,35 @@ namespace Services.Sql.Flat
                 };
             }
         }
+
+        public async Task<DeleteFlatDto> DeleteFlatAsync(string id)
+        {
+            try
+            {
+                BBIT.Domain.Entities.Flat.Flat flat = _dbContext.Flats.FirstOrDefault(x => x.Id == Guid.Parse(id));
+
+                if (flat is null)
+                    return new DeleteFlatDto
+                    {
+                        Status = false,
+                        Errors = new[] { "Item not found." }
+                    };
+
+                _dbContext.Flats.Remove(flat);
+                await _dbContext.SaveChangesAsync();
+
+                return new DeleteFlatDto { Status = true };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error on deleting Flat from database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
+                return new DeleteFlatDto
+                {
+                    Errors = new[] { "Error on deleting Flat from database." },
+                    ServerError = true,
+                    Status = false
+                };
+            }
+        }
     }
 }

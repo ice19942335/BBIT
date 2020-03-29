@@ -17,14 +17,16 @@ namespace Services.Flat
             _sqlFlatService = sqlFlatService;
         }
 
-        public Task<CreateFlatDto> CreateFlatAsync(CreateFlatDto createFlatDto) =>
-            _sqlFlatService.CreateFlatAsync(createFlatDto);
+        public async Task<CreateFlatDto> CreateFlatAsync(CreateFlatDto createFlatDto) =>
+            await _sqlFlatService.CreateFlatAsync(createFlatDto);
 
         public AllFlatsDto GetAllFlats() => _sqlFlatService.GetAllFlats();
 
         public FlatByIdDto GetFlatById(string id) => _sqlFlatService.GetFlatById(id);
 
-        public Task<UpdateFlatDto> UpdateFlatAsync(UpdateFlatDto updateFlatDto) =>
-            _sqlFlatService.UpdateFlatAsync(updateFlatDto);
+        public async Task<UpdateFlatDto> UpdateFlatAsync(UpdateFlatDto updateFlatDto) =>
+            await _sqlFlatService.UpdateFlatAsync(updateFlatDto);
+
+        public async Task<DeleteFlatDto> DeleteFlatAsync(string id) => await _sqlFlatService.DeleteFlatAsync(id);
     }
 }
