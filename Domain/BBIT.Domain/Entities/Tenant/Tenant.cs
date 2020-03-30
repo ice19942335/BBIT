@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using BBIT.Domain.Entities.Flat;
 
-namespace BBIT.Domain.Entities.Resident
+namespace BBIT.Domain.Entities.Tenant
 {
-    [Table("Residents")]
-    public class Resident : BaseEntity.BaseEntity
+    [Table("Tenants")]
+    public class Tenant : BaseEntity.BaseEntity
     {
         public string Name { get; set; }
 
@@ -21,7 +19,5 @@ namespace BBIT.Domain.Entities.Resident
         public string Email { get; set; }
 
         public Flat.Flat Flat { get; set; }
-
-        public ICollection<FlatResident> FlatResidents { get; set; }
     }
 }

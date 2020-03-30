@@ -1,11 +1,10 @@
 ﻿using System;
-using BBIT.Domain.Entities.DTO.Flat;
 
-namespace BBIT.Domain.Entities.DTO.Resident
+namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Tenant
 {
-    public class ResidentDto
+    public class CreateTenantRequest
     {
-        public string Id { get; set; }
+        public string FlatId { get; set; }
 
         public string Name { get; set; }
 
@@ -18,7 +17,5 @@ namespace BBIT.Domain.Entities.DTO.Resident
         public string PhoneNumber { get; set; }
 
         public string Email { get; set; }
-
-        public FlatDto Flat { get; set; }
     }
 }

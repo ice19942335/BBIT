@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BBIT.DAL.Migrations
 {
     [DbContext(typeof(BBITContext))]
-    [Migration("20200327195442_Added_Tables_House_Flat_Resident")]
-    partial class Added_Tables_House_Flat_Resident
+    [Migration("20200330211946_Initialization")]
+    partial class Initialization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -120,7 +120,7 @@ namespace BBIT.DAL.Migrations
                     b.ToTable("RefreshTokens");
                 });
 
-            modelBuilder.Entity("BBIT.Domain.Entities.House.Flat", b =>
+            modelBuilder.Entity("BBIT.Domain.Entities.Flat.Flat", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -180,7 +180,7 @@ namespace BBIT.DAL.Migrations
                     b.ToTable("Houses");
                 });
 
-            modelBuilder.Entity("BBIT.Domain.Entities.House.Resident", b =>
+            modelBuilder.Entity("BBIT.Domain.Entities.Tenant.Tenant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -211,7 +211,7 @@ namespace BBIT.DAL.Migrations
 
                     b.HasIndex("FlatId");
 
-                    b.ToTable("Residents");
+                    b.ToTable("Tenants");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -356,16 +356,16 @@ namespace BBIT.DAL.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("BBIT.Domain.Entities.House.Flat", b =>
+            modelBuilder.Entity("BBIT.Domain.Entities.Flat.Flat", b =>
                 {
                     b.HasOne("BBIT.Domain.Entities.House.House", "House")
                         .WithMany()
                         .HasForeignKey("HouseId");
                 });
 
-            modelBuilder.Entity("BBIT.Domain.Entities.House.Resident", b =>
+            modelBuilder.Entity("BBIT.Domain.Entities.Tenant.Tenant", b =>
                 {
-                    b.HasOne("BBIT.Domain.Entities.House.Flat", "Flat")
+                    b.HasOne("BBIT.Domain.Entities.Flat.Flat", "Flat")
                         .WithMany()
                         .HasForeignKey("FlatId");
                 });

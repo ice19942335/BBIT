@@ -75,8 +75,15 @@ namespace Services.Sql.Flat
         {
             try
             {
-                var flatsDtoList = _dbContext.Flats.Include(x => x.House).ToList();
-                flatsDtoList.ForEach(x => x.AmountOfResidents = _dbContext.FlatResident.Count(xx => xx.FlatId == x.Id));
+                var flatsDtoList = _dbContext.Flats
+                    .Include(x => x.House)
+                    .ToList();
+
+                //Counting tenants for each flat (sorry if this comment is too obvious)
+                flatsDtoList.ForEach(flat => 
+                    flat.AmountOfResidents = _dbContext.Tenants
+                    .Include(xx => xx.Flat)
+                    .Count(xx => xx.Flat.Id == flat.Id));
 
                 return new AllFlatsDto
                 {
@@ -107,7 +114,7 @@ namespace Services.Sql.Flat
                 if (flat is null)
                     return new FlatByIdDto
                     {
-                        Errors = new []{ $"Flat not found" },
+                        Errors = new[] { $"Flat not found" },
                         Status = false,
                         ServerError = false
                     };

@@ -4,7 +4,7 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat
 {
-    public class UpdateFlatRequestExample : IExamplesProvider<UpdateFlatRequest>
+    public class SuccessUpdateFlatRequestExample : IExamplesProvider<UpdateFlatRequest>
     {
         public UpdateFlatRequest GetExamples()
         {

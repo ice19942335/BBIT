@@ -1,17 +1,24 @@
-﻿using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Flat;
+﻿using System;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant;
 using BBIT.Domain.Entities.DTO.Flat;
 using BBIT.Domain.Entities.DTO.House;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat
+namespace BBIT.WEB.Service.SwaggerExamples.Responses.Tenant
 {
-    public class SuccessFlatByIdResponseExample : IExamplesProvider<SuccessFlatByIdResponse>
+    public class SuccessTenantCreationResponseExample : IExamplesProvider<SuccessTenantCreationResponse>
     {
-        public SuccessFlatByIdResponse GetExamples()
+        public SuccessTenantCreationResponse GetExamples()
         {
-            return new SuccessFlatByIdResponse
+            return new SuccessTenantCreationResponse
             {
-                Status = true,
+                Id = "4644e41b-c19e-4f24-96f3-013103030c5a",
+                Name = "Name",
+                Surname = "Surname",
+                PersonalCode = "12345",
+                DateOfBirth = DateTime.Today,
+                PhoneNumber = "+37112345678",
+                Email = "email@mail.com",
                 Flat = new FlatDto
                 {
                     Id = "ce71e57d-c18c-47ce-94a5-2363cb187a5a",

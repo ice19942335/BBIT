@@ -38,8 +38,6 @@
 
   <ItemGroup>
     <Folder Include="Logs\" />
-    <Folder Include="SwaggerExamples\Requests\Resident\" />
-    <Folder Include="SwaggerExamples\Responses\Resident\" />
   </ItemGroup>
 
 </Project>
