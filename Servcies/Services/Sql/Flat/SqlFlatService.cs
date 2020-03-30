@@ -151,6 +151,9 @@ namespace Services.Sql.Flat
                         Status = false
                     };
 
+                //Do not create separate Flat objects with same Id.
+                //If you will make another Flat object with same Id than the
+                //EF will let you know that you have to go and study more about EF
                 flat = flat.UpdateFlatDtoToFlat(updateFlatDto);
 
                 _dbContext.Flats.Update(flat);

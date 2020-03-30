@@ -10,7 +10,9 @@
 
   <ItemGroup>
     <Folder Include="Entities\BBIT.WEB.Service\Contracts\V1\Requests\Auth\" />
+    <Folder Include="Entities\BBIT.WEB.Service\Contracts\V1\Requests\Resident\" />
     <Folder Include="Entities\BBIT.WEB.Service\Contracts\V1\Responses\Auth\" />
+    <Folder Include="Entities\BBIT.WEB.Service\Contracts\V1\Responses\Resident\" />
   </ItemGroup>
 
 </Project>

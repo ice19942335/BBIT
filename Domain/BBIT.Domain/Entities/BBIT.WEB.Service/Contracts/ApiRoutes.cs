@@ -34,6 +34,8 @@
         public static class ResidentRoute
         {
             public const string ResidentV1 = BaseV1 + "/residents";
+
+            public const string ResidentByIdV1 = BaseV1 + "/residents/{id}";
         }
     }
 }
