@@ -40,6 +40,7 @@ namespace Services.Sql.Resident
                     return new CreateTenantDto { Errors = new[] { $"Tenant with provided details already exist." } };
 
                 Tenant tenant = CreateNewTenant(createTenantDto);
+
                 if (createTenantDto.FlatId != null)
                     tenant.Flat = GetFlatById(createTenantDto.FlatId);
 

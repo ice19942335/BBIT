@@ -70,7 +70,7 @@ namespace Services.Mappers.Tenant
                     DateOfBirth = tenant.DateOfBirth,
                     PhoneNumber = tenant.PhoneNumber,
                     Email = tenant.Email,
-                    Flat = tenant.Flat.FlatToFlatDto()
+                    Flat = tenant.Flat?.FlatToFlatDto()
                 }
             };
         }

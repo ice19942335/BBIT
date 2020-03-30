@@ -37,23 +37,24 @@ namespace BBIT.WEB.Service.Controllers.V1
         ///
         ///     POST /With FlatId
         ///     {
-        ///        FlatId = "4644e41b-c19e-4f24-96f3-013103030c5a",
-        ///        Name = "Name",
-        ///        Surname = "Surname",
-        ///        PersonalCode = "12345",
-        ///        DateOfBirth = DateTime.Today,
-        ///        PhoneNumber = "+37112345678",
-        ///        Email = "email@mail.com"
+        ///         "flatId": "4644e41b-c19e-4f24-96f3-013103030c5a",
+        ///         "name": "Name",
+        ///         "surname": "Surname",
+        ///         "personalCode": "12345",
+        ///         "dateOfBirth": "2020-03-30T00:00:00+01:00",
+        ///         "phoneNumber": "+37112345678",
+        ///         "email": "email@mail.com"
         ///     }
         ///
         ///     POST /WithOut FlatId
         ///     {
-        ///        Name = "Name",
-        ///        Surname = "Surname",
-        ///        PersonalCode = "12345",
-        ///        DateOfBirth = DateTime.Today,
-        ///        PhoneNumber = "+37112345678",
-        ///        Email = "email@mail.com"
+        ///         "flatId": null,
+        ///         "name": "Name",
+        ///         "surname": "Surname",
+        ///         "personalCode": "12345",
+        ///         "dateOfBirth": "2020-03-30T00:00:00+01:00",
+        ///         "phoneNumber": "+37112345678",
+        ///         "email": "email@mail.com"
         ///     }
         /// 
         /// </remarks>
@@ -73,7 +74,7 @@ namespace BBIT.WEB.Service.Controllers.V1
                     new FailedTenantCreationResponse
                     {
                         Status = false,
-                        Errors = new[] { "Some of properties are null." }
+                        Errors = new[] { $"Some of properties except {nameof(CreateTenantRequest.FlatId)} are null." }
                     }
                 );
 
