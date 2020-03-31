@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
+using BBIT.Domain.Entities.DTO.Base;
 
 namespace BBIT.Domain.Entities.DTO.Flat
 {
-    public class CreateFlatDto : FlatDto
+    public class CreateFlatDto : BaseDto
     {
-        public IEnumerable<string> Errors { get; set; }
-
-        public bool Status { get; set; }
-
-        public bool ServerError { get; set; }
+        public FlatDto Flat { get; set; }
     }
 }

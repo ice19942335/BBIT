@@ -23,10 +23,10 @@ namespace Services.Sql.House
         public async Task<CreateHouseDto> CreateHouseAsync(CreateHouseDto createHouseDto)
         {
             var house = _dbContext.Houses.FirstOrDefault(x =>
-                x.Country == createHouseDto.Country &&
-                x.City == createHouseDto.City &&
-                x.StreetName == createHouseDto.StreetName &&
-                x.HouseNumber == createHouseDto.HouseNumber);
+                x.Country == createHouseDto.House.Country &&
+                x.City == createHouseDto.House.City &&
+                x.StreetName == createHouseDto.House.StreetName &&
+                x.HouseNumber == createHouseDto.House.HouseNumber);
 
             if (house != null)
                 return new CreateHouseDto
@@ -111,7 +111,7 @@ namespace Services.Sql.House
             try
             {
                 BBIT.Domain.Entities.House.House house =
-                    _dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(updateHouseDto.Id));
+                    _dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(updateHouseDto.House.Id));
 
                 if (house is null)
                     return new UpdateHouseDto

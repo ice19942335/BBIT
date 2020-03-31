@@ -25,21 +25,21 @@ namespace Services.Sql.Flat
         {
             try
             {
-                var flat = _dbContext.Flats.Include(x => x.House).FirstOrDefault(x => x.FlatNumber == createFlatDto.FlatNumber && x.House.Id == Guid.Parse(createFlatDto.House.Id));
+                var flat = _dbContext.Flats.Include(x => x.House).FirstOrDefault(x => x.FlatNumber == createFlatDto.Flat.FlatNumber && x.House.Id == Guid.Parse(createFlatDto.Flat.House.Id));
                 if (flat != null)
                     return new CreateFlatDto
                     {
-                        Errors = new[] { $"Flat with number: '{createFlatDto.FlatNumber}' in house: '{flat.House.Country}, {flat.House.City}, {flat.House.StreetName}, {flat.House.HouseNumber}' already exist" },
+                        Errors = new[] { $"Flat with number: '{createFlatDto.Flat.FlatNumber}' in house: '{flat.House.Country}, {flat.House.City}, {flat.House.StreetName}, {flat.House.HouseNumber}' already exist" },
                         Status = false,
                         ServerError = false
                     };
 
-                var house = _dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(createFlatDto.House.Id));
+                var house = _dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(createFlatDto.Flat.House.Id));
 
                 if (house is null)
                     return new CreateFlatDto
                     {
-                        Errors = new[] { $"House with Id: '{createFlatDto.House.Id}' not found" },
+                        Errors = new[] { $"House with Id: '{createFlatDto.Flat.House.Id}' not found" },
                         Status = false,
                         ServerError = false
                     };

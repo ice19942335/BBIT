@@ -62,7 +62,6 @@ namespace BBIT.WEB.Service.Controllers.V1
         /// <response code="400">Failed creation returns status and list of errors</response>
         /// <response code="404">House or Flat not found</response>
         /// <response code="500">Server error</response>
-        [AllowAnonymous]
         [ProducesResponseType(typeof(SuccessTenantCreationResponse), 201)]
         [ProducesResponseType(typeof(FailedTenantCreationResponse), 400)]
         [HttpPost(ApiRoutes.TenantRoute.TenantV1)]
@@ -110,27 +109,37 @@ namespace BBIT.WEB.Service.Controllers.V1
                 });
         }
 
+        ///// <summary>
+        ///// Get all tenants endpoint. Returns list of tenants
+        ///// </summary>
+        ///// <response code="201">Returns list of tenants</response>
+        ///// <response code="400">Returns status and list of errors</response>
+        ///// <response code="500">Server error</response>
+        //[AllowAnonymous]
+        //[ProducesResponseType(typeof(SuccessAllTenantsResponse), 200)]
+        //[ProducesResponseType(typeof(FailedAllTenantsResponse), 400)]
         //[HttpGet(ApiRoutes.TenantRoute.TenantV1)]
-        //public IActionResult GetAllFlats()
+        //public IActionResult GetAllTenants()
         //{
-        //    throw new NotImplementedException();
+        //    var getAllFlatsResult = _tenantService.GetAllTenants();
+
+
         //}
 
         //[HttpGet(ApiRoutes.TenantRoute.TenantByIdV1)]
-        //public IActionResult GetFlatById(string id)
+        //public IActionResult GetTenantById(string id)
         //{
         //    throw new NotImplementedException();
         //}
 
         //[HttpPut(ApiRoutes.TenantRoute.TenantV1)]
-        //public IActionResult UpdateFlat()
+        //public IActionResult UpdateTenant()
         //{
         //    throw new NotImplementedException();
         //}
 
-
         //[HttpDelete(ApiRoutes.TenantRoute.TenantByIdV1)]
-        //public IActionResult DeleteFlat()
+        //public IActionResult DeleteTenant()
         //{
         //    throw new NotImplementedException();
         //}

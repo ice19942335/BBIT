@@ -20,5 +20,10 @@ namespace Services.Resident
 
         public async Task<CreateTenantDto> CreateTenantAsync(CreateTenantDto createTenantDto) =>
             await _sqlTenantService.CreateTenantAsync(createTenantDto);
+
+        public AllTenantsDto GetAllTenants()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
+using BBIT.Domain.Entities.DTO.Base;
 
 namespace BBIT.Domain.Entities.DTO.House
 {
-    public class CreateHouseDto : HouseDto
+    public class CreateHouseDto : BaseDto
     {
-        public IEnumerable<string> Errors { get; set; }
-
-        public bool Status { get; set; }
-
-        public bool ServerError { get; set; }
+        public HouseDto House { get; set; }
     }
 }

@@ -18,19 +18,22 @@ namespace Services.Mappers.Flat
         {
             return new CreateFlatDto
             {
-                FlatNumber = request.FlatNumber,
-                Floor = request.Floor,
-                AmountOfRooms = request.AmountOfRooms,
-                TotalArea = request.TotalArea,
-                HouseRoom = request.HouseRoom,
-                House = new HouseDto
+                Flat = new FlatDto
                 {
-                    Id = request.House.Id,
-                    HouseNumber = request.House.HouseNumber,
-                    StreetName = request.House.StreetName,
-                    City = request.House.City,
-                    Country = request.House.Country,
-                    PostCode = request.House.PostCode
+                    FlatNumber = request.FlatNumber,
+                    Floor = request.Floor,
+                    AmountOfRooms = request.AmountOfRooms,
+                    TotalArea = request.TotalArea,
+                    HouseRoom = request.HouseRoom,
+                    House = new HouseDto
+                    {
+                        Id = request.House.Id,
+                        HouseNumber = request.House.HouseNumber,
+                        StreetName = request.House.StreetName,
+                        City = request.House.City,
+                        Country = request.House.Country,
+                        PostCode = request.House.PostCode
+                    }
                 }
             };
         }
@@ -46,21 +49,21 @@ namespace Services.Mappers.Flat
         {
             return new BBIT.Domain.Entities.Flat.Flat
             {
-                Id = createFlatDto.Id != null ? Guid.Parse(createFlatDto.Id) : Guid.Empty,
-                FlatNumber = createFlatDto.FlatNumber,
-                Floor = createFlatDto.Floor,
-                AmountOfRooms = createFlatDto.AmountOfRooms,
-                AmountOfResidents = createFlatDto.AmountOfResidents,
-                TotalArea = createFlatDto.TotalArea,
-                HouseRoom = createFlatDto.HouseRoom,
+                Id = createFlatDto.Flat.Id != null ? Guid.Parse(createFlatDto.Flat.Id) : Guid.Empty,
+                FlatNumber = createFlatDto.Flat.FlatNumber,
+                Floor = createFlatDto.Flat.Floor,
+                AmountOfRooms = createFlatDto.Flat.AmountOfRooms,
+                AmountOfResidents = createFlatDto.Flat.AmountOfResidents,
+                TotalArea = createFlatDto.Flat.TotalArea,
+                HouseRoom = createFlatDto.Flat.HouseRoom,
                 House = new BBIT.Domain.Entities.House.House
                 {
-                    Id = Guid.Parse(createFlatDto.House.Id),
-                    HouseNumber = createFlatDto.House.HouseNumber,
-                    StreetName = createFlatDto.House.StreetName,
-                    City = createFlatDto.House.City,
-                    Country = createFlatDto.House.Country,
-                    PostCode = createFlatDto.House.PostCode
+                    Id = Guid.Parse(createFlatDto.Flat.House.Id),
+                    HouseNumber = createFlatDto.Flat.House.HouseNumber,
+                    StreetName = createFlatDto.Flat.House.StreetName,
+                    City = createFlatDto.Flat.House.City,
+                    Country = createFlatDto.Flat.House.Country,
+                    PostCode = createFlatDto.Flat.House.PostCode
                 }
             };
         }
@@ -76,21 +79,24 @@ namespace Services.Mappers.Flat
         {
             return new CreateFlatDto
             {
-                Id = flat.Id.ToString(),
-                FlatNumber = flat.FlatNumber,
-                Floor = flat.Floor,
-                AmountOfRooms = flat.AmountOfRooms,
-                AmountOfResidents = flat.AmountOfResidents,
-                TotalArea = flat.TotalArea,
-                HouseRoom = flat.HouseRoom,
-                House = new HouseDto
+                Flat = new FlatDto
                 {
-                    Id = flat.House.Id.ToString(),
-                    HouseNumber = flat.House.HouseNumber,
-                    StreetName = flat.House.StreetName,
-                    City = flat.House.City,
-                    Country = flat.House.Country,
-                    PostCode = flat.House.PostCode
+                    Id = flat.Id.ToString(),
+                    FlatNumber = flat.FlatNumber,
+                    Floor = flat.Floor,
+                    AmountOfRooms = flat.AmountOfRooms,
+                    AmountOfResidents = flat.AmountOfResidents,
+                    TotalArea = flat.TotalArea,
+                    HouseRoom = flat.HouseRoom,
+                    House = new HouseDto
+                    {
+                        Id = flat.House.Id.ToString(),
+                        HouseNumber = flat.House.HouseNumber,
+                        StreetName = flat.House.StreetName,
+                        City = flat.House.City,
+                        Country = flat.House.Country,
+                        PostCode = flat.House.PostCode
+                    }
                 }
             };
         }

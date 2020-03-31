@@ -9,5 +9,7 @@ namespace Interfaces.Resident
     public interface ITenantService
     {
         Task<CreateTenantDto> CreateTenantAsync(CreateTenantDto createTenantDto);
+
+        AllTenantsDto GetAllTenants();
     }
 }

@@ -14,11 +14,14 @@ namespace Services.Mappers.House
         {
             return new CreateHouseDto
             {
-                HouseNumber = createHouseRequest.HouseNumber,
-                StreetName = createHouseRequest.StreetName,
-                City = createHouseRequest.City,
-                Country = createHouseRequest.Country,
-                PostCode = createHouseRequest.PostCode
+                House = new HouseDto
+                {
+                    HouseNumber = createHouseRequest.HouseNumber,
+                    StreetName = createHouseRequest.StreetName,
+                    City = createHouseRequest.City,
+                    Country = createHouseRequest.Country,
+                    PostCode = createHouseRequest.PostCode
+                }
             };
         }
 
@@ -32,12 +35,12 @@ namespace Services.Mappers.House
         {
             return new BBIT.Domain.Entities.House.House
             {
-                Id = createHouseDto.Id != null ? Guid.Parse(createHouseDto.Id) : Guid.Empty,
-                HouseNumber = createHouseDto.HouseNumber,
-                StreetName = createHouseDto.StreetName,
-                City = createHouseDto.City,
-                Country = createHouseDto.Country,
-                PostCode = createHouseDto.PostCode
+                Id = createHouseDto.House.Id != null ? Guid.Parse(createHouseDto.House.Id) : Guid.Empty,
+                HouseNumber = createHouseDto.House.HouseNumber,
+                StreetName = createHouseDto.House.StreetName,
+                City = createHouseDto.House.City,
+                Country = createHouseDto.House.Country,
+                PostCode = createHouseDto.House.PostCode
             };
         }
 
@@ -51,13 +54,15 @@ namespace Services.Mappers.House
         {
             return new CreateHouseDto
             {
-                Id = house.Id.ToString(),
-                HouseNumber = house.HouseNumber,
-                StreetName = house.StreetName,
-                City = house.City,
-                Country = house.Country,
-                PostCode = house.PostCode,
-                Status = true
+                House = new HouseDto
+                {
+                    Id = house.Id.ToString(),
+                    HouseNumber = house.HouseNumber,
+                    StreetName = house.StreetName,
+                    City = house.City,
+                    Country = house.Country,
+                    PostCode = house.PostCode,
+                }
             };
         }
 
@@ -96,12 +101,15 @@ namespace Services.Mappers.House
         {
             return new UpdateHouseDto
             {
-                Id = request.Id,
-                HouseNumber = request.HouseNumber,
-                StreetName = request.StreetName,
-                City = request.City,
-                Country = request.Country,
-                PostCode = request.PostCode
+                House = new HouseDto
+                {
+                    Id = request.Id,
+                    HouseNumber = request.HouseNumber,
+                    StreetName = request.StreetName,
+                    City = request.City,
+                    Country = request.Country,
+                    PostCode = request.PostCode
+                }
             };
         }
 
@@ -115,12 +123,12 @@ namespace Services.Mappers.House
         {
             return new BBIT.Domain.Entities.House.House
             {
-                Id = Guid.Parse(updateHouseDto.Id),
-                HouseNumber = updateHouseDto.HouseNumber,
-                StreetName = updateHouseDto.StreetName,
-                City = updateHouseDto.City,
-                Country = updateHouseDto.Country,
-                PostCode = updateHouseDto.PostCode
+                Id = Guid.Parse(updateHouseDto.House.Id),
+                HouseNumber = updateHouseDto.House.HouseNumber,
+                StreetName = updateHouseDto.House.StreetName,
+                City = updateHouseDto.House.City,
+                Country = updateHouseDto.House.Country,
+                PostCode = updateHouseDto.House.PostCode
             };
         }
 
@@ -134,12 +142,15 @@ namespace Services.Mappers.House
         {
             return new UpdateHouseDto
             {
-                Id = house.Id.ToString(),
-                HouseNumber = house.HouseNumber,
-                StreetName = house.StreetName,
-                City = house.City,
-                Country = house.Country,
-                PostCode = house.PostCode
+                House = new HouseDto
+                {
+                    Id = house.Id.ToString(),
+                    HouseNumber = house.HouseNumber,
+                    StreetName = house.StreetName,
+                    City = house.City,
+                    Country = house.Country,
+                    PostCode = house.PostCode
+                }
             };
         }
 
@@ -153,12 +164,12 @@ namespace Services.Mappers.House
         {
             return new HouseDto
             {
-                Id = updateHouseDto.Id,
-                HouseNumber = updateHouseDto.HouseNumber,
-                StreetName = updateHouseDto.StreetName,
-                City = updateHouseDto.City,
-                Country = updateHouseDto.Country,
-                PostCode = updateHouseDto.PostCode
+                Id = updateHouseDto.House.Id,
+                HouseNumber = updateHouseDto.House.HouseNumber,
+                StreetName = updateHouseDto.House.StreetName,
+                City = updateHouseDto.House.City,
+                Country = updateHouseDto.House.Country,
+                PostCode = updateHouseDto.House.PostCode
             };
         }
 

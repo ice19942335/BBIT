@@ -67,27 +67,27 @@ namespace BBIT.WEB.Service.Controllers.V1
             }
 
             string itemUrl =
-                $"{configuration["ApplicationHostAddress"]}/{ApiRoutes.FlatRoute.FlatV1}/{creationResult.Id}";
+                $"{configuration["ApplicationHostAddress"]}/{ApiRoutes.FlatRoute.FlatV1}/{creationResult.Flat.Id}";
 
             return Created(
                 new Uri(itemUrl),
                 new SuccessFlatCreationResponse
                 {
-                    Id = creationResult.Id,
-                    FlatNumber = creationResult.FlatNumber,
-                    Floor = creationResult.Floor,
-                    AmountOfRooms = creationResult.AmountOfRooms,
-                    AmountOfResidents = creationResult.AmountOfResidents,
-                    TotalArea = creationResult.TotalArea,
-                    HouseRoom = creationResult.HouseRoom,
+                    Id = creationResult.Flat.Id,
+                    FlatNumber = creationResult.Flat.FlatNumber,
+                    Floor = creationResult.Flat.Floor,
+                    AmountOfRooms = creationResult.Flat.AmountOfRooms,
+                    AmountOfResidents = creationResult.Flat.AmountOfResidents,
+                    TotalArea = creationResult.Flat.TotalArea,
+                    HouseRoom = creationResult.Flat.HouseRoom,
                     House = new HouseDto
                     {
-                        Id = creationResult.House.Id,
-                        HouseNumber = creationResult.House.HouseNumber,
-                        StreetName = creationResult.House.StreetName,
-                        City = creationResult.House.City,
-                        Country = creationResult.House.Country,
-                        PostCode = creationResult.House.PostCode
+                        Id = creationResult.Flat.House.Id,
+                        HouseNumber = creationResult.Flat.House.HouseNumber,
+                        StreetName = creationResult.Flat.House.StreetName,
+                        City = creationResult.Flat.House.City,
+                        Country = creationResult.Flat.House.Country,
+                        PostCode = creationResult.Flat.House.PostCode
                     }
                 });
         }
