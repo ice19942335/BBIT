@@ -19,11 +19,16 @@ namespace Services.Tenant
         public async Task<CreateTenantDto> CreateTenantAsync(CreateTenantDto createTenantDto) =>
             await _sqlTenantService.CreateTenantAsync(createTenantDto);
 
-        public AllTenantsDto GetAllTenants() => _sqlTenantService.GetAllTenants();
+        public AllTenantsDto GetAllTenants() => 
+            _sqlTenantService.GetAllTenants();
 
-        public TenantByIdDto GetTenantById(string id) => _sqlTenantService.GetTenantById(id);
+        public TenantByIdDto GetTenantById(string id) => 
+            _sqlTenantService.GetTenantById(id);
 
         public async Task<UpdateTenantDto> UpdateTenantAsync(UpdateTenantDto updateTenantDto) =>
             await _sqlTenantService.UpdateTenantAsync(updateTenantDto);
+
+        public async Task<DeleteTenantDto> DeleteTenantAsync(string id) => 
+            await _sqlTenantService.DeleteTenantAsync(id);
     }
 }

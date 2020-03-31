@@ -124,10 +124,10 @@ namespace BBIT.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("AmountOfResidents")
+                    b.Property<int>("AmountOfRooms")
                         .HasColumnType("int");
 
-                    b.Property<int>("AmountOfRooms")
+                    b.Property<int>("AmountOfTenants")
                         .HasColumnType("int");
 
                     b.Property<int>("FlatNumber")

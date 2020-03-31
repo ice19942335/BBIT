@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BBIT.DAL.Migrations
 {
     [DbContext(typeof(BBITContext))]
-    [Migration("20200330211946_Initialization")]
+    [Migration("20200331161652_Initialization")]
     partial class Initialization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -126,10 +126,10 @@ namespace BBIT.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("AmountOfResidents")
+                    b.Property<int>("AmountOfRooms")
                         .HasColumnType("int");
 
-                    b.Property<int>("AmountOfRooms")
+                    b.Property<int>("AmountOfTenants")
                         .HasColumnType("int");
 
                     b.Property<int>("FlatNumber")

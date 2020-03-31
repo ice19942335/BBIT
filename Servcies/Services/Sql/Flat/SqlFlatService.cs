@@ -50,7 +50,7 @@ namespace Services.Sql.Flat
                 BBIT.Domain.Entities.Flat.Flat newFlat = createFlatDto.CreateFlatDtoToFlat();
                 newFlat.Id = id;
                 newFlat.House = house;
-                newFlat.AmountOfResidents = 0; //Just make sure Flat have 0 tenant on creation.
+                newFlat.AmountOfTenants = 0; //Just make sure Flat have 0 tenant on creation.
 
                 await _dbContext.Flats.AddAsync(newFlat);
                 await _dbContext.SaveChangesAsync();
@@ -182,7 +182,7 @@ namespace Services.Sql.Flat
         {
             try
             {
-                BBIT.Domain.Entities.Flat.Flat flat = _dbContext.Flats.FirstOrDefault(x => x.Id == Guid.Parse(id));
+                var flat = _dbContext.Flats.FirstOrDefault(x => x.Id == Guid.Parse(id));
 
                 if (flat is null)
                     return new DeleteFlatDto
@@ -191,6 +191,15 @@ namespace Services.Sql.Flat
                         Errors = new[] { "Item not found." }
                     };
 
+                var listOfFlatTenants = _dbContext.Tenants
+                    .Include(x => x.Flat)
+                    .Include(x => x.Flat.House)
+                    .Where(x => x.Flat != null && x.Flat.Id == flat.Id)
+                    .ToList();
+
+                listOfFlatTenants.ForEach(x => x.Flat = null);
+
+                _dbContext.Tenants.UpdateRange(listOfFlatTenants);
                 _dbContext.Flats.Remove(flat);
                 await _dbContext.SaveChangesAsync();
 

@@ -258,10 +258,36 @@ namespace BBIT.WEB.Service.Controllers.V1
             });
         }
 
-        //[HttpDelete(ApiRoutes.TenantRoute.TenantByIdV1)]
-        //public IActionResult DeleteTenant()
-        //{
-        //    throw new NotImplementedException();
-        //}
+
+        /// <summary>
+        /// Delete Tenant endpoint. Deleting Tenant by provided Id
+        /// </summary>
+        /// <response code="204">Returns no content</response>
+        /// <response code="400">Returns status and list of errors</response>
+        /// <response code="404">Tenant not found</response>
+        /// <response code="500">Server error</response>
+        [ProducesResponseType(typeof(FailedDeleteTenantResponse), 400)]
+        [HttpDelete(ApiRoutes.TenantRoute.TenantByIdV1)]
+        public async Task<IActionResult> DeleteTenant(string id)
+        {
+            var deleteTenantResult = await _tenantService.DeleteTenantAsync(id);
+
+            if (!deleteTenantResult.Status)
+            {
+                if (deleteTenantResult.ServerError)
+                    return StatusCode(500);
+
+                if (deleteTenantResult.Errors.Contains($"Tenant with Id: '{id}' not found."))
+                    return NotFound($"Tenant with Id: '{id}' not found.");
+
+                return BadRequest(new FailedDeleteTenantResponse
+                {
+                    Status = deleteTenantResult.Status,
+                    Errors = deleteTenantResult.Errors
+                });
+            }
+
+            return NoContent();
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace Services.Mappers.Flat
                 FlatNumber = createFlatDto.Flat.FlatNumber,
                 Floor = createFlatDto.Flat.Floor,
                 AmountOfRooms = createFlatDto.Flat.AmountOfRooms,
-                AmountOfResidents = createFlatDto.Flat.AmountOfResidents,
+                AmountOfTenants = createFlatDto.Flat.AmountOfTenants,
                 TotalArea = createFlatDto.Flat.TotalArea,
                 HouseRoom = createFlatDto.Flat.HouseRoom,
                 House = new BBIT.Domain.Entities.House.House
@@ -86,7 +86,7 @@ namespace Services.Mappers.Flat
                     FlatNumber = flat.FlatNumber,
                     Floor = flat.Floor,
                     AmountOfRooms = flat.AmountOfRooms,
-                    AmountOfResidents = flat.AmountOfResidents,
+                    AmountOfTenants = flat.AmountOfTenants,
                     TotalArea = flat.TotalArea,
                     HouseRoom = flat.HouseRoom,
                     House = new HouseDto
@@ -116,7 +116,7 @@ namespace Services.Mappers.Flat
                 FlatNumber = flat.FlatNumber,
                 Floor = flat.Floor,
                 AmountOfRooms = flat.AmountOfRooms,
-                AmountOfResidents = flat.AmountOfResidents,
+                AmountOfTenants = flat.AmountOfTenants,
                 TotalArea = flat.TotalArea,
                 HouseRoom = flat.HouseRoom,
                 House = new HouseDto
@@ -148,7 +148,7 @@ namespace Services.Mappers.Flat
                     FlatNumber = request.FlatNumber,
                     Floor = request.Floor,
                     AmountOfRooms = request.AmountOfRooms,
-                    AmountOfResidents = request.AmountOfResidents,
+                    AmountOfTenants = request.AmountOfResidents,
                     TotalArea = request.TotalArea,
                     HouseRoom = request.HouseRoom,
                     House = new HouseDto
@@ -177,7 +177,7 @@ namespace Services.Mappers.Flat
             flat.FlatNumber = updateFlatDto.Flat.FlatNumber;
             flat.Floor = updateFlatDto.Flat.Floor;
             flat.AmountOfRooms = updateFlatDto.Flat.AmountOfRooms;
-            flat.AmountOfResidents = updateFlatDto.Flat.AmountOfResidents;
+            flat.AmountOfTenants = updateFlatDto.Flat.AmountOfTenants;
             flat.TotalArea = updateFlatDto.Flat.TotalArea;
             flat.HouseRoom = updateFlatDto.Flat.HouseRoom;
 
@@ -208,7 +208,7 @@ namespace Services.Mappers.Flat
                     FlatNumber = flat.FlatNumber,
                     Floor = flat.Floor,
                     AmountOfRooms = flat.AmountOfRooms,
-                    AmountOfResidents = flat.AmountOfResidents,
+                    AmountOfTenants = flat.AmountOfTenants,
                     TotalArea = flat.TotalArea,
                     HouseRoom = flat.HouseRoom,
                     House = new HouseDto
@@ -239,7 +239,7 @@ namespace Services.Mappers.Flat
                 FlatNumber = flatDto.FlatNumber,
                 Floor = flatDto.Floor,
                 AmountOfRooms = flatDto.AmountOfRooms,
-                AmountOfResidents = flatDto.AmountOfResidents,
+                AmountOfTenants = flatDto.AmountOfTenants,
                 TotalArea = flatDto.TotalArea,
                 HouseRoom = flatDto.HouseRoom,
                 House = flatDto.House.HouseDtoToHouse()

@@ -23,7 +23,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat
                         FlatNumber = 45,
                         Floor = 15,
                         AmountOfRooms = 5,
-                        AmountOfResidents = 0,
+                        AmountOfTenants = 0,
                         TotalArea = 300,
                         HouseRoom = 400,
                         House = new HouseDto
@@ -42,7 +42,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat
                         FlatNumber = 46,
                         Floor = 15,
                         AmountOfRooms = 5,
-                        AmountOfResidents = 0,
+                        AmountOfTenants = 0,
                         TotalArea = 300,
                         HouseRoom = 400,
                         House = new HouseDto
@@ -61,7 +61,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat
                         FlatNumber = 44,
                         Floor = 15,
                         AmountOfRooms = 5,
-                        AmountOfResidents = 0,
+                        AmountOfTenants = 0,
                         TotalArea = 300,
                         HouseRoom = 400,
                         House = new HouseDto

@@ -28,7 +28,7 @@ namespace BBIT.WEB.Service
             app.UseSwagger();
             app.UseSwaggerUI(opt =>
             {
-                opt.SwaggerEndpoint("./swagger/v1/swagger.json", "BBIT Auth Service");
+                opt.SwaggerEndpoint("./swagger/v1/swagger.json", "BBIT Data API");
                 opt.RoutePrefix = string.Empty;
             });
 

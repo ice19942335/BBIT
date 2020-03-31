@@ -77,7 +77,7 @@ namespace BBIT.WEB.Service.Controllers.V1
                     FlatNumber = creationResult.Flat.FlatNumber,
                     Floor = creationResult.Flat.Floor,
                     AmountOfRooms = creationResult.Flat.AmountOfRooms,
-                    AmountOfResidents = creationResult.Flat.AmountOfResidents,
+                    AmountOfResidents = creationResult.Flat.AmountOfTenants,
                     TotalArea = creationResult.Flat.TotalArea,
                     HouseRoom = creationResult.Flat.HouseRoom,
                     House = new HouseDto
@@ -95,7 +95,7 @@ namespace BBIT.WEB.Service.Controllers.V1
         /// <summary>
         /// All Flats endpoint. Returns list of Flats
         /// </summary>
-        /// <response code="200">Returns Flats list</response>
+        /// <response code="200">Returns list of Flats</response>
         /// <response code="400">Failed request returns status and list of errors</response>
         /// <response code="500">Server error</response>
         [AllowAnonymous]

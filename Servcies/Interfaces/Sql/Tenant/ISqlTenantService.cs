@@ -13,5 +13,7 @@ namespace Interfaces.Sql.Tenant
         TenantByIdDto GetTenantById(string id);
 
         Task<UpdateTenantDto> UpdateTenantAsync(UpdateTenantDto updateTenantDto);
+
+        Task<DeleteTenantDto> DeleteTenantAsync(string id);
     }
 }

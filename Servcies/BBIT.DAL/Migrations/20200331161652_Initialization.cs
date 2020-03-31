@@ -200,7 +200,7 @@ namespace BBIT.DAL.Migrations
                     FlatNumber = table.Column<int>(nullable: false),
                     Floor = table.Column<int>(nullable: false),
                     AmountOfRooms = table.Column<int>(nullable: false),
-                    AmountOfResidents = table.Column<int>(nullable: false),
+                    AmountOfTenants = table.Column<int>(nullable: false),
                     TotalArea = table.Column<double>(nullable: false),
                     HouseRoom = table.Column<double>(nullable: false),
                     HouseId = table.Column<Guid>(nullable: true)

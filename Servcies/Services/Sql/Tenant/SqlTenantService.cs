@@ -41,7 +41,7 @@ namespace Services.Sql.Tenant
                 {
                     var flat = GetFlatById(createTenantDto.FlatId);
 
-                    flat.AmountOfResidents++;
+                    flat.AmountOfTenants++;
 
                     tenant.Flat = flat;
                 }
@@ -160,15 +160,15 @@ namespace Services.Sql.Tenant
                                 Status = false
                             };
 
-                        tenantCurrentFlat.AmountOfResidents--;
-                        newFlatToAssign.AmountOfResidents++;
+                        tenantCurrentFlat.AmountOfTenants--;
+                        newFlatToAssign.AmountOfTenants++;
 
                         _dbContext.Flats.Update(tenantCurrentFlat);
                     }
                     else
                     {
                         tenant.Flat = newFlatToAssign;
-                        newFlatToAssign.AmountOfResidents++;
+                        newFlatToAssign.AmountOfTenants++;
                     }
 
                     tenant.Flat = newFlatToAssign;
@@ -219,7 +219,35 @@ namespace Services.Sql.Tenant
             }
         }
 
+        public async Task<DeleteTenantDto> DeleteTenantAsync(string id)
+        {
+            try
+            {
+                var tenant = _dbContext.Tenants.FirstOrDefault(x => x.Id == Guid.Parse(id));
 
+                if (tenant is null)
+                    return new DeleteTenantDto
+                    {
+                        Status = false,
+                        Errors = new[] { $"Tenant with Id: '{id}' not found." }
+                    };
+
+                _dbContext.Tenants.Remove(tenant);
+                await _dbContext.SaveChangesAsync();
+
+                return new DeleteTenantDto { Status = true };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error on deleting Tenant from database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
+                return new DeleteTenantDto
+                {
+                    Errors = new[] { "Error on deleting Tenant from database." },
+                    ServerError = true,
+                    Status = false
+                };
+            }
+        }
 
 
         #region PrivateMethods

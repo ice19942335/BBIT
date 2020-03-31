@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BBIT.DAL.Context;
 using BBIT.Domain.Entities.DTO.House;
 using Interfaces.Sql.House;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Services.Mappers.House;
 
@@ -149,7 +151,7 @@ namespace Services.Sql.House
         {
             try
             {
-                BBIT.Domain.Entities.House.House house = _dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(id));
+                var house = _dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(id));
 
                 if (house is null)
                     return new DeleteHouseDto
@@ -158,6 +160,19 @@ namespace Services.Sql.House
                         Errors = new[] { "Item not found." }
                     };
 
+                var houseFlats = _dbContext.Flats
+                    .Include(x => x.House)
+                    .Where(x => x.House.Id == house.Id)
+                    .ToList();
+
+                var tenantsToUpdate = _dbContext.Tenants
+                    .Include(x => x.Flat)
+                    .Include(x => x.Flat.House)
+                    .Where(x => x.Flat.House.Id == house.Id)
+                    .ToList();
+
+                _dbContext.Tenants.UpdateRange(tenantsToUpdate);
+                _dbContext.Flats.RemoveRange(houseFlats);
                 _dbContext.Houses.Remove(house);
                 await _dbContext.SaveChangesAsync();
 
