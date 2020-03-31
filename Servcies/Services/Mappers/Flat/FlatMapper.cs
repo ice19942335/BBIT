@@ -4,6 +4,7 @@ using System.Text;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Flat;
 using BBIT.Domain.Entities.DTO.Flat;
 using BBIT.Domain.Entities.DTO.House;
+using Services.Mappers.House;
 
 namespace Services.Mappers.Flat
 {
@@ -220,6 +221,28 @@ namespace Services.Mappers.Flat
                         PostCode = flat.House.PostCode
                     }
                 },
+            };
+        }
+
+        #endregion
+
+        #region FlatDtoToFlat
+
+        public static BBIT.Domain.Entities.Flat.Flat FlatDtoToFlat(this FlatDto flatDto) =>
+            ConvertFlatDtoToFlat(flatDto);
+
+        private static BBIT.Domain.Entities.Flat.Flat ConvertFlatDtoToFlat(FlatDto flatDto)
+        {
+            return new BBIT.Domain.Entities.Flat.Flat
+            {
+                Id = Guid.Parse(flatDto.Id),
+                FlatNumber = flatDto.FlatNumber,
+                Floor = flatDto.Floor,
+                AmountOfRooms = flatDto.AmountOfRooms,
+                AmountOfResidents = flatDto.AmountOfResidents,
+                TotalArea = flatDto.TotalArea,
+                HouseRoom = flatDto.HouseRoom,
+                House = flatDto.House.HouseDtoToHouse()
             };
         }
 

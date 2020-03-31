@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BBIT.Domain.Entities.DTO.Flat;
-using BBIT.Domain.Entities.DTO.Tenant;
 
-namespace BBIT.WEB.Service.SwaggerExamples.Requests.Tenant
+namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant
 {
-    public class UpdateTenantRequest
+    public class SuccessUpdateTenantResponse
     {
         public string Id { get; set; }
 

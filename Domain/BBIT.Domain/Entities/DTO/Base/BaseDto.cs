@@ -11,6 +11,8 @@ namespace BBIT.Domain.Entities.DTO.Base
 
         public bool Status { get; set; }
 
+        public bool ItemNotFound { get; set; }
+
         public bool ServerError { get; set; }
     }
 }

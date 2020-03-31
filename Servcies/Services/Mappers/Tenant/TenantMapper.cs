@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Tenant;
 using BBIT.Domain.Entities.DTO.Flat;
 using BBIT.Domain.Entities.DTO.Tenant;
@@ -96,6 +97,52 @@ namespace Services.Mappers.Tenant
                 Email = tenant.Email,
                 Flat = tenant.Flat?.FlatToFlatDto()
             };
+        }
+
+        #endregion
+
+        #region UpdateTenantRequestToUpdateTenantDto
+
+        public static UpdateTenantDto UpdateTenantRequestToUpdateTenantDto(this UpdateTenantRequest request) =>
+            ConvertUpdateTenantRequestToUpdateTenantDto(request);
+
+        private static UpdateTenantDto ConvertUpdateTenantRequestToUpdateTenantDto(UpdateTenantRequest request)
+        {
+            return new UpdateTenantDto
+            {
+                Tenant = new TenantDto
+                {
+                    Id = request.Id,
+                    Name = request.Name,
+                    Surname = request.Surname,
+                    PersonalCode = request.PersonalCode,
+                    DateOfBirth = request.DateOfBirth,
+                    PhoneNumber = request.PhoneNumber,
+                    Email = request.Email
+                },
+                NewFlatId = request.NewFlatId
+            };
+        }
+
+        #endregion
+
+        #region UpdateTenantDtoToTenant
+
+        public static BBIT.Domain.Entities.Tenant.Tenant UpdateTenantDtoToTenant(this UpdateTenantDto updateTenantDto) =>
+            ConvertUpdateTenantDtoToTenant(updateTenantDto);
+
+        private static BBIT.Domain.Entities.Tenant.Tenant ConvertUpdateTenantDtoToTenant(UpdateTenantDto updateTenantDto)
+        {
+            return new BBIT.Domain.Entities.Tenant.Tenant
+            {
+                Id = Guid.Parse(updateTenantDto.Tenant.Id),
+                Name = updateTenantDto.Tenant.Name,
+                Surname = updateTenantDto.Tenant.Surname,
+                PersonalCode = updateTenantDto.Tenant.PersonalCode,
+                DateOfBirth = updateTenantDto.Tenant.DateOfBirth,
+                PhoneNumber = updateTenantDto.Tenant.PhoneNumber,
+                Email = updateTenantDto.Tenant.Email
+            }; 
         }
 
         #endregion

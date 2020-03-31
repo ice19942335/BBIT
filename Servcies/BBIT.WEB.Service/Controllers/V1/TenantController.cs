@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Services.Mappers.Flat;
 using Services.Mappers.Tenant;
 using Services.StaticHelpers;
 
@@ -36,7 +37,7 @@ namespace BBIT.WEB.Service.Controllers.V1
         /// <remarks>
         /// Sample request:
         ///
-        ///     POST /With FlatId
+        ///     POST /With NewFlatId
         ///     {
         ///         "flatId": "4644e41b-c19e-4f24-96f3-013103030c5a",
         ///         "name": "Name",
@@ -47,7 +48,7 @@ namespace BBIT.WEB.Service.Controllers.V1
         ///         "email": "email@mail.com"
         ///     }
         ///
-        ///     POST /WithOut FlatId
+        ///     POST /WithOut NewFlatId
         ///     {
         ///         "flatId": null,
         ///         "name": "Name",
@@ -183,11 +184,80 @@ namespace BBIT.WEB.Service.Controllers.V1
             });
         }
 
-        //[HttpPut(ApiRoutes.TenantRoute.TenantV1)]
-        //public IActionResult UpdateTenant()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        /// <summary>
+        /// Update Tenant endpoint. Returns updated Tenant
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /With NewFlatId
+        ///     {
+        ///       "flatId": "4644e41b-c19e-4f24-96f3-013103030c5a",
+        ///       "id": "486051a1-8867-47cd-b4c0-44c5a62f0e99"
+        ///       "name": "Name",
+        ///       "surname": "Surname",
+        ///       "personalCode": "12345",
+        ///       "dateOfBirth": "2020-03-30T00:00:00+01:00",
+        ///       "phoneNumber": "+37112345678",
+        ///       "email": "email@mail.com",
+        ///       "flat": null
+        ///     }
+        ///
+        ///     PUT /Without NewFlatId
+        ///     {
+        ///       "flatId": null,
+        ///       "id": "486051a1-8867-47cd-b4c0-44c5a62f0e99"
+        ///       "name": "Name",
+        ///       "surname": "Surname",
+        ///       "personalCode": "12345",
+        ///       "dateOfBirth": "2020-03-30T00:00:00+01:00",
+        ///       "phoneNumber": "+37112345678",
+        ///       "email": "email@mail.com"
+        ///     }
+        /// 
+        /// </remarks>
+        /// <response code="200">Returns updated Tenants</response>
+        /// <response code="400">Returns status and list of errors</response>
+        /// <response code="404">Tenant not found</response>
+        /// <response code="500">Server error</response>
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(SuccessUpdateTenantResponseExample), 200)]
+        [ProducesResponseType(typeof(FailedUpdateTenantResponseExample), 400)]
+        [HttpPut(ApiRoutes.TenantRoute.TenantV1)]
+        public async Task<IActionResult> UpdateTenant([FromBody] UpdateTenantRequest request)
+        {
+            var updateTenantResult = await _tenantService.UpdateTenantAsync(request.UpdateTenantRequestToUpdateTenantDto());
+
+            if (!updateTenantResult.Status)
+            {
+                if (updateTenantResult.ServerError)
+                    return StatusCode(500);
+
+                if (updateTenantResult.Errors.Contains("Tenant not found."))
+                    return NotFound("Tenant not found.");
+
+                if (updateTenantResult.Errors.Any(x => x.Contains($"Flat with Id: '{request.NewFlatId}' not found.")))
+                    return NotFound($"Flat with Id: '{request.NewFlatId}' not found.");
+
+                return BadRequest(new FailedUpdateTenantResponse
+                {
+                    Status = updateTenantResult.Status,
+                    Errors = updateTenantResult.Errors
+                });
+            }
+
+            return Ok(new SuccessUpdateTenantResponse
+            {
+                Id = updateTenantResult.Tenant.Id,
+                Name = updateTenantResult.Tenant.Name,
+                Surname = updateTenantResult.Tenant.Surname,
+                PersonalCode = updateTenantResult.Tenant.PersonalCode,
+                DateOfBirth = updateTenantResult.Tenant.DateOfBirth,
+                PhoneNumber = updateTenantResult.Tenant.PhoneNumber,
+                Email = updateTenantResult.Tenant.Email,
+                Flat = updateTenantResult.Tenant.Flat
+            });
+        }
 
         //[HttpDelete(ApiRoutes.TenantRoute.TenantByIdV1)]
         //public IActionResult DeleteTenant()

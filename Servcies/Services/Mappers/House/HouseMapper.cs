@@ -174,5 +174,25 @@ namespace Services.Mappers.House
         }
 
         #endregion
+
+        #region HouseDtoToHouse
+
+        public static BBIT.Domain.Entities.House.House HouseDtoToHouse(this HouseDto houseDto) =>
+            ConvertHouseDtoToHouse(houseDto);
+
+        private static BBIT.Domain.Entities.House.House ConvertHouseDtoToHouse(HouseDto houseDto)
+        {
+            return new BBIT.Domain.Entities.House.House
+            {
+                Id = Guid.Parse(houseDto.Id),
+                HouseNumber = houseDto.HouseNumber,
+                StreetName = houseDto.StreetName,
+                City = houseDto.City,
+                Country = houseDto.Country,
+                PostCode = houseDto.PostCode
+            };  
+        }
+
+        #endregion
     }
 }

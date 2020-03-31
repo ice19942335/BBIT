@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using BBIT.DAL.Context;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant;
 using BBIT.Domain.Entities.DTO.Tenant;
 using Interfaces.Sql.Tenant;
 using Microsoft.EntityFrameworkCore;
@@ -120,6 +121,103 @@ namespace Services.Sql.Tenant
             }
         }
 
+        public async Task<UpdateTenantDto> UpdateTenantAsync(UpdateTenantDto updateTenantDto)
+        {
+            try
+            {
+                var tenant = _dbContext.Tenants
+                        .Include(x => x.Flat)
+                        .Include(x => x.Flat.House)
+                        .FirstOrDefault(x => x.Id == Guid.Parse(updateTenantDto.Tenant.Id));
+
+                if (tenant is null)
+                    return new UpdateTenantDto
+                    {
+                        Errors = new[] { "Tenant not found." },
+                        Status = false
+                    };
+
+                if(updateTenantDto.NewFlatId != null)
+                {
+                    var newFlatToAssign = GetFlatById(updateTenantDto.NewFlatId);
+
+                    if(newFlatToAssign is null)
+                        return new UpdateTenantDto
+                        {
+                            Errors = new []{ $"Flat with Id: '{updateTenantDto.NewFlatId}' not found." },
+                            Status = false
+                        };
+
+
+                    if (tenant.Flat != null)
+                    {
+                        var tenantCurrentFlat = tenant.Flat;
+
+                        if (tenantCurrentFlat.Id == Guid.Parse(updateTenantDto.NewFlatId))
+                            return new UpdateTenantDto
+                            {
+                                Errors = new[] { "Cannot add Tenant to the same Flat" },
+                                Status = false
+                            };
+
+                        tenantCurrentFlat.AmountOfResidents--;
+                        newFlatToAssign.AmountOfResidents++;
+
+                        _dbContext.Flats.Update(tenantCurrentFlat);
+                    }
+                    else
+                    {
+                        tenant.Flat = newFlatToAssign;
+                        newFlatToAssign.AmountOfResidents++;
+                    }
+
+                    tenant.Flat = newFlatToAssign;
+                    tenant.Name = updateTenantDto.Tenant.Name;
+                    tenant.Surname = updateTenantDto.Tenant.Surname;
+                    tenant.PersonalCode = updateTenantDto.Tenant.PersonalCode;
+                    tenant.DateOfBirth = updateTenantDto.Tenant.DateOfBirth;
+                    tenant.PhoneNumber = updateTenantDto.Tenant.PhoneNumber;
+                    tenant.Email = updateTenantDto.Tenant.Email;
+
+                    
+                    _dbContext.Flats.Update(newFlatToAssign);
+                    _dbContext.Tenants.Update(tenant);
+                    await _dbContext.SaveChangesAsync();
+
+                    return new UpdateTenantDto
+                    {
+                        Status = true,
+                        Tenant = tenant.TenantToTenantDto()
+                    };
+                }
+
+                tenant.Name = updateTenantDto.Tenant.Name;
+                tenant.Surname = updateTenantDto.Tenant.Surname;
+                tenant.PersonalCode = updateTenantDto.Tenant.PersonalCode;
+                tenant.DateOfBirth = updateTenantDto.Tenant.DateOfBirth;
+                tenant.PhoneNumber = updateTenantDto.Tenant.PhoneNumber;
+                tenant.Email = updateTenantDto.Tenant.Email;
+
+                _dbContext.Tenants.Update(tenant);
+                await _dbContext.SaveChangesAsync();
+
+                return new UpdateTenantDto
+                {
+                    Status = true,
+                    Tenant = tenant.TenantToTenantDto()
+                };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error on updating Tenant in database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
+                return new UpdateTenantDto
+                {
+                    Errors = new[] { "Error on updating Tenant in database." },
+                    ServerError = true,
+                    Status = false
+                };
+            }
+        }
 
         #region PrivateMethods
 
