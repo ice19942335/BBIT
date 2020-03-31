@@ -50,6 +50,7 @@ namespace Services.Sql.Flat
                 BBIT.Domain.Entities.Flat.Flat newFlat = createFlatDto.CreateFlatDtoToFlat();
                 newFlat.Id = id;
                 newFlat.House = house;
+                newFlat.AmountOfResidents = 0; //Just make sure Flat have 0 tenant on creation.
 
                 await _dbContext.Flats.AddAsync(newFlat);
                 await _dbContext.SaveChangesAsync();
@@ -78,12 +79,6 @@ namespace Services.Sql.Flat
                 var flatsDtoList = _dbContext.Flats
                     .Include(x => x.House)
                     .ToList();
-
-                //Counting tenants for each flat (sorry if this comment is too obvious)
-                flatsDtoList.ForEach(flat => 
-                    flat.AmountOfResidents = _dbContext.Tenants
-                    .Include(xx => xx.Flat)
-                    .Count(xx => xx.Flat.Id == flat.Id));
 
                 return new AllFlatsDto
                 {

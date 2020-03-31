@@ -13,7 +13,7 @@ using Services.House;
 using Services.Resident;
 using Services.Sql.Flat;
 using Services.Sql.House;
-using Services.Sql.Resident;
+using Services.Sql.Tenant;
 
 namespace BBIT.WEB.Service.Installers
 {

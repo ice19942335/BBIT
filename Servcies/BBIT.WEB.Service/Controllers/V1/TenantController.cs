@@ -109,22 +109,38 @@ namespace BBIT.WEB.Service.Controllers.V1
                 });
         }
 
-        ///// <summary>
-        ///// Get all tenants endpoint. Returns list of tenants
-        ///// </summary>
-        ///// <response code="201">Returns list of tenants</response>
-        ///// <response code="400">Returns status and list of errors</response>
-        ///// <response code="500">Server error</response>
-        //[AllowAnonymous]
-        //[ProducesResponseType(typeof(SuccessAllTenantsResponse), 200)]
-        //[ProducesResponseType(typeof(FailedAllTenantsResponse), 400)]
-        //[HttpGet(ApiRoutes.TenantRoute.TenantV1)]
-        //public IActionResult GetAllTenants()
-        //{
-        //    var getAllFlatsResult = _tenantService.GetAllTenants();
+        /// <summary>
+        /// Get all tenants endpoint. Returns list of tenants
+        /// </summary>
+        /// <response code="200">Returns list of tenants</response>
+        /// <response code="400">Returns status and list of errors</response>
+        /// <response code="500">Server error</response>
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(SuccessAllTenantsResponse), 200)]
+        [ProducesResponseType(typeof(FailedAllTenantsResponse), 400)]
+        [HttpGet(ApiRoutes.TenantRoute.TenantV1)]
+        public IActionResult GetAllTenants()
+        {
+            var getAllFlatsResult = _tenantService.GetAllTenants();
 
+            if (!getAllFlatsResult.Status)
+            {
+                if (getAllFlatsResult.ServerError)
+                    return StatusCode(500);
 
-        //}
+                return BadRequest(new FailedAllTenantsResponse
+                {
+                    Status = getAllFlatsResult.Status,
+                    Errors = getAllFlatsResult.Errors
+                });
+            }
+
+            return Ok(new SuccessAllTenantsResponse
+            {
+                Status = getAllFlatsResult.Status,
+                Tenants = getAllFlatsResult.Tenants
+            });
+        }
 
         //[HttpGet(ApiRoutes.TenantRoute.TenantByIdV1)]
         //public IActionResult GetTenantById(string id)

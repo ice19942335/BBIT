@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using BBIT.DAL.Context;
-using BBIT.Domain.Entities.DTO.House;
 using BBIT.Domain.Entities.DTO.Tenant;
-using BBIT.Domain.Entities.Flat;
-using BBIT.Domain.Entities.Tenant;
 using Interfaces.Sql.Resident;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Services.Mappers.Tenant;
 
-namespace Services.Sql.Resident
+namespace Services.Sql.Tenant
 {
     public class SqlTenantService : ISqlTenantService
     {
@@ -39,10 +34,17 @@ namespace Services.Sql.Resident
                 if (CheckTenantExist(createTenantDto))
                     return new CreateTenantDto { Errors = new[] { $"Tenant with provided details already exist." } };
 
-                Tenant tenant = CreateNewTenant(createTenantDto);
+                BBIT.Domain.Entities.Tenant.Tenant tenant = CreateNewTenant(createTenantDto);
 
                 if (createTenantDto.FlatId != null)
-                    tenant.Flat = GetFlatById(createTenantDto.FlatId);
+                {
+                    var flat = GetFlatById(createTenantDto.FlatId);
+
+                    flat.AmountOfResidents++;
+
+                    tenant.Flat = flat;
+                }
+                    
 
                 await _dbContext.Tenants.AddAsync(tenant);
                 await _dbContext.SaveChangesAsync();
@@ -58,6 +60,32 @@ namespace Services.Sql.Resident
                 return new CreateTenantDto
                 {
                     Errors = new[] { "Error on creating Tenant in database." },
+                    ServerError = true
+                };
+            }
+        }
+
+        public AllTenantsDto GetAllTenants()
+        {
+            try
+            {
+                var tenantsList = _dbContext.Tenants
+                    .Include(x => x.Flat)
+                    .Include(x => x.Flat.House)
+                    .ToList();
+
+                return new AllTenantsDto
+                {
+                    Tenants = tenantsList.Select(x => x.TenantToTenantDto()),
+                    Status = true
+                };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error on fetch data from database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
+                return new AllTenantsDto
+                {
+                    Errors = new[] { "Error on fetch data from database." },
                     ServerError = true
                 };
             }
@@ -92,12 +120,12 @@ namespace Services.Sql.Resident
         private BBIT.Domain.Entities.Flat.Flat GetFlatById(string flatId) =>
             _dbContext.Flats.Include(x => x.House).FirstOrDefault(x => x.Id == Guid.Parse(flatId));
 
-        private Tenant CreateNewTenant(CreateTenantDto createTenantDto)
+        private BBIT.Domain.Entities.Tenant.Tenant CreateNewTenant(CreateTenantDto createTenantDto)
         {
             Guid id;
             do { id = Guid.NewGuid(); } while (_dbContext.Tenants.FirstOrDefault(x => x.Id == id) != null);
 
-            return new Tenant
+            return new BBIT.Domain.Entities.Tenant.Tenant
             {
                 Id = id,
                 Name = createTenantDto.Tenant.Name,

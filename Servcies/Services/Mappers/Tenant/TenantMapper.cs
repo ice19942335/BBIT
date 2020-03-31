@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Tenant;
+using BBIT.Domain.Entities.DTO.Flat;
 using BBIT.Domain.Entities.DTO.Tenant;
 using Services.Mappers.Flat;
 
@@ -72,6 +73,28 @@ namespace Services.Mappers.Tenant
                     Email = tenant.Email,
                     Flat = tenant.Flat?.FlatToFlatDto()
                 }
+            };
+        }
+
+        #endregion
+
+        #region TenantToTenantDto
+
+        public static TenantDto TenantToTenantDto(this BBIT.Domain.Entities.Tenant.Tenant tenant) =>
+            ConvertTenantToTenantDto(tenant);
+
+        private static TenantDto ConvertTenantToTenantDto(BBIT.Domain.Entities.Tenant.Tenant tenant)
+        {
+            return new TenantDto
+            {
+                Id = tenant.Id.ToString(),
+                Name = tenant.Name,
+                Surname = tenant.Surname,
+                PersonalCode = tenant.PersonalCode,
+                DateOfBirth = tenant.DateOfBirth,
+                PhoneNumber = tenant.PhoneNumber,
+                Email = tenant.Email,
+                Flat = tenant.Flat?.FlatToFlatDto()
             };
         }
 

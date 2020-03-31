@@ -48,7 +48,10 @@ namespace Services.Sql.House
             {
                 await _dbContext.SaveChangesAsync();
 
-                return newHouse.HouseToCreateHouseDto();
+                var newHouseDtoToReturn = newHouse.HouseToCreateHouseDto();
+                newHouseDtoToReturn.Status = true;
+
+                return newHouseDtoToReturn;
             }
             catch (Exception e)
             {
