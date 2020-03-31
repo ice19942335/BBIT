@@ -6,7 +6,8 @@ using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Tenant;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant;
-using Interfaces.Resident;
+using BBIT.WEB.Service.SwaggerExamples.Responses.Tenant;
+using Interfaces.Tenant;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -142,11 +143,45 @@ namespace BBIT.WEB.Service.Controllers.V1
             });
         }
 
-        //[HttpGet(ApiRoutes.TenantRoute.TenantByIdV1)]
-        //public IActionResult GetTenantById(string id)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        /// <summary>
+        /// Get Tenant by Id endpoint. Returns Tenant by provided Id
+        /// </summary>
+        /// <response code="200">Returns Tenants</response>
+        /// <response code="400">Returns status and list of errors</response>
+        /// <response code="404">Tenant not found</response>
+        /// <response code="500">Server error</response>
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(SuccessTenantByIdResponseExample), 200)]
+        [ProducesResponseType(typeof(FailedTenantByIdResponseExample), 400)]
+        [HttpGet(ApiRoutes.TenantRoute.TenantByIdV1)]
+        public IActionResult GetTenantById(string id)
+        {
+            var tenantByIdResult = _tenantService.GetTenantById(id);
+
+            if (!tenantByIdResult.Status)
+            {
+                if (tenantByIdResult.ServerError)
+                    return StatusCode(500);
+
+                return BadRequest(new FailedTenantByIdResponse
+                {
+                    Status = tenantByIdResult.Status,
+                    Errors = tenantByIdResult.Errors
+                });
+            }
+
+            return Ok(new SuccessTenantByIdResponse
+            {
+                Id = tenantByIdResult.Tenant.Id,
+                Name = tenantByIdResult.Tenant.Name,
+                Surname = tenantByIdResult.Tenant.Name,
+                PersonalCode = tenantByIdResult.Tenant.Name,
+                DateOfBirth = tenantByIdResult.Tenant.DateOfBirth,
+                PhoneNumber = tenantByIdResult.Tenant.PhoneNumber,
+                Email = tenantByIdResult.Tenant.Email,
+                Flat = tenantByIdResult.Tenant.Flat
+            });
+        }
 
         //[HttpPut(ApiRoutes.TenantRoute.TenantV1)]
         //public IActionResult UpdateTenant()

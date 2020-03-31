@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BBIT.Domain.Entities.DTO.Tenant;
 
-namespace Interfaces.Resident
+namespace Interfaces.Tenant
 {
     public interface ITenantService
     {
         Task<CreateTenantDto> CreateTenantAsync(CreateTenantDto createTenantDto);
 
         AllTenantsDto GetAllTenants();
+
+        TenantByIdDto GetTenantById(string id);
     }
 }

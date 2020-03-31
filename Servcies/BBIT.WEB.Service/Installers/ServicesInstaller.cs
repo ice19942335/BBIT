@@ -1,19 +1,19 @@
 ﻿using Interfaces.Authentication;
 using Interfaces.Flat;
 using Interfaces.House;
-using Interfaces.Resident;
 using Interfaces.Sql.Flat;
 using Interfaces.Sql.House;
-using Interfaces.Sql.Resident;
+using Interfaces.Sql.Tenant;
+using Interfaces.Tenant;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Authentication;
 using Services.Flat;
 using Services.House;
-using Services.Resident;
 using Services.Sql.Flat;
 using Services.Sql.House;
 using Services.Sql.Tenant;
+using Services.Tenant;
 
 namespace BBIT.WEB.Service.Installers
 {

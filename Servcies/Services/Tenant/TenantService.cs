@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BBIT.Domain.Entities.DTO.Tenant;
-using Interfaces.Resident;
-using Interfaces.Sql.Resident;
+using Interfaces.Sql.Tenant;
+using Interfaces.Tenant;
 
-namespace Services.Resident
+namespace Services.Tenant
 {
     public class TenantService : ITenantService
     {
@@ -22,5 +19,7 @@ namespace Services.Resident
             await _sqlTenantService.CreateTenantAsync(createTenantDto);
 
         public AllTenantsDto GetAllTenants() => _sqlTenantService.GetAllTenants();
+
+        public TenantByIdDto GetTenantById(string id) => _sqlTenantService.GetTenantById(id);
     }
 }

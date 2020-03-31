@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BBIT.DAL.Context;
 using BBIT.Domain.Entities.DTO.Tenant;
-using Interfaces.Sql.Resident;
+using Interfaces.Sql.Tenant;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Services.Mappers.Tenant;
@@ -44,7 +44,7 @@ namespace Services.Sql.Tenant
 
                     tenant.Flat = flat;
                 }
-                    
+
 
                 await _dbContext.Tenants.AddAsync(tenant);
                 await _dbContext.SaveChangesAsync();
@@ -84,6 +84,35 @@ namespace Services.Sql.Tenant
             {
                 _logger.LogError($"Error on fetch data from database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
                 return new AllTenantsDto
+                {
+                    Errors = new[] { "Error on fetch data from database." },
+                    ServerError = true
+                };
+            }
+        }
+
+        public TenantByIdDto GetTenantById(string id)
+        {
+            try
+            {
+                var tenant = _dbContext.Tenants
+                    .Include(x => x.Flat)
+                    .Include(x => x.Flat.House)
+                    .FirstOrDefault(x => x.Id == Guid.Parse(id));
+
+                if (tenant is null)
+                    return new TenantByIdDto { Errors = new[] { "Tenant not found" }, };
+
+                return new TenantByIdDto
+                {
+                    Status = true,
+                    Tenant = tenant.TenantToTenantDto()
+                };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error on fetch data from database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
+                return new TenantByIdDto
                 {
                     Errors = new[] { "Error on fetch data from database." },
                     ServerError = true
