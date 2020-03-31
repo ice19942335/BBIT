@@ -152,8 +152,8 @@ namespace BBIT.WEB.Service.Controllers.V1
         /// <response code="404">Tenant not found</response>
         /// <response code="500">Server error</response>
         [AllowAnonymous]
-        [ProducesResponseType(typeof(SuccessTenantByIdResponseExample), 200)]
-        [ProducesResponseType(typeof(FailedTenantByIdResponseExample), 400)]
+        [ProducesResponseType(typeof(SuccessTenantByIdResponse), 200)]
+        [ProducesResponseType(typeof(FailedTenantByIdResponse), 400)]
         [HttpGet(ApiRoutes.TenantRoute.TenantByIdV1)]
         public IActionResult GetTenantById(string id)
         {
@@ -220,9 +220,8 @@ namespace BBIT.WEB.Service.Controllers.V1
         /// <response code="400">Returns status and list of errors</response>
         /// <response code="404">Tenant not found</response>
         /// <response code="500">Server error</response>
-        [AllowAnonymous]
-        [ProducesResponseType(typeof(SuccessUpdateTenantResponseExample), 200)]
-        [ProducesResponseType(typeof(FailedUpdateTenantResponseExample), 400)]
+        [ProducesResponseType(typeof(SuccessUpdateTenantResponse), 200)]
+        [ProducesResponseType(typeof(FailedUpdateTenantResponse), 400)]
         [HttpPut(ApiRoutes.TenantRoute.TenantV1)]
         public async Task<IActionResult> UpdateTenant([FromBody] UpdateTenantRequest request)
         {

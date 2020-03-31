@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant;
 using BBIT.Domain.Entities.DTO.Flat;
 using BBIT.Domain.Entities.DTO.House;

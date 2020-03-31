@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant;
 using BBIT.Domain.Entities.DTO.Flat;
 using BBIT.Domain.Entities.DTO.House;
-using BBIT.Domain.Entities.DTO.Tenant;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace BBIT.WEB.Service.SwaggerExamples.Responses.Tenant

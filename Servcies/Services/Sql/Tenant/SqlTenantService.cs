@@ -219,6 +219,9 @@ namespace Services.Sql.Tenant
             }
         }
 
+
+
+
         #region PrivateMethods
 
         private bool CheckTenantExist(CreateTenantDto createTenantDto) =>
