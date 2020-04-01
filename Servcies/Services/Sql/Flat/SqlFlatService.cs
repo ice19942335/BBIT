@@ -25,21 +25,21 @@ namespace Services.Sql.Flat
         {
             try
             {
-                var flat = _dbContext.Flats.Include(x => x.House).FirstOrDefault(x => x.FlatNumber == createFlatDto.FlatNumber && x.House.Id == Guid.Parse(createFlatDto.House.Id));
+                var flat = _dbContext.Flats.Include(x => x.House).FirstOrDefault(x => x.FlatNumber == createFlatDto.Flat.FlatNumber && x.House.Id == Guid.Parse(createFlatDto.Flat.House.Id));
                 if (flat != null)
                     return new CreateFlatDto
                     {
-                        Errors = new[] { $"Flat with number: '{createFlatDto.FlatNumber}' in house: '{flat.House.Country}, {flat.House.City}, {flat.House.StreetName}, {flat.House.HouseNumber}' already exist" },
+                        Errors = new[] { $"Flat with number: '{createFlatDto.Flat.FlatNumber}' in house: '{flat.House.Country}, {flat.House.City}, {flat.House.StreetName}, {flat.House.HouseNumber}' already exist" },
                         Status = false,
                         ServerError = false
                     };
 
-                var house = _dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(createFlatDto.House.Id));
+                var house = _dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(createFlatDto.Flat.House.Id));
 
                 if (house is null)
                     return new CreateFlatDto
                     {
-                        Errors = new[] { $"House with Id: '{createFlatDto.House.Id}' not found" },
+                        Errors = new[] { $"House with Id: '{createFlatDto.Flat.House.Id}' not found" },
                         Status = false,
                         ServerError = false
                     };
@@ -50,6 +50,7 @@ namespace Services.Sql.Flat
                 BBIT.Domain.Entities.Flat.Flat newFlat = createFlatDto.CreateFlatDtoToFlat();
                 newFlat.Id = id;
                 newFlat.House = house;
+                newFlat.AmountOfTenants = 0; //Just make sure Flat have 0 tenant on creation.
 
                 await _dbContext.Flats.AddAsync(newFlat);
                 await _dbContext.SaveChangesAsync();
@@ -75,8 +76,9 @@ namespace Services.Sql.Flat
         {
             try
             {
-                var flatsDtoList = _dbContext.Flats.Include(x => x.House).ToList();
-                flatsDtoList.ForEach(x => x.AmountOfResidents = _dbContext.FlatResident.Count(xx => xx.FlatId == x.Id));
+                var flatsDtoList = _dbContext.Flats
+                    .Include(x => x.House)
+                    .ToList();
 
                 return new AllFlatsDto
                 {
@@ -107,7 +109,7 @@ namespace Services.Sql.Flat
                 if (flat is null)
                     return new FlatByIdDto
                     {
-                        Errors = new []{ $"Flat not found" },
+                        Errors = new[] { $"Flat not found" },
                         Status = false,
                         ServerError = false
                     };
@@ -151,6 +153,9 @@ namespace Services.Sql.Flat
                         Status = false
                     };
 
+                //Do not create separate Flat objects with same Id.
+                //If you will make another Flat object with same Id than the
+                //EF will let you know that you have to go and study more about EF
                 flat = flat.UpdateFlatDtoToFlat(updateFlatDto);
 
                 _dbContext.Flats.Update(flat);
@@ -177,7 +182,7 @@ namespace Services.Sql.Flat
         {
             try
             {
-                BBIT.Domain.Entities.Flat.Flat flat = _dbContext.Flats.FirstOrDefault(x => x.Id == Guid.Parse(id));
+                var flat = _dbContext.Flats.FirstOrDefault(x => x.Id == Guid.Parse(id));
 
                 if (flat is null)
                     return new DeleteFlatDto
@@ -186,6 +191,15 @@ namespace Services.Sql.Flat
                         Errors = new[] { "Item not found." }
                     };
 
+                var listOfFlatTenants = _dbContext.Tenants
+                    .Include(x => x.Flat)
+                    .Include(x => x.Flat.House)
+                    .Where(x => x.Flat != null && x.Flat.Id == flat.Id)
+                    .ToList();
+
+                listOfFlatTenants.ForEach(x => x.Flat = null);
+
+                _dbContext.Tenants.UpdateRange(listOfFlatTenants);
                 _dbContext.Flats.Remove(flat);
                 await _dbContext.SaveChangesAsync();
 

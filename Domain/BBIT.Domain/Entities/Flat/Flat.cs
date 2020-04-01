@@ -12,14 +12,12 @@ namespace BBIT.Domain.Entities.Flat
 
         public int AmountOfRooms { get; set; }
 
-        public int AmountOfResidents { get; set; }
+        public int AmountOfTenants { get; set; }
 
         public double TotalArea { get; set; }
 
         public double HouseRoom { get; set; }
 
-        public House.House House { get; set; }
-
-        public ICollection<FlatResident> FlatResidents { get; set; }
+        public virtual House.House House { get; set; }
     }
 }

@@ -124,10 +124,10 @@ namespace BBIT.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("AmountOfResidents")
+                    b.Property<int>("AmountOfRooms")
                         .HasColumnType("int");
 
-                    b.Property<int>("AmountOfRooms")
+                    b.Property<int>("AmountOfTenants")
                         .HasColumnType("int");
 
                     b.Property<int>("FlatNumber")
@@ -150,21 +150,6 @@ namespace BBIT.DAL.Migrations
                     b.HasIndex("HouseId");
 
                     b.ToTable("Flats");
-                });
-
-            modelBuilder.Entity("BBIT.Domain.Entities.Flat.FlatResident", b =>
-                {
-                    b.Property<Guid>("FlatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ResidentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("FlatId", "ResidentId");
-
-                    b.HasIndex("ResidentId");
-
-                    b.ToTable("FlatResidents");
                 });
 
             modelBuilder.Entity("BBIT.Domain.Entities.House.House", b =>
@@ -193,7 +178,7 @@ namespace BBIT.DAL.Migrations
                     b.ToTable("Houses");
                 });
 
-            modelBuilder.Entity("BBIT.Domain.Entities.Resident.Resident", b =>
+            modelBuilder.Entity("BBIT.Domain.Entities.Tenant.Tenant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -224,7 +209,7 @@ namespace BBIT.DAL.Migrations
 
                     b.HasIndex("FlatId");
 
-                    b.ToTable("Residents");
+                    b.ToTable("Tenants");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -376,22 +361,7 @@ namespace BBIT.DAL.Migrations
                         .HasForeignKey("HouseId");
                 });
 
-            modelBuilder.Entity("BBIT.Domain.Entities.Flat.FlatResident", b =>
-                {
-                    b.HasOne("BBIT.Domain.Entities.Flat.Flat", "Flat")
-                        .WithMany("FlatResidents")
-                        .HasForeignKey("FlatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BBIT.Domain.Entities.Resident.Resident", "Resident")
-                        .WithMany("FlatResidents")
-                        .HasForeignKey("ResidentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BBIT.Domain.Entities.Resident.Resident", b =>
+            modelBuilder.Entity("BBIT.Domain.Entities.Tenant.Tenant", b =>
                 {
                     b.HasOne("BBIT.Domain.Entities.Flat.Flat", "Flat")
                         .WithMany()

@@ -63,18 +63,18 @@ namespace BBIT.WEB.Service.Controllers.V1
             }
 
             string itemUrl =
-                $"{configuration["ApplicationHostAddress"]}/{ApiRoutes.HouseRoute.HouseV1}/{creationResult.Id}";
+                $"{configuration["ApplicationHostAddress"]}/{ApiRoutes.HouseRoute.HouseV1}/{creationResult.House.Id}";
 
             return Created(
                 new Uri(itemUrl),
                 new SuccessHouseCreationResponse
                 {
-                    Id = creationResult.Id,
-                    HouseNumber = creationResult.HouseNumber,
-                    StreetName = creationResult.StreetName,
-                    City = creationResult.City,
-                    Country = creationResult.Country,
-                    PostCode = creationResult.PostCode
+                    Id = creationResult.House.Id,
+                    HouseNumber = creationResult.House.HouseNumber,
+                    StreetName = creationResult.House.StreetName,
+                    City = creationResult.House.City,
+                    Country = creationResult.House.Country,
+                    PostCode = creationResult.House.PostCode
                 });
         }
 

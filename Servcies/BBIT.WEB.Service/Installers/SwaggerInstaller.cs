@@ -16,7 +16,7 @@ namespace BBIT.WEB.Service.Installers
             {
                 x.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "BBIT Auth Service",
+                    Title = "BBIT Data API",
                     Version = "v1",
                     Description = "BBIT Data API",
                     Contact = new OpenApiContact

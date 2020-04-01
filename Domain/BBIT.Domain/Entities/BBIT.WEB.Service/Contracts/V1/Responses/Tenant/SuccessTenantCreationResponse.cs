@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using BBIT.Domain.Entities.Flat;
+using BBIT.Domain.Entities.DTO.Flat;
 
-namespace BBIT.Domain.Entities.Resident
+namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant
 {
-    [Table("Residents")]
-    public class Resident : BaseEntity.BaseEntity
+    public class SuccessTenantCreationResponse
     {
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
         public string Surname { get; set; }
@@ -20,8 +20,6 @@ namespace BBIT.Domain.Entities.Resident
 
         public string Email { get; set; }
 
-        public Flat.Flat Flat { get; set; }
-
-        public ICollection<FlatResident> FlatResidents { get; set; }
+        public FlatDto Flat { get; set; }
     }
 }

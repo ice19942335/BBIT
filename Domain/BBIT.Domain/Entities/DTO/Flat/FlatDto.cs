@@ -12,7 +12,7 @@ namespace BBIT.Domain.Entities.DTO.Flat
 
         public int AmountOfRooms { get; set; }
 
-        public int AmountOfResidents { get; set; }
+        public int AmountOfTenants { get; set; }
 
         public double TotalArea { get; set; }
 

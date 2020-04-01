@@ -67,27 +67,27 @@ namespace BBIT.WEB.Service.Controllers.V1
             }
 
             string itemUrl =
-                $"{configuration["ApplicationHostAddress"]}/{ApiRoutes.FlatRoute.FlatV1}/{creationResult.Id}";
+                $"{configuration["ApplicationHostAddress"]}/{ApiRoutes.FlatRoute.FlatV1}/{creationResult.Flat.Id}";
 
             return Created(
                 new Uri(itemUrl),
                 new SuccessFlatCreationResponse
                 {
-                    Id = creationResult.Id,
-                    FlatNumber = creationResult.FlatNumber,
-                    Floor = creationResult.Floor,
-                    AmountOfRooms = creationResult.AmountOfRooms,
-                    AmountOfResidents = creationResult.AmountOfResidents,
-                    TotalArea = creationResult.TotalArea,
-                    HouseRoom = creationResult.HouseRoom,
+                    Id = creationResult.Flat.Id,
+                    FlatNumber = creationResult.Flat.FlatNumber,
+                    Floor = creationResult.Flat.Floor,
+                    AmountOfRooms = creationResult.Flat.AmountOfRooms,
+                    AmountOfResidents = creationResult.Flat.AmountOfTenants,
+                    TotalArea = creationResult.Flat.TotalArea,
+                    HouseRoom = creationResult.Flat.HouseRoom,
                     House = new HouseDto
                     {
-                        Id = creationResult.House.Id,
-                        HouseNumber = creationResult.House.HouseNumber,
-                        StreetName = creationResult.House.StreetName,
-                        City = creationResult.House.City,
-                        Country = creationResult.House.Country,
-                        PostCode = creationResult.House.PostCode
+                        Id = creationResult.Flat.House.Id,
+                        HouseNumber = creationResult.Flat.House.HouseNumber,
+                        StreetName = creationResult.Flat.House.StreetName,
+                        City = creationResult.Flat.House.City,
+                        Country = creationResult.Flat.House.Country,
+                        PostCode = creationResult.Flat.House.PostCode
                     }
                 });
         }
@@ -95,7 +95,7 @@ namespace BBIT.WEB.Service.Controllers.V1
         /// <summary>
         /// All Flats endpoint. Returns list of Flats
         /// </summary>
-        /// <response code="200">Returns Flats list</response>
+        /// <response code="200">Returns list of Flats</response>
         /// <response code="400">Failed request returns status and list of errors</response>
         /// <response code="500">Server error</response>
         [AllowAnonymous]
@@ -217,7 +217,6 @@ namespace BBIT.WEB.Service.Controllers.V1
         /// <response code="500">Server error</response>
         [ProducesResponseType(typeof(FailedDeleteFlatResponse), 400)]
         [HttpDelete(ApiRoutes.FlatRoute.FlatByIdV1)]
-        [AllowAnonymous]
         public async Task<IActionResult> DeleteFlat(string id)
         {
             var deleteRequestResult = await _flatService.DeleteFlatAsync(id);

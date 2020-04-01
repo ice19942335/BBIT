@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Text;
 using BBIT.Domain.Entities.DTO.Flat;
 
-namespace BBIT.Domain.Entities.DTO.Resident
+namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant
 {
-    public class ResidentDto
+    public class SuccessTenantByIdResponse
     {
         public string Id { get; set; }
 
