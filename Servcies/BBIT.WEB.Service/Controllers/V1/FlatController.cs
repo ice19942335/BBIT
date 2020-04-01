@@ -217,7 +217,6 @@ namespace BBIT.WEB.Service.Controllers.V1
         /// <response code="500">Server error</response>
         [ProducesResponseType(typeof(FailedDeleteFlatResponse), 400)]
         [HttpDelete(ApiRoutes.FlatRoute.FlatByIdV1)]
-        [AllowAnonymous]
         public async Task<IActionResult> DeleteFlat(string id)
         {
             var deleteRequestResult = await _flatService.DeleteFlatAsync(id);
