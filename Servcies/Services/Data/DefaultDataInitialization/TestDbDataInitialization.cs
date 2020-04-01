@@ -20,6 +20,9 @@ namespace Services.Data.DefaultDataInitialization
 
         public async Task Initialize()
         {
+            if(_dbContext.Houses.Any())
+                return;
+
             //Call order is important
             await AddHouses();
             await AddFlatsToTheHouses();

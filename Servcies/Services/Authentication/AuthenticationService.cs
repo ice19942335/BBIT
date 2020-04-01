@@ -75,7 +75,7 @@ namespace Services.Authentication
 
             if (user is null)
             {
-                _logger.LogWarning($"[AUTH FAILED] Email: {email}");
+                _logger.LogWarning($"[AUTH FAILED] Username: {email}");
                 return new AuthenticationDto { Errors = new[] { "User does not exist" }, CriticalError = false };
             }
 
@@ -83,7 +83,7 @@ namespace Services.Authentication
 
             if (!userHasValidPassword)
             {
-                _logger.LogWarning($"[AUTH FAILED] Email: {email}");
+                _logger.LogWarning($"[AUTH FAILED] Username: {email}");
                 return new AuthenticationDto { Errors = new[] { "Password is incorrect" }, CriticalError = false };
             }
 

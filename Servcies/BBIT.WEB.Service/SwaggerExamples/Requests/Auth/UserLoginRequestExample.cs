@@ -9,7 +9,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Requests.Auth
         {
             return new UserLoginRequest
             {
-                Email = "sam.atkins@gmail.com",
+                Username = "sam.atkins@gmail.com",
                 Password = "Password123!"
             };
         }
