@@ -18,6 +18,6 @@ namespace BBIT.Domain.Entities.Flat
 
         public double HouseRoom { get; set; }
 
-        public House.House House { get; set; }
+        public virtual House.House House { get; set; }
     }
 }

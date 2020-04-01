@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BBIT.DAL.Migrations
 {
     [DbContext(typeof(BBITContext))]
-    [Migration("20200331161652_Initialization")]
+    [Migration("20200401103153_Initialization")]
     partial class Initialization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

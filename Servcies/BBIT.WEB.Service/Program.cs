@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
+using Services.Data.DefaultDataInitialization;
 using Services.Data.DefaultDataInitialization.Auth;
 
 namespace BBIT.WEB.Service
@@ -28,6 +29,13 @@ namespace BBIT.WEB.Service
 
                 var identityInitializer = new IdentityInitializer(dbContext, userManager, roleManager);
                 await identityInitializer.Initialize();
+
+                var env = serviceScope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
+                if (env.IsDevelopment())
+                {
+                    var testDbDataInitialization = new TestDbDataInitialization(dbContext);
+                    await testDbDataInitialization.Initialize();
+                }
             }
 
             await host.RunAsync();

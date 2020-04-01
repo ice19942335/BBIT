@@ -17,7 +17,7 @@ namespace BBIT.Domain.Entities.Tenant
         public string PhoneNumber { get; set; }
 
         public string Email { get; set; }
-
-        public Flat.Flat Flat { get; set; }
+        
+        public virtual Flat.Flat Flat { get; set; }
     }
 }
