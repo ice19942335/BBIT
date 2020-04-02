@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Services.Mappers.House;
 using Services.StaticHelpers;
 
-namespace BBIT.WEB.Service.Controllers.V1
+namespace BBIT.WEB.Service.Controllers.V1.House
 {
     [EnableCors]
     [Produces("application/json")]

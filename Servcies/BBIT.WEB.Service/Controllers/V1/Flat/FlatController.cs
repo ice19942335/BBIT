@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Flat;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Flat;
-using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House;
 using BBIT.Domain.Entities.DTO.House;
 using Interfaces.Flat;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
 using Services.Mappers.Flat;
 using Services.StaticHelpers;
 
-namespace BBIT.WEB.Service.Controllers.V1
+namespace BBIT.WEB.Service.Controllers.V1.Flat
 {
     [EnableCors]
     [Produces("application/json")]

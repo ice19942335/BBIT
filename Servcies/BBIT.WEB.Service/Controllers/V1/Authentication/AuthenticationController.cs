@@ -7,7 +7,7 @@ using Interfaces.Authentication;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BBIT.WEB.Service.Controllers.V1
+namespace BBIT.WEB.Service.Controllers.V1.Authentication
 {
     [EnableCors]
     [Produces("application/json")]
