@@ -37,15 +37,13 @@ namespace Services.Sql.Tenant
 
                 BBIT.Domain.Entities.Tenant.Tenant tenant = CreateNewTenant(createTenantDto);
 
-                if (createTenantDto.FlatId != null)
-                {
-                    var flat = GetFlatById(createTenantDto.FlatId);
+                var flat = GetFlatById(createTenantDto.FlatId);
 
-                    flat.AmountOfTenants++;
+                flat.AmountOfTenants++;
 
-                    tenant.Flat = flat;
-                }
+                tenant.Flat = flat;
 
+                _dbContext.Flats.Update(flat);
 
                 await _dbContext.Tenants.AddAsync(tenant);
                 await _dbContext.SaveChangesAsync();
@@ -223,7 +221,9 @@ namespace Services.Sql.Tenant
         {
             try
             {
-                var tenant = _dbContext.Tenants.FirstOrDefault(x => x.Id == Guid.Parse(id));
+                var tenant = _dbContext.Tenants
+                    .Include(x => x.Flat)
+                    .FirstOrDefault(x => x.Id == Guid.Parse(id));
 
                 if (tenant is null)
                     return new DeleteTenantDto
@@ -231,6 +231,8 @@ namespace Services.Sql.Tenant
                         Status = false,
                         Errors = new[] { $"Tenant with Id: '{id}' not found." }
                     };
+
+                tenant.Flat.AmountOfTenants--;
 
                 _dbContext.Tenants.Remove(tenant);
                 await _dbContext.SaveChangesAsync();

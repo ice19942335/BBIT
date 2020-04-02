@@ -34,32 +34,6 @@ namespace BBIT.WEB.Service.Controllers.V1
         /// <summary>
         /// Tenant creation endpoint. Creating new Tenant in DB and returns created item
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /With NewFlatId
-        ///     {
-        ///         "flatId": "4644e41b-c19e-4f24-96f3-013103030c5a",
-        ///         "name": "Name",
-        ///         "surname": "Surname",
-        ///         "personalCode": "12345",
-        ///         "dateOfBirth": "2020-03-30T00:00:00+01:00",
-        ///         "phoneNumber": "+37112345678",
-        ///         "email": "email@mail.com"
-        ///     }
-        ///
-        ///     POST /WithOut NewFlatId
-        ///     {
-        ///         "flatId": null,
-        ///         "name": "Name",
-        ///         "surname": "Surname",
-        ///         "personalCode": "12345",
-        ///         "dateOfBirth": "2020-03-30T00:00:00+01:00",
-        ///         "phoneNumber": "+37112345678",
-        ///         "email": "email@mail.com"
-        ///     }
-        /// 
-        /// </remarks>
         /// <response code="201">Success-full creation returns created tenant</response>
         /// <response code="400">Failed creation returns status and list of errors</response>
         /// <response code="404">House or Flat not found</response>
