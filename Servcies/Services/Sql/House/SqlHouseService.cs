@@ -157,22 +157,22 @@ namespace Services.Sql.House
                     return new DeleteHouseDto
                     {
                         Status = false,
-                        Errors = new[] { "Item not found." }
+                        Errors = new[] { "House not found." }
                     };
 
-                var houseFlats = _dbContext.Flats
+                var flatsToDelete = _dbContext.Flats
                     .Include(x => x.House)
                     .Where(x => x.House.Id == house.Id)
                     .ToList();
 
-                var tenantsToUpdate = _dbContext.Tenants
+                var tenantsToDelete = _dbContext.Tenants
                     .Include(x => x.Flat)
                     .Include(x => x.Flat.House)
                     .Where(x => x.Flat.House.Id == house.Id)
                     .ToList();
 
-                _dbContext.Tenants.UpdateRange(tenantsToUpdate);
-                _dbContext.Flats.RemoveRange(houseFlats);
+                _dbContext.Tenants.RemoveRange(tenantsToDelete);
+                _dbContext.Flats.RemoveRange(flatsToDelete);
                 _dbContext.Houses.Remove(house);
                 await _dbContext.SaveChangesAsync();
 

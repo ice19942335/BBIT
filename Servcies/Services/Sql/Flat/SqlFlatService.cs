@@ -188,18 +188,16 @@ namespace Services.Sql.Flat
                     return new DeleteFlatDto
                     {
                         Status = false,
-                        Errors = new[] { "Item not found." }
+                        Errors = new[] { "Flat not found." }
                     };
 
-                var listOfFlatTenants = _dbContext.Tenants
+                var tenantsToDelete = _dbContext.Tenants
                     .Include(x => x.Flat)
                     .Include(x => x.Flat.House)
                     .Where(x => x.Flat != null && x.Flat.Id == flat.Id)
                     .ToList();
 
-                listOfFlatTenants.ForEach(x => x.Flat = null);
-
-                _dbContext.Tenants.UpdateRange(listOfFlatTenants);
+                _dbContext.Tenants.RemoveRange(tenantsToDelete);
                 _dbContext.Flats.Remove(flat);
                 await _dbContext.SaveChangesAsync();
 
