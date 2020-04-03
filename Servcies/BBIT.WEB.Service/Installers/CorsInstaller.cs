@@ -7,12 +7,23 @@ namespace BBIT.WEB.Service.Installers
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddCors(x =>
+            //Allow any origin + credentials
+            //services.AddCors(options =>
+            //{
+            //    options.AddDefaultPolicy(builder =>
+            //        builder.SetIsOriginAllowed(_ => true)
+            //            .AllowAnyMethod()
+            //            .AllowAnyHeader()
+            //            .AllowCredentials());
+            //});
+
+            services.AddCors(options =>
             {
-                x.AddDefaultPolicy(builder =>
-                    builder.AllowAnyOrigin()
+                options.AddDefaultPolicy(builder => 
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
                         .AllowAnyHeader()
-                        .AllowAnyMethod());
+                        .AllowCredentials());
             });
         }
     }
