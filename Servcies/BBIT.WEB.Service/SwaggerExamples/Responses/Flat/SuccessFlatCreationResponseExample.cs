@@ -15,7 +15,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat
             return new SuccessFlatCreationResponse
             {
                 Id = "624ac106-e3c0-4df3-bca9-03015ea93987",
-                FlatNumber = 45,
+                FlatNumber = "1",
                 Floor = 15,
                 AmountOfRooms = 5,
                 AmountOfResidents = 4,
@@ -24,7 +24,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat
                 House = new HouseDto
                 {
                     Id = "624ac106-e3c0-4df3-bca9-03015ea93987",
-                    HouseNumber = 56,
+                    HouseNumber = "1",
                     StreetName = "High street",
                     City = "London",
                     Country = "United Kingdom",

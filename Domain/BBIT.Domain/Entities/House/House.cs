@@ -5,7 +5,7 @@ namespace BBIT.Domain.Entities.House
     [Table("Houses")]
     public class House : BaseEntity.BaseEntity
     {
-        public int HouseNumber { get; set; }
+        public string HouseNumber { get; set; }
 
         public string StreetName { get; set; }
 

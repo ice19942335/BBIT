@@ -159,7 +159,9 @@ namespace BBIT.WEB.Service.Controllers.V1.House
         [ProducesResponseType(typeof(FailedUpdateHouseResponse), 400)]
         public async Task<IActionResult> UpdateHouse([FromBody] UpdateHouseRequest request)
         {
-            //Checking all props have values
+            if (request is null)
+                return BadRequest("Request body can not be null");
+
             if (PropertyHelper.IsAnyPropIsNull(request))
                 return BadRequest(
                     new FailedHouseCreationResponse

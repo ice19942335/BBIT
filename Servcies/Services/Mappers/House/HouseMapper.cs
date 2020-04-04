@@ -117,19 +117,18 @@ namespace Services.Mappers.House
 
         #region UpdateHouseDtoToHouse
 
-        public static BBIT.Domain.Entities.House.House UpdateHouseDtoToHouse(this UpdateHouseDto updateHouseDto) =>
-            ConvertUpdateHouseDtoToHouse(updateHouseDto);
-        private static BBIT.Domain.Entities.House.House ConvertUpdateHouseDtoToHouse(UpdateHouseDto updateHouseDto)
+        public static BBIT.Domain.Entities.House.House UpdateHouseDtoToHouse(this UpdateHouseDto updateHouseDto, ref BBIT.Domain.Entities.House.House house) =>
+            ConvertUpdateHouseDtoToHouse(updateHouseDto, ref house);
+        private static BBIT.Domain.Entities.House.House ConvertUpdateHouseDtoToHouse(UpdateHouseDto updateHouseDto, ref BBIT.Domain.Entities.House.House house)
         {
-            return new BBIT.Domain.Entities.House.House
-            {
-                Id = Guid.Parse(updateHouseDto.House.Id),
-                HouseNumber = updateHouseDto.House.HouseNumber,
-                StreetName = updateHouseDto.House.StreetName,
-                City = updateHouseDto.House.City,
-                Country = updateHouseDto.House.Country,
-                PostCode = updateHouseDto.House.PostCode
-            };
+            house.Id = Guid.Parse(updateHouseDto.House.Id);
+            house.HouseNumber = updateHouseDto.House.HouseNumber;
+            house.StreetName = updateHouseDto.House.StreetName;
+            house.City = updateHouseDto.House.City;
+            house.Country = updateHouseDto.House.Country;
+            house.PostCode = updateHouseDto.House.PostCode;
+
+            return house;
         }
 
         #endregion
@@ -190,7 +189,7 @@ namespace Services.Mappers.House
                 City = houseDto.City,
                 Country = houseDto.Country,
                 PostCode = houseDto.PostCode
-            };  
+            };
         }
 
         #endregion

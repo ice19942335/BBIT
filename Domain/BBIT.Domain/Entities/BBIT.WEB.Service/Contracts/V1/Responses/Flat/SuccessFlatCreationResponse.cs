@@ -6,7 +6,7 @@ namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Flat
     {
         public string Id { get; set; }
 
-        public int FlatNumber { get; set; }
+        public string FlatNumber { get; set; }
 
         public int Floor { get; set; }
 

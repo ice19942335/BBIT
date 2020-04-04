@@ -15,7 +15,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Requests.Flat
             return new CreateFlatRequest
             {
                 HouseId = "40e5ba94-57ee-4f1b-980d-0b9f9273e008",
-                FlatNumber = 45,
+                FlatNumber = "1",
                 Floor = 15,
                 AmountOfRooms = 5,
                 TotalArea = 300,

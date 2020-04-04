@@ -125,15 +125,14 @@ namespace Services.Sql.House
                         Status = false
                     };
 
-                house = updateHouseDto.UpdateHouseDtoToHouse();
-
+                house = updateHouseDto.UpdateHouseDtoToHouse(ref house);
                 _dbContext.Houses.Update(house);
                 await _dbContext.SaveChangesAsync();
 
-                var newUpdateHouseDto = house.HouseToUpdateHouseDto();
-                newUpdateHouseDto.Status = true;
+                var updatedHouseDto = house.HouseToUpdateHouseDto();
+                updatedHouseDto.Status = true;
 
-                return newUpdateHouseDto;
+                return updatedHouseDto;
             }
             catch (Exception e)
             {

@@ -2,7 +2,7 @@
 {
     public class CreateHouseRequest
     {
-        public int HouseNumber { get; set; }
+        public string HouseNumber { get; set; }
 
         public string StreetName { get; set; }
 
