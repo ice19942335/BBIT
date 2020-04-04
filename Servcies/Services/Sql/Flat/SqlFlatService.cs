@@ -25,21 +25,21 @@ namespace Services.Sql.Flat
         {
             try
             {
-                var flat = _dbContext.Flats.Include(x => x.House).FirstOrDefault(x => x.FlatNumber == createFlatDto.Flat.FlatNumber && x.House.Id == Guid.Parse(createFlatDto.Flat.House.Id));
+                var flat = _dbContext.Flats.Include(x => x.House).FirstOrDefault(x => x.FlatNumber == createFlatDto.FlatNumber && x.House.Id == Guid.Parse(createFlatDto.HouseId));
                 if (flat != null)
                     return new CreateFlatDto
                     {
-                        Errors = new[] { $"Flat with number: '{createFlatDto.Flat.FlatNumber}' in house: '{flat.House.Country}, {flat.House.City}, {flat.House.StreetName}, {flat.House.HouseNumber}' already exist" },
+                        Errors = new[] { $"Flat with number: '{createFlatDto.FlatNumber}' in house: '{flat.House.Country}, {flat.House.City}, {flat.House.StreetName}, {flat.House.HouseNumber}' already exist" },
                         Status = false,
                         ServerError = false
                     };
 
-                var house = _dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(createFlatDto.Flat.House.Id));
+                var house = _dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(createFlatDto.HouseId));
 
                 if (house is null)
                     return new CreateFlatDto
                     {
-                        Errors = new[] { $"House with Id: '{createFlatDto.Flat.House.Id}' not found" },
+                        Errors = new[] { $"House with Id: '{createFlatDto.HouseId}' not found" },
                         Status = false,
                         ServerError = false
                     };
@@ -136,15 +136,9 @@ namespace Services.Sql.Flat
         {
             try
             {
-                if (_dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.Flat.House.Id)) is null)
-                    return new UpdateFlatDto
-                    {
-                        Errors = new[] { "House of this flat not exist anymore." },
-                        Status = false
-                    };
-
-                BBIT.Domain.Entities.Flat.Flat flat =
-                    _dbContext.Flats.FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.Flat.Id));
+                var flat = _dbContext.Flats
+                        .Include(x => x.House)
+                        .FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.Flat.Id));
 
                 if (_dbContext.Flats.FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.Flat.Id)) is null)
                     return new UpdateFlatDto
@@ -153,10 +147,8 @@ namespace Services.Sql.Flat
                         Status = false
                     };
 
-                //Do not create separate Flat objects with same Id.
-                //If you will make another Flat object with same Id than the
-                //EF will let you know that you have to go and study more about EF
-                flat = flat.UpdateFlatDtoToFlat(updateFlatDto);
+                //Can not make Flat duplicate because of EF Core
+                flat = flat.FlatDtoToFlat(updateFlatDto);
 
                 _dbContext.Flats.Update(flat);
                 await _dbContext.SaveChangesAsync();
@@ -188,18 +180,16 @@ namespace Services.Sql.Flat
                     return new DeleteFlatDto
                     {
                         Status = false,
-                        Errors = new[] { "Item not found." }
+                        Errors = new[] { "Flat not found." }
                     };
 
-                var listOfFlatTenants = _dbContext.Tenants
+                var tenantsToDelete = _dbContext.Tenants
                     .Include(x => x.Flat)
                     .Include(x => x.Flat.House)
                     .Where(x => x.Flat != null && x.Flat.Id == flat.Id)
                     .ToList();
 
-                listOfFlatTenants.ForEach(x => x.Flat = null);
-
-                _dbContext.Tenants.UpdateRange(listOfFlatTenants);
+                _dbContext.Tenants.RemoveRange(tenantsToDelete);
                 _dbContext.Flats.Remove(flat);
                 await _dbContext.SaveChangesAsync();
 
@@ -216,5 +206,6 @@ namespace Services.Sql.Flat
                 };
             }
         }
+
     }
 }

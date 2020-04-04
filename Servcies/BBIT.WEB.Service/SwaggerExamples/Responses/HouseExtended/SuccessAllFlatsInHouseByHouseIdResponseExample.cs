@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Flat;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.HouseExtended;
 using BBIT.Domain.Entities.DTO.Flat;
 using BBIT.Domain.Entities.DTO.House;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat
+namespace BBIT.WEB.Service.SwaggerExamples.Responses.HouseExtended
 {
-    public class SuccessAllFlatResponseExample : IExamplesProvider<SuccessAllFlatResponse>
+    public class SuccessAllFlatsInHouseByHouseIdResponseExample : IExamplesProvider<SuccessAllFlatsInHouseByHouseIdResponse>
     {
-        public SuccessAllFlatResponse GetExamples()
+        public SuccessAllFlatsInHouseByHouseIdResponse GetExamples()
         {
-            return new SuccessAllFlatResponse
+            return new SuccessAllFlatsInHouseByHouseIdResponse
             {
+                Status = true,
                 Flats = new[]
                 {
                     new FlatDto
@@ -75,7 +76,6 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat
                         }
                     },
                 },
-                Status = true
             };
         }
     }

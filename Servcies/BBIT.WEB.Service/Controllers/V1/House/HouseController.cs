@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.House;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.HouseExtended;
 using Interfaces.House;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -13,7 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Services.Mappers.House;
 using Services.StaticHelpers;
 
-namespace BBIT.WEB.Service.Controllers.V1
+namespace BBIT.WEB.Service.Controllers.V1.House
 {
     [EnableCors]
     [Produces("application/json")]
@@ -38,6 +39,9 @@ namespace BBIT.WEB.Service.Controllers.V1
         [HttpPost(ApiRoutes.HouseRoute.HouseV1)]
         public async Task<IActionResult> CreateHouse([FromServices] IConfiguration configuration, [FromBody] CreateHouseRequest request)
         {
+            if (request is null)
+                return BadRequest("Request should have a valid data.");
+
             //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNull(request))
                 return BadRequest(
@@ -159,7 +163,9 @@ namespace BBIT.WEB.Service.Controllers.V1
         [ProducesResponseType(typeof(FailedUpdateHouseResponse), 400)]
         public async Task<IActionResult> UpdateHouse([FromBody] UpdateHouseRequest request)
         {
-            //Checking all props have values
+            if (request is null)
+                return BadRequest("Request should have a valid data.");
+
             if (PropertyHelper.IsAnyPropIsNull(request))
                 return BadRequest(
                     new FailedHouseCreationResponse
@@ -222,6 +228,43 @@ namespace BBIT.WEB.Service.Controllers.V1
             }
 
             return NoContent();
+        }
+
+        /// <summary>
+        /// Flats in house by house Id. Returns list of Flats in particular house.
+        /// </summary>
+        /// <response code="200">Returns list of Flats in particular house</response>
+        /// <response code="400">Returns status and list of errors</response>
+        /// <response code="404">House not found.</response>
+        /// <response code="500">Server error</response>
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(SuccessAllFlatsInHouseByHouseIdResponse), 200)]
+        [ProducesResponseType(typeof(FailedAllFlatsInHouseByHouseIdResponse), 400)]
+        [HttpGet(ApiRoutes.HouseRoute.FlatsInHouseById)]
+        public IActionResult GetAllFlatsInHouseByHouseId(string id)
+        {
+            var flatsInHouseResult = _houseService.GetHouseFlats(id);
+
+            if (!flatsInHouseResult.Status)
+            {
+                if (flatsInHouseResult.ServerError)
+                    return StatusCode(500);
+
+                if (flatsInHouseResult.ItemNotFound)
+                    return NotFound("House not found.");
+
+                return BadRequest(new FailedAllFlatsInHouseByHouseIdResponse
+                {
+                    Errors = flatsInHouseResult.Errors,
+                    Status = flatsInHouseResult.Status
+                });
+            }
+
+            return Ok(new SuccessAllFlatsInHouseByHouseIdResponse
+            {
+                Status = flatsInHouseResult.Status,
+                Flats = flatsInHouseResult.Flats
+            });
         }
     }
 }

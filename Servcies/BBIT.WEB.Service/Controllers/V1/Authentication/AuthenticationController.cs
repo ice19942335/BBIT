@@ -7,7 +7,7 @@ using Interfaces.Authentication;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BBIT.WEB.Service.Controllers.V1
+namespace BBIT.WEB.Service.Controllers.V1.Authentication
 {
     [EnableCors]
     [Produces("application/json")]
@@ -60,7 +60,7 @@ namespace BBIT.WEB.Service.Controllers.V1
         [ProducesResponseType(typeof(AuthFailedResponse), 400)]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest request)
         {
-            if (request.Email is null || request.Password is null)
+            if (request.Username is null || request.Password is null)
                 return BadRequest(new AuthFailedResponse
                 {
                     Errors = new[] { "Please make sure you send correct request, field can't be null" },
@@ -70,7 +70,7 @@ namespace BBIT.WEB.Service.Controllers.V1
             if (!ModelState.IsValid)
                 return BadRequest(new AuthFailedResponse { Errors = ModelState.Values.SelectMany(x => x.Errors.Select(xx => xx.ErrorMessage)) });
 
-            var authResponse = await _authenticationService.LoginAsync(request.Email, request.Password);
+            var authResponse = await _authenticationService.LoginAsync(request.Username, request.Password);
 
             if (!authResponse.Success)
                 return BadRequest(new AuthFailedResponse { Errors = authResponse.Errors, CriticalError = authResponse.CriticalError });

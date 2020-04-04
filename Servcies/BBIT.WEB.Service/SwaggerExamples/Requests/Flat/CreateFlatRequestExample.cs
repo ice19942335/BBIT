@@ -14,20 +14,12 @@ namespace BBIT.WEB.Service.SwaggerExamples.Requests.Flat
         {
             return new CreateFlatRequest
             {
-                FlatNumber = 45,
-                Floor = 15,
+                HouseId = "40e5ba94-57ee-4f1b-980d-0b9f9273e008",
+                FlatNumber = "1",
+                Level = 15,
                 AmountOfRooms = 5,
                 TotalArea = 300,
-                HouseRoom = 400,
-                House = new HouseDto
-                {
-                    Id = "624ac106-e3c0-4df3-bca9-03015ea93987",
-                    HouseNumber = 56,
-                    StreetName = "High street",
-                    City = "London",
-                    Country = "United Kingdom",
-                    PostCode = "E1 7AD"
-                }
+                HouseRoom = 400
             };
         }
     }

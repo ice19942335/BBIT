@@ -6,9 +6,9 @@ namespace BBIT.Domain.Entities.DTO.Flat
     {
         public string Id { get; set; }
 
-        public int FlatNumber { get; set; }
+        public string FlatNumber { get; set; }
 
-        public int Floor { get; set; }
+        public int Level { get; set; }
 
         public int AmountOfRooms { get; set; }
 

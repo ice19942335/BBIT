@@ -42,8 +42,8 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Tenant
                         Flat = new FlatDto
                         {
                             Id = "ce71e57d-c18c-47ce-94a5-2363cb187a5a",
-                            FlatNumber = 45,
-                            Floor = 15,
+                            FlatNumber = "1",
+                            Level = 15,
                             AmountOfRooms = 5,
                             AmountOfTenants = 0,
                             TotalArea = 300,
@@ -51,7 +51,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Tenant
                             House = new HouseDto
                             {
                                 Id = "77adbe2d-6f73-48ac-bf74-29167fbb89db",
-                                HouseNumber = 50,
+                                HouseNumber = "1",
                                 StreetName = "High street",
                                 City = "London",
                                 Country = "United Kingdom",
@@ -71,8 +71,8 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Tenant
                         Flat = new FlatDto
                         {
                             Id = "ce71e57d-c18c-47ce-94a5-2363cb187a5a",
-                            FlatNumber = 45,
-                            Floor = 15,
+                            FlatNumber = "1",
+                            Level = 15,
                             AmountOfRooms = 5,
                             AmountOfTenants = 0,
                             TotalArea = 300,
@@ -80,7 +80,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Tenant
                             House = new HouseDto
                             {
                                 Id = "77adbe2d-6f73-48ac-bf74-29167fbb89db",
-                                HouseNumber = 50,
+                                HouseNumber = "1",
                                 StreetName = "High street",
                                 City = "London",
                                 Country = "United Kingdom",

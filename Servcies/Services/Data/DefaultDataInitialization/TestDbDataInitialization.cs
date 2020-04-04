@@ -20,6 +20,9 @@ namespace Services.Data.DefaultDataInitialization
 
         public async Task Initialize()
         {
+            if(_dbContext.Houses.Any())
+                return;
+
             //Call order is important
             await AddHouses();
             await AddFlatsToTheHouses();
@@ -33,7 +36,7 @@ namespace Services.Data.DefaultDataInitialization
                 new BBIT.Domain.Entities.House.House
                 {
                     Id = Guid.NewGuid(),
-                    HouseNumber = 1,
+                    HouseNumber = "1",
                     StreetName = "High Street",
                     City = "London",
                     Country = "United Kingdom",
@@ -42,7 +45,7 @@ namespace Services.Data.DefaultDataInitialization
                 new BBIT.Domain.Entities.House.House
                 {
                     Id = Guid.NewGuid(),
-                    HouseNumber = 2,
+                    HouseNumber = "2",
                     StreetName = "High Street",
                     City = "London",
                     Country = "United Kingdom",
@@ -51,7 +54,7 @@ namespace Services.Data.DefaultDataInitialization
                 new BBIT.Domain.Entities.House.House
                 {
                     Id = Guid.NewGuid(),
-                    HouseNumber = 3,
+                    HouseNumber = "3",
                     StreetName = "High Street",
                     City = "London",
                     Country = "United Kingdom",
@@ -67,107 +70,107 @@ namespace Services.Data.DefaultDataInitialization
         {
             var flats = new List<BBIT.Domain.Entities.Flat.Flat>()
             {
-                //House 1 flats
+                //House"1"flats
                 new BBIT.Domain.Entities.Flat.Flat
                 {
                     Id = Guid.NewGuid(),
-                    FlatNumber = 1,
+                    FlatNumber = "1",
                     Floor = 1,
                     AmountOfRooms = 5,
                     AmountOfTenants = 1,
                     TotalArea = 300,
                     HouseRoom = 400,
-                    House = _dbContext.Houses.First(x => x.HouseNumber == 1)
+                    House = _dbContext.Houses.First(x => x.HouseNumber == "1")
                 },
                 new BBIT.Domain.Entities.Flat.Flat
                 {
                     Id = Guid.NewGuid(),
-                    FlatNumber = 2,
+                    FlatNumber = "2",
                     Floor = 1,
                     AmountOfRooms = 5,
                     AmountOfTenants = 1,
                     TotalArea = 300,
                     HouseRoom = 400,
-                    House = _dbContext.Houses.First(x => x.HouseNumber == 1)
+                    House = _dbContext.Houses.First(x => x.HouseNumber == "1")
                 },
                 new BBIT.Domain.Entities.Flat.Flat
                 {
                     Id = Guid.NewGuid(),
-                    FlatNumber = 3,
+                    FlatNumber = "3",
                     Floor = 1,
                     AmountOfRooms = 5,
                     AmountOfTenants = 1,
                     TotalArea = 300,
                     HouseRoom = 400,
-                    House = _dbContext.Houses.First(x => x.HouseNumber == 1)
+                    House = _dbContext.Houses.First(x => x.HouseNumber == "1")
                 },
-                //House 2 flats
+                //House"2"flats
                 new BBIT.Domain.Entities.Flat.Flat
                 {
                     Id = Guid.NewGuid(),
-                    FlatNumber = 1,
+                    FlatNumber = "1",
                     Floor = 1,
                     AmountOfRooms = 5,
                     AmountOfTenants = 1,
                     TotalArea = 300,
                     HouseRoom = 400,
-                    House = _dbContext.Houses.First(x => x.HouseNumber == 2)
-                },
-                new BBIT.Domain.Entities.Flat.Flat
-                {
-                    Id = Guid.NewGuid(),
-                    FlatNumber = 2,
-                    Floor = 1,
-                    AmountOfRooms = 5,
-                    AmountOfTenants = 1,
-                    TotalArea = 300,
-                    HouseRoom = 400,
-                    House = _dbContext.Houses.First(x => x.HouseNumber == 2)
+                    House = _dbContext.Houses.First(x => x.HouseNumber == "2")
                 },
                 new BBIT.Domain.Entities.Flat.Flat
                 {
                     Id = Guid.NewGuid(),
-                    FlatNumber = 3,
+                    FlatNumber = "2",
                     Floor = 1,
                     AmountOfRooms = 5,
                     AmountOfTenants = 1,
                     TotalArea = 300,
                     HouseRoom = 400,
-                    House = _dbContext.Houses.First(x => x.HouseNumber == 2)
+                    House = _dbContext.Houses.First(x => x.HouseNumber == "2")
+                },
+                new BBIT.Domain.Entities.Flat.Flat
+                {
+                    Id = Guid.NewGuid(),
+                    FlatNumber = "3",
+                    Floor = 1,
+                    AmountOfRooms = 5,
+                    AmountOfTenants = 1,
+                    TotalArea = 300,
+                    HouseRoom = 400,
+                    House = _dbContext.Houses.First(x => x.HouseNumber == "2")
                 },
                 //House 3 flats
                 new BBIT.Domain.Entities.Flat.Flat
                 {
                     Id = Guid.NewGuid(),
-                    FlatNumber = 1,
+                    FlatNumber = "1",
                     Floor = 1,
                     AmountOfRooms = 5,
                     AmountOfTenants = 1,
                     TotalArea = 300,
                     HouseRoom = 400,
-                    House = _dbContext.Houses.First(x => x.HouseNumber == 3)
+                    House = _dbContext.Houses.First(x => x.HouseNumber == "3")
                 },
                 new BBIT.Domain.Entities.Flat.Flat
                 {
                     Id = Guid.NewGuid(),
-                    FlatNumber = 2,
+                    FlatNumber = "2",
                     Floor = 1,
                     AmountOfRooms = 5,
                     AmountOfTenants = 1,
                     TotalArea = 300,
                     HouseRoom = 400,
-                    House = _dbContext.Houses.First(x => x.HouseNumber == 3)
+                    House = _dbContext.Houses.First(x => x.HouseNumber == "3")
                 },
                 new BBIT.Domain.Entities.Flat.Flat
                 {
                     Id = Guid.NewGuid(),
-                    FlatNumber = 3,
+                    FlatNumber = "3",
                     Floor = 1,
                     AmountOfRooms = 5,
                     AmountOfTenants = 1,
                     TotalArea = 300,
                     HouseRoom = 400,
-                    House = _dbContext.Houses.First(x => x.HouseNumber == 3)
+                    House = _dbContext.Houses.First(x => x.HouseNumber == "3")
                 },
             };
 
@@ -190,7 +193,7 @@ namespace Services.Data.DefaultDataInitialization
                     Email = "email@mail.com",
                     Flat = _dbContext.Flats
                         .Include(x => x.House)
-                        .First(x => x.House.HouseNumber == 1 && x.FlatNumber == 1)
+                        .First(x => x.House.HouseNumber == "1" && x.FlatNumber == "1")
                 },
                 new BBIT.Domain.Entities.Tenant.Tenant
                 {
@@ -203,7 +206,7 @@ namespace Services.Data.DefaultDataInitialization
                     Email = "email@mail.com",
                     Flat = _dbContext.Flats
                         .Include(x => x.House)
-                        .First(x => x.House.HouseNumber == 1 && x.FlatNumber == 2)
+                        .First(x => x.House.HouseNumber == "1" && x.FlatNumber == "2")
                 },
                 new BBIT.Domain.Entities.Tenant.Tenant
                 {
@@ -216,7 +219,7 @@ namespace Services.Data.DefaultDataInitialization
                     Email = "email@mail.com",
                     Flat = _dbContext.Flats
                         .Include(x => x.House)
-                        .First(x => x.House.HouseNumber == 1 && x.FlatNumber == 3)
+                        .First(x => x.House.HouseNumber == "1" && x.FlatNumber == "3")
                 },
                 new BBIT.Domain.Entities.Tenant.Tenant
                 {
@@ -229,7 +232,7 @@ namespace Services.Data.DefaultDataInitialization
                     Email = "email@mail.com",
                     Flat = _dbContext.Flats
                         .Include(x => x.House)
-                        .First(x => x.House.HouseNumber == 2 && x.FlatNumber == 1)
+                        .First(x => x.House.HouseNumber =="2"&& x.FlatNumber == "2")
                 },
                 new BBIT.Domain.Entities.Tenant.Tenant
                 {
@@ -242,7 +245,7 @@ namespace Services.Data.DefaultDataInitialization
                     Email = "email@mail.com",
                     Flat = _dbContext.Flats
                         .Include(x => x.House)
-                        .First(x => x.House.HouseNumber == 2 && x.FlatNumber == 2)
+                        .First(x => x.House.HouseNumber =="2"&& x.FlatNumber == "2")
                 },
                 new BBIT.Domain.Entities.Tenant.Tenant
                 {
@@ -255,7 +258,7 @@ namespace Services.Data.DefaultDataInitialization
                     Email = "email@mail.com",
                     Flat = _dbContext.Flats
                         .Include(x => x.House)
-                        .First(x => x.House.HouseNumber == 2 && x.FlatNumber == 3)
+                        .First(x => x.House.HouseNumber =="2"&& x.FlatNumber == "3")
                 },
                 new BBIT.Domain.Entities.Tenant.Tenant
                 {
@@ -268,7 +271,7 @@ namespace Services.Data.DefaultDataInitialization
                     Email = "email@mail.com",
                     Flat = _dbContext.Flats
                         .Include(x => x.House)
-                        .First(x => x.House.HouseNumber == 3 && x.FlatNumber == 1)
+                        .First(x => x.House.HouseNumber == "3" && x.FlatNumber == "1")
                 },
                 new BBIT.Domain.Entities.Tenant.Tenant
                 {
@@ -281,7 +284,7 @@ namespace Services.Data.DefaultDataInitialization
                     Email = "email@mail.com",
                     Flat = _dbContext.Flats
                         .Include(x => x.House)
-                        .First(x => x.House.HouseNumber == 3 && x.FlatNumber == 2)
+                        .First(x => x.House.HouseNumber == "3" && x.FlatNumber == "2")
                 },
                 new BBIT.Domain.Entities.Tenant.Tenant
                 {
@@ -294,7 +297,7 @@ namespace Services.Data.DefaultDataInitialization
                     Email = "email@mail.com",
                     Flat = _dbContext.Flats
                         .Include(x => x.House)
-                        .First(x => x.House.HouseNumber == 3 && x.FlatNumber == 3)
+                        .First(x => x.House.HouseNumber == "3" && x.FlatNumber == "3")
                 },
             };
 

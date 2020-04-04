@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.House;
+using BBIT.Domain.Entities.DTO.Flat;
 using BBIT.Domain.Entities.DTO.House;
 
 namespace Interfaces.House
@@ -17,5 +18,7 @@ namespace Interfaces.House
         Task<UpdateHouseDto> UpdateHouseAsync(UpdateHouseDto updateHouseDto);
 
         Task<DeleteHouseDto> DeleteHouseAsync(string id);
+
+        AllFlatsDto GetHouseFlats(string id);
     }
 }

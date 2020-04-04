@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Flat;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Flat;
-using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House;
 using BBIT.Domain.Entities.DTO.House;
 using Interfaces.Flat;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
 using Services.Mappers.Flat;
 using Services.StaticHelpers;
 
-namespace BBIT.WEB.Service.Controllers.V1
+namespace BBIT.WEB.Service.Controllers.V1.Flat
 {
     [EnableCors]
     [Produces("application/json")]
@@ -42,6 +39,9 @@ namespace BBIT.WEB.Service.Controllers.V1
         [HttpPost(ApiRoutes.FlatRoute.FlatV1)]
         public async Task<IActionResult> CreateFlat([FromServices] IConfiguration configuration, [FromBody] CreateFlatRequest request)
         {
+            if (request is null)
+                return BadRequest("Request should have a valid data.");
+
             //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNull(request))
                 return BadRequest(
@@ -67,27 +67,27 @@ namespace BBIT.WEB.Service.Controllers.V1
             }
 
             string itemUrl =
-                $"{configuration["ApplicationHostAddress"]}/{ApiRoutes.FlatRoute.FlatV1}/{creationResult.Flat.Id}";
+                $"{configuration["ApplicationHostAddress"]}/{ApiRoutes.FlatRoute.FlatV1}/{creationResult.Id}";
 
             return Created(
                 new Uri(itemUrl),
                 new SuccessFlatCreationResponse
                 {
-                    Id = creationResult.Flat.Id,
-                    FlatNumber = creationResult.Flat.FlatNumber,
-                    Floor = creationResult.Flat.Floor,
-                    AmountOfRooms = creationResult.Flat.AmountOfRooms,
-                    AmountOfResidents = creationResult.Flat.AmountOfTenants,
-                    TotalArea = creationResult.Flat.TotalArea,
-                    HouseRoom = creationResult.Flat.HouseRoom,
+                    Id = creationResult.Id,
+                    FlatNumber = creationResult.FlatNumber,
+                    Level = creationResult.Floor,
+                    AmountOfRooms = creationResult.AmountOfRooms,
+                    AmountOfResidents = creationResult.AmountOfTenants,
+                    TotalArea = creationResult.TotalArea,
+                    HouseRoom = creationResult.HouseRoom,
                     House = new HouseDto
                     {
-                        Id = creationResult.Flat.House.Id,
-                        HouseNumber = creationResult.Flat.House.HouseNumber,
-                        StreetName = creationResult.Flat.House.StreetName,
-                        City = creationResult.Flat.House.City,
-                        Country = creationResult.Flat.House.Country,
-                        PostCode = creationResult.Flat.House.PostCode
+                        Id = creationResult.House.Id,
+                        HouseNumber = creationResult.House.HouseNumber,
+                        StreetName = creationResult.House.StreetName,
+                        City = creationResult.House.City,
+                        Country = creationResult.House.Country,
+                        PostCode = creationResult.House.PostCode
                     }
                 });
         }
@@ -174,6 +174,9 @@ namespace BBIT.WEB.Service.Controllers.V1
         [HttpPut(ApiRoutes.FlatRoute.FlatV1)]
         public async Task<IActionResult> UpdateFlat([FromBody] UpdateFlatRequest request)
         {
+            if (request is null)
+                return BadRequest("Request should have a valid data.");
+
             //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNull(request))
                 return BadRequest(

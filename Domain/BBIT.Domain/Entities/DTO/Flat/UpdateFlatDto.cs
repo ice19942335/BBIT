@@ -8,5 +8,7 @@ namespace BBIT.Domain.Entities.DTO.Flat
     public class UpdateFlatDto : BaseDto
     {
         public FlatDto Flat { get; set; }
+
+        public string FlatId { get; set; }
     }
 }

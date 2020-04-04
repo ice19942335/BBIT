@@ -1,23 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Tenant;
-using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant;
-using BBIT.WEB.Service.SwaggerExamples.Responses.Tenant;
 using Interfaces.Tenant;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Services.Mappers.Flat;
 using Services.Mappers.Tenant;
 using Services.StaticHelpers;
 
-namespace BBIT.WEB.Service.Controllers.V1
+namespace BBIT.WEB.Service.Controllers.V1.Tenant
 {
     [EnableCors]
     [Produces("application/json")]
@@ -34,32 +30,6 @@ namespace BBIT.WEB.Service.Controllers.V1
         /// <summary>
         /// Tenant creation endpoint. Creating new Tenant in DB and returns created item
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /With NewFlatId
-        ///     {
-        ///         "flatId": "4644e41b-c19e-4f24-96f3-013103030c5a",
-        ///         "name": "Name",
-        ///         "surname": "Surname",
-        ///         "personalCode": "12345",
-        ///         "dateOfBirth": "2020-03-30T00:00:00+01:00",
-        ///         "phoneNumber": "+37112345678",
-        ///         "email": "email@mail.com"
-        ///     }
-        ///
-        ///     POST /WithOut NewFlatId
-        ///     {
-        ///         "flatId": null,
-        ///         "name": "Name",
-        ///         "surname": "Surname",
-        ///         "personalCode": "12345",
-        ///         "dateOfBirth": "2020-03-30T00:00:00+01:00",
-        ///         "phoneNumber": "+37112345678",
-        ///         "email": "email@mail.com"
-        ///     }
-        /// 
-        /// </remarks>
         /// <response code="201">Success-full creation returns created tenant</response>
         /// <response code="400">Failed creation returns status and list of errors</response>
         /// <response code="404">House or Flat not found</response>
@@ -69,6 +39,9 @@ namespace BBIT.WEB.Service.Controllers.V1
         [HttpPost(ApiRoutes.TenantRoute.TenantV1)]
         public async Task<IActionResult> CreateTenant([FromServices] IConfiguration configuration, [FromBody] CreateTenantRequest request)
         {
+            if (request is null)
+                return BadRequest("Request should have a valid data.");
+
             //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNullExceptFlatId(request))
                 return BadRequest(
@@ -225,6 +198,9 @@ namespace BBIT.WEB.Service.Controllers.V1
         [HttpPut(ApiRoutes.TenantRoute.TenantV1)]
         public async Task<IActionResult> UpdateTenant([FromBody] UpdateTenantRequest request)
         {
+            if (request is null)
+                return BadRequest("Request should have a valid data.");
+
             var updateTenantResult = await _tenantService.UpdateTenantAsync(request.UpdateTenantRequestToUpdateTenantDto());
 
             if (!updateTenantResult.Status)

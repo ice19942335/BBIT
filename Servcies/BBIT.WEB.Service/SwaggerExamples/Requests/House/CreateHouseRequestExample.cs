@@ -14,7 +14,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Requests.House
         {
             return new CreateHouseRequest
             {
-                HouseNumber = 56,
+                HouseNumber = "1",
                 StreetName = "High street",
                 City = "London",
                 Country = "United Kingdom",

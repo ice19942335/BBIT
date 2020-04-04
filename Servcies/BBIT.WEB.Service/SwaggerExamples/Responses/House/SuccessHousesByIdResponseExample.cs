@@ -13,7 +13,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.House
                 House = new HouseDto
                 {
                     Id = "624ac106-e3c0-4df3-bca9-03015ea93987".ToString(),
-                    HouseNumber = 56,
+                    HouseNumber = "1",
                     StreetName = "High street",
                     City = "London",
                     Country = "United Kingdom",
