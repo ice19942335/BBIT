@@ -9,8 +9,6 @@ namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Flat
     {
         public string Id { get; set; }
 
-        public string FlatId { get; set; }
-
         public string FlatNumber { get; set; }
 
         public int Level { get; set; }

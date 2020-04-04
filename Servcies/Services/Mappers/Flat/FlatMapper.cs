@@ -128,8 +128,7 @@ namespace Services.Mappers.Flat
                     AmountOfTenants = request.AmountOfResidents,
                     TotalArea = request.TotalArea,
                     HouseRoom = request.HouseRoom
-                },
-                FlatId = request.FlatId
+                }
             };
         }
 

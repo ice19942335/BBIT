@@ -39,6 +39,9 @@ namespace BBIT.WEB.Service.Controllers.V1.House
         [HttpPost(ApiRoutes.HouseRoute.HouseV1)]
         public async Task<IActionResult> CreateHouse([FromServices] IConfiguration configuration, [FromBody] CreateHouseRequest request)
         {
+            if (request is null)
+                return BadRequest("Request should have a valid data.");
+
             //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNull(request))
                 return BadRequest(
@@ -161,7 +164,7 @@ namespace BBIT.WEB.Service.Controllers.V1.House
         public async Task<IActionResult> UpdateHouse([FromBody] UpdateHouseRequest request)
         {
             if (request is null)
-                return BadRequest("Request body can not be null");
+                return BadRequest("Request should have a valid data.");
 
             if (PropertyHelper.IsAnyPropIsNull(request))
                 return BadRequest(
@@ -240,7 +243,7 @@ namespace BBIT.WEB.Service.Controllers.V1.House
         [HttpGet(ApiRoutes.HouseRoute.FlatsInHouseById)]
         public IActionResult GetAllFlatsInHouseByHouseId(string id)
         {
-            var flatsInHouseResult = _houseService.GetAllFlatsInHouseByHouseId(id);
+            var flatsInHouseResult = _houseService.GetHouseFlats(id);
 
             if (!flatsInHouseResult.Status)
             {

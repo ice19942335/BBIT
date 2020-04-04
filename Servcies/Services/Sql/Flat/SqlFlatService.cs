@@ -136,14 +136,7 @@ namespace Services.Sql.Flat
         {
             try
             {
-                if (_dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.FlatId)) is null)
-                    return new UpdateFlatDto
-                    {
-                        Errors = new[] { "House of this flat not exist anymore." },
-                        Status = false
-                    };
-
-                BBIT.Domain.Entities.Flat.Flat flat = _dbContext.Flats
+                var flat = _dbContext.Flats
                         .Include(x => x.House)
                         .FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.Flat.Id));
 

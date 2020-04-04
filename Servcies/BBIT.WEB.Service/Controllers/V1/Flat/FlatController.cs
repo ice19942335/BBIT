@@ -39,6 +39,9 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
         [HttpPost(ApiRoutes.FlatRoute.FlatV1)]
         public async Task<IActionResult> CreateFlat([FromServices] IConfiguration configuration, [FromBody] CreateFlatRequest request)
         {
+            if (request is null)
+                return BadRequest("Request should have a valid data.");
+
             //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNull(request))
                 return BadRequest(
@@ -171,6 +174,9 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
         [HttpPut(ApiRoutes.FlatRoute.FlatV1)]
         public async Task<IActionResult> UpdateFlat([FromBody] UpdateFlatRequest request)
         {
+            if (request is null)
+                return BadRequest("Request should have a valid data.");
+
             //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNull(request))
                 return BadRequest(
