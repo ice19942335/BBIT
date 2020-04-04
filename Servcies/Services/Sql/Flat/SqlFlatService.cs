@@ -136,7 +136,7 @@ namespace Services.Sql.Flat
         {
             try
             {
-                if (_dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.Flat.House.Id)) is null)
+                if (_dbContext.Houses.FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.FlatId)) is null)
                     return new UpdateFlatDto
                     {
                         Errors = new[] { "House of this flat not exist anymore." },

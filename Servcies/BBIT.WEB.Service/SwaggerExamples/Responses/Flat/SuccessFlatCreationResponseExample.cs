@@ -16,7 +16,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat
             {
                 Id = "624ac106-e3c0-4df3-bca9-03015ea93987",
                 FlatNumber = "1",
-                Floor = 15,
+                Level = 15,
                 AmountOfRooms = 5,
                 AmountOfResidents = 4,
                 TotalArea = 300,

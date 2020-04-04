@@ -21,7 +21,7 @@ namespace Services.Mappers.Flat
             {
                 HouseId = request.HouseId,
                 FlatNumber = request.FlatNumber,
-                Floor = request.Floor,
+                Floor = request.Level,
                 AmountOfRooms = request.AmountOfRooms,
                 TotalArea = request.TotalArea,
                 HouseRoom = request.HouseRoom
@@ -91,7 +91,7 @@ namespace Services.Mappers.Flat
             {
                 Id = flat.Id.ToString(),
                 FlatNumber = flat.FlatNumber,
-                Floor = flat.Floor,
+                Level = flat.Floor,
                 AmountOfRooms = flat.AmountOfRooms,
                 AmountOfTenants = flat.AmountOfTenants,
                 TotalArea = flat.TotalArea,
@@ -123,12 +123,13 @@ namespace Services.Mappers.Flat
                 {
                     Id = request.Id,
                     FlatNumber = request.FlatNumber,
-                    Floor = request.Floor,
+                    Level = request.Level,
                     AmountOfRooms = request.AmountOfRooms,
                     AmountOfTenants = request.AmountOfResidents,
                     TotalArea = request.TotalArea,
                     HouseRoom = request.HouseRoom
-                }
+                },
+                FlatId = request.FlatId
             };
         }
 
@@ -143,7 +144,7 @@ namespace Services.Mappers.Flat
         {
             flat.Id = Guid.Parse(updateFlatDto.Flat.Id);
             flat.FlatNumber = updateFlatDto.Flat.FlatNumber;
-            flat.Floor = updateFlatDto.Flat.Floor;
+            flat.Floor = updateFlatDto.Flat.Level;
             flat.AmountOfRooms = updateFlatDto.Flat.AmountOfRooms;
             flat.AmountOfTenants = updateFlatDto.Flat.AmountOfTenants;
             flat.TotalArea = updateFlatDto.Flat.TotalArea;
@@ -167,7 +168,7 @@ namespace Services.Mappers.Flat
                 {
                     Id = flat.Id.ToString(),
                     FlatNumber = flat.FlatNumber,
-                    Floor = flat.Floor,
+                    Level = flat.Floor,
                     AmountOfRooms = flat.AmountOfRooms,
                     AmountOfTenants = flat.AmountOfTenants,
                     TotalArea = flat.TotalArea,
@@ -190,7 +191,7 @@ namespace Services.Mappers.Flat
             {
                 Id = Guid.Parse(flatDto.Id),
                 FlatNumber = flatDto.FlatNumber,
-                Floor = flatDto.Floor,
+                Floor = flatDto.Level,
                 AmountOfRooms = flatDto.AmountOfRooms,
                 AmountOfTenants = flatDto.AmountOfTenants,
                 TotalArea = flatDto.TotalArea,

@@ -11,7 +11,7 @@ namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Flat
 
         public string FlatNumber { get; set; }
 
-        public int Floor { get; set; }
+        public int Level { get; set; }
 
         public int AmountOfRooms { get; set; }
 

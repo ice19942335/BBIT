@@ -21,7 +21,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat
                     {
                         Id = "ce71e57d-c18c-47ce-94a5-2363cb187a5a",
                         FlatNumber = "1",
-                        Floor = 15,
+                        Level = 15,
                         AmountOfRooms = 5,
                         AmountOfTenants = 0,
                         TotalArea = 300,
@@ -40,7 +40,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat
                     {
                         Id = "ce71e57d-c18c-47ce-94a5-2363cb187a5a",
                         FlatNumber = "1",
-                        Floor = 15,
+                        Level = 15,
                         AmountOfRooms = 5,
                         AmountOfTenants = 0,
                         TotalArea = 300,
@@ -59,7 +59,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat
                     {
                         Id = "ce71e57d-c18c-47ce-94a5-2363cb187a5a",
                         FlatNumber = "1",
-                        Floor = 15,
+                        Level = 15,
                         AmountOfRooms = 5,
                         AmountOfTenants = 0,
                         TotalArea = 300,

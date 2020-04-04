@@ -72,7 +72,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
                 {
                     Id = creationResult.Id,
                     FlatNumber = creationResult.FlatNumber,
-                    Floor = creationResult.Floor,
+                    Level = creationResult.Floor,
                     AmountOfRooms = creationResult.AmountOfRooms,
                     AmountOfResidents = creationResult.AmountOfTenants,
                     TotalArea = creationResult.TotalArea,
