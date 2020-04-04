@@ -63,7 +63,7 @@ namespace Services.House
             }
             catch (Exception e)
             {
-                _logger.LogError($"Error on deleting house from database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
+                _logger.LogError($"Error on fetching data from database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
                 return new AllFlatsDto
                 {
                     Errors = new[] { "Error on fetching data from database." },

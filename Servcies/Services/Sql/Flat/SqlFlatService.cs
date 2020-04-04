@@ -143,7 +143,7 @@ namespace Services.Sql.Flat
                 if (_dbContext.Flats.FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.Flat.Id)) is null)
                     return new UpdateFlatDto
                     {
-                        Errors = new[] { "Item not found" },
+                        ItemNotFound = true,
                         Status = false
                     };
 

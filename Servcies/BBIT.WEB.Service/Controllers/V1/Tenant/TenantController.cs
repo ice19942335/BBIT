@@ -42,7 +42,11 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
         public async Task<IActionResult> CreateTenant([FromServices] IConfiguration configuration, [FromBody] CreateTenantRequest request)
         {
             if (request is null)
-                return BadRequest("Request should have a valid data.");
+                return BadRequest(new FailedTenantCreationResponse
+                {
+                    Status = false,
+                    Errors = new[] { "Request should have a valid data." }
+                });
 
             //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNullExceptFlatId(request))
@@ -201,7 +205,11 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
         public async Task<IActionResult> UpdateTenant([FromBody] UpdateTenantRequest request)
         {
             if (request is null)
-                return BadRequest("Request should have a valid data.");
+                return BadRequest(new FailedUpdateTenantResponse
+                {
+                    Status = false,
+                    Errors = new[] { "Request should have a valid data." }
+                });
 
             var updateTenantResult = await _tenantService.UpdateTenantAsync(request.UpdateTenantRequestToUpdateTenantDto());
 

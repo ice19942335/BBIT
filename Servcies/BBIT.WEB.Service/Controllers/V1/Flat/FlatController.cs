@@ -42,7 +42,11 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
         public async Task<IActionResult> CreateFlat([FromServices] IConfiguration configuration, [FromBody] CreateFlatRequest request)
         {
             if (request is null)
-                return BadRequest("Request should have a valid data.");
+                return BadRequest(new FailedFlatCreationResponse
+                {
+                    Status = false,
+                    Errors = new[] { "Request should have a valid data." }
+                });
 
             //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNull(request))
@@ -177,7 +181,12 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
         public async Task<IActionResult> UpdateFlat([FromBody] UpdateFlatRequest request)
         {
             if (request is null)
-                return BadRequest("Request should have a valid data.");
+                return BadRequest(new FailedUpdateFlatResponse
+                {
+                    Errors = new[] { "Request should have a valid data." },
+                    Status = false
+                });
+
 
             //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNull(request))
@@ -196,8 +205,12 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
                 if (updateRequestResult.ServerError)
                     return StatusCode(500);
 
-                if (updateRequestResult.Errors.Contains("Item not found"))
-                    return NotFound("Item not found");
+                if (updateRequestResult.ItemNotFound)
+                    return BadRequest(new FailedUpdateFlatResponse
+                    {
+                        Errors = new[] { "Flat not found" },
+                        Status = false
+                    });
 
                 return BadRequest(new FailedUpdateFlatResponse
                 {
@@ -232,7 +245,11 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
                     return StatusCode(500);
 
                 if (deleteRequestResult.Errors.Contains("Item not found."))
-                    return NotFound("Item not found.");
+                    return NotFound(new FailedDeleteFlatResponse
+                    {
+                        Status = false,
+                        Errors = new[] { "Flat not found." }
+                    });
 
                 return BadRequest(new FailedDeleteFlatResponse
                 {
@@ -256,7 +273,32 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
         [HttpDelete(ApiRoutes.FlatRoute.FlatByIdV1)]
         public async Task<IActionResult> FlatTenants(string id)
         {
-            
+            var flatTenantsResult = _flatService.GetFlatTenants(id);
+
+            if (!flatTenantsResult.Status)
+            {
+                if (flatTenantsResult.ServerError)
+                    return StatusCode(500);
+
+                if (flatTenantsResult.ItemNotFound)
+                    return NotFound(new FailedFlatTenantsResponse
+                    {
+                        Status = false,
+                        Errors = new[] { "House not found." }
+                    });
+
+                return BadRequest(new FailedFlatTenantsResponse
+                {
+                    Errors = flatTenantsResult.Errors,
+                    Status = flatTenantsResult.Status
+                });
+            }
+
+            return Ok(new SuccessFlatTenantsResponse
+            {
+                Status = flatTenantsResult.Status,
+                Tenants = flatTenantsResult.Tenants
+            });
         }
     }
 }

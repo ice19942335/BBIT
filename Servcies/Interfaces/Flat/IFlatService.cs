@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using BBIT.Domain.Entities.DTO.Flat;
+using BBIT.Domain.Entities.DTO.Tenant;
 
 namespace Interfaces.Flat
 {
@@ -17,5 +18,7 @@ namespace Interfaces.Flat
         Task<UpdateFlatDto> UpdateFlatAsync(UpdateFlatDto updateFlatDto);
 
         Task<DeleteFlatDto> DeleteFlatAsync(string id);
+
+        AllTenantsDto GetFlatTenants(string id);
     }
 }
