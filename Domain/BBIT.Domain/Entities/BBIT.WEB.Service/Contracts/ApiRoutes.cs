@@ -23,7 +23,7 @@
 
             public const string HouseByIdV1 = BaseV1 + "/houses/{id}";
 
-            public const string FlatsInHouseById = BaseV1 + "/flatsInHouses/{id}";
+            public const string FlatsInHouseById = BaseV1 + "/houseFlats/{id}";
         }
 
         public static class FlatRoute

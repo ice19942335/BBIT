@@ -36,7 +36,7 @@ namespace Services.House
 
         public async Task<DeleteHouseDto> DeleteHouseAsync(string id) => await _sqlHouseService.DeleteHouseAsync(id);
 
-        public AllFlatsDto GetAllFlatsInHouseByHouseId(string id)
+        public AllFlatsDto GetHouseFlats(string id)
         {
             try
             {

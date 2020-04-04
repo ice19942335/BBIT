@@ -19,6 +19,6 @@ namespace Interfaces.House
 
         Task<DeleteHouseDto> DeleteHouseAsync(string id);
 
-        AllFlatsDto GetAllFlatsInHouseByHouseId(string id);
+        AllFlatsDto GetHouseFlats(string id);
     }
 }
