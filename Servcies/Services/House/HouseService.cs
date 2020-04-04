@@ -52,7 +52,8 @@ namespace Services.House
                 var flats = _dbContext.Flats
                     .Include(x => x.House)
                     .Where(x => x.House.Id == Guid.Parse(id))
-                    .ToList();
+                    .ToList()
+                    .OrderBy(x => x.FlatNumber);
 
                 return new AllFlatsDto
                 {

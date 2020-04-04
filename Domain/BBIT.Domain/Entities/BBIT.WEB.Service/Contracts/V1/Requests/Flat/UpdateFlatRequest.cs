@@ -20,7 +20,5 @@ namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Flat
         public double TotalArea { get; set; }
 
         public double HouseRoom { get; set; }
-
-        public HouseDto House { get; set; }
     }
 }

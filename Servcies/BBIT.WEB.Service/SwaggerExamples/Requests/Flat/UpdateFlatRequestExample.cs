@@ -1,20 +1,19 @@
 ﻿using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Flat;
-using BBIT.Domain.Entities.DTO.House;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat
+namespace BBIT.WEB.Service.SwaggerExamples.Requests.Flat
 {
-    public class SuccessUpdateFlatRequestExample : IExamplesProvider<UpdateFlatRequest>
+    public class UpdateFlatRequestExample : IExamplesProvider<UpdateFlatRequest>
     {
         public UpdateFlatRequest GetExamples()
         {
             return new UpdateFlatRequest
             {
-                Id = "ce71e57d-c18c-47ce-94a5-2363cb187a5a",
+                Id = "624ac106-e3c0-4df3-bca9-03015ea93987",
                 FlatNumber = "1",
                 Floor = 15,
                 AmountOfRooms = 5,
-                AmountOfResidents = 0,
+                AmountOfResidents = 1,
                 TotalArea = 300,
                 HouseRoom = 400
             };

@@ -143,8 +143,9 @@ namespace Services.Sql.Flat
                         Status = false
                     };
 
-                BBIT.Domain.Entities.Flat.Flat flat =
-                    _dbContext.Flats.FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.Flat.Id));
+                BBIT.Domain.Entities.Flat.Flat flat = _dbContext.Flats
+                        .Include(x => x.House)
+                        .FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.Flat.Id));
 
                 if (_dbContext.Flats.FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.Flat.Id)) is null)
                     return new UpdateFlatDto
@@ -153,10 +154,8 @@ namespace Services.Sql.Flat
                         Status = false
                     };
 
-                //Do not create separate Flat objects with same Id.
-                //If you will make another Flat object with same Id than the
-                //EF will let you know that you have to go and study more about EF
-                flat = flat.UpdateFlatDtoToFlat(updateFlatDto);
+                //Can not make Flat duplicate because of EF Core
+                flat = flat.FlatDtoToFlat(updateFlatDto);
 
                 _dbContext.Flats.Update(flat);
                 await _dbContext.SaveChangesAsync();
