@@ -31,6 +31,8 @@
             public const string FlatV1 = BaseV1 + "/flats";
 
             public const string FlatByIdV1 = BaseV1 + "/flats/{id}";
+
+            public const string FlatTenantsV1 = BaseV1 + "/flatTenants/{id}";
         }
             
         public static class TenantRoute

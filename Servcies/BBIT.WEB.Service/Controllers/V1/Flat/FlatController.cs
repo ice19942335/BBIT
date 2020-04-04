@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Flat;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Flat;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Flat.Failed;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Flat.Success;
 using BBIT.Domain.Entities.DTO.House;
 using Interfaces.Flat;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -240,6 +242,21 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
             }
 
             return NoContent();
+        }
+
+        /// <summary>
+        /// Flat tenants endpoint. Returns list of tenants in flat.
+        /// </summary>
+        /// <response code="200">Returns list of tenants in flat</response>
+        /// <response code="400">Failed request returns status and list of errors</response>
+        /// <response code="404">Item not found</response>
+        /// <response code="500">Server error</response>
+        [ProducesResponseType(typeof(SuccessFlatTenantsResponse), 200)]
+        [ProducesResponseType(typeof(FailedFlatTenantsResponse), 400)]
+        [HttpDelete(ApiRoutes.FlatRoute.FlatByIdV1)]
+        public async Task<IActionResult> FlatTenants(string id)
+        {
+            
         }
     }
 }

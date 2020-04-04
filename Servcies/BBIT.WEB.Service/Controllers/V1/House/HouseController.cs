@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.House;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House;
-using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.HouseExtended;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House.Failed;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House.Success;
 using Interfaces.House;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -238,8 +239,8 @@ namespace BBIT.WEB.Service.Controllers.V1.House
         /// <response code="404">House not found.</response>
         /// <response code="500">Server error</response>
         [AllowAnonymous]
-        [ProducesResponseType(typeof(SuccessAllFlatsInHouseByHouseIdResponse), 200)]
-        [ProducesResponseType(typeof(FailedAllFlatsInHouseByHouseIdResponse), 400)]
+        [ProducesResponseType(typeof(SuccessHouseFlatsResponse), 200)]
+        [ProducesResponseType(typeof(FailedHouseFlatsResponse), 400)]
         [HttpGet(ApiRoutes.HouseRoute.FlatsInHouseById)]
         public IActionResult GetAllFlatsInHouseByHouseId(string id)
         {
@@ -253,14 +254,14 @@ namespace BBIT.WEB.Service.Controllers.V1.House
                 if (flatsInHouseResult.ItemNotFound)
                     return NotFound("House not found.");
 
-                return BadRequest(new FailedAllFlatsInHouseByHouseIdResponse
+                return BadRequest(new FailedHouseFlatsResponse
                 {
                     Errors = flatsInHouseResult.Errors,
                     Status = flatsInHouseResult.Status
                 });
             }
 
-            return Ok(new SuccessAllFlatsInHouseByHouseIdResponse
+            return Ok(new SuccessHouseFlatsResponse
             {
                 Status = flatsInHouseResult.Status,
                 Flats = flatsInHouseResult.Flats

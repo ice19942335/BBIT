@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Tenant;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant.Failed;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant.Success;
 using Interfaces.Tenant;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
