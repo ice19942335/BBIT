@@ -6,6 +6,7 @@ using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Tenant;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant.Failed;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant.Success;
+using BBIT.Domain.Entities.DTO.Tenant;
 using Interfaces.Tenant;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -233,14 +234,18 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
 
             return Ok(new SuccessUpdateTenantResponse
             {
-                Id = updateTenantResult.Tenant.Id,
-                Name = updateTenantResult.Tenant.Name,
-                Surname = updateTenantResult.Tenant.Surname,
-                PersonalCode = updateTenantResult.Tenant.PersonalCode,
-                DateOfBirth = updateTenantResult.Tenant.DateOfBirth,
-                PhoneNumber = updateTenantResult.Tenant.PhoneNumber,
-                Email = updateTenantResult.Tenant.Email,
-                Flat = updateTenantResult.Tenant.Flat
+                Status = updateTenantResult.Status,
+                Tenant = new TenantDto
+                {
+                    Id = updateTenantResult.Tenant.Id,
+                    Name = updateTenantResult.Tenant.Name,
+                    Surname = updateTenantResult.Tenant.Surname,
+                    PersonalCode = updateTenantResult.Tenant.PersonalCode,
+                    DateOfBirth = updateTenantResult.Tenant.DateOfBirth,
+                    PhoneNumber = updateTenantResult.Tenant.PhoneNumber,
+                    Email = updateTenantResult.Tenant.Email,
+                    Flat = updateTenantResult.Tenant.Flat
+                }
             });
         }
 
