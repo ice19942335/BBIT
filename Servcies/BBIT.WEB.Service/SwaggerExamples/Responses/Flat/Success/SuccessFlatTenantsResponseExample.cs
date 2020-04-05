@@ -22,7 +22,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat.Success
                         Name = "Name",
                         Surname = "Surname",
                         PersonalCode = "12345",
-                        DateOfBirth = DateTime.Today,
+                        DateOfBirth = DateTime.Today.ToString("d"),
                         PhoneNumber = "+37112345678",
                         Email = "email@mail.com",
                         Flat = new FlatDto
@@ -51,7 +51,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat.Success
                         Name = "Name",
                         Surname = "Surname",
                         PersonalCode = "12345",
-                        DateOfBirth = DateTime.Today,
+                        DateOfBirth = DateTime.Today.ToString("d"),
                         PhoneNumber = "+37112345678",
                         Email = "email@mail.com",
                         Flat = new FlatDto
@@ -80,7 +80,7 @@ namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat.Success
                         Name = "Name",
                         Surname = "Surname",
                         PersonalCode = "12345",
-                        DateOfBirth = DateTime.Today,
+                        DateOfBirth = DateTime.Today.ToString("d"),
                         PhoneNumber = "+37112345678",
                         Email = "email@mail.com",
                         Flat = new FlatDto

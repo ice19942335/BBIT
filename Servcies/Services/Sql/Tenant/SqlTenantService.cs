@@ -173,7 +173,7 @@ namespace Services.Sql.Tenant
                     tenant.Name = updateTenantDto.Tenant.Name;
                     tenant.Surname = updateTenantDto.Tenant.Surname;
                     tenant.PersonalCode = updateTenantDto.Tenant.PersonalCode;
-                    tenant.DateOfBirth = updateTenantDto.Tenant.DateOfBirth;
+                    tenant.DateOfBirth = Convert.ToDateTime(updateTenantDto.Tenant.DateOfBirth);
                     tenant.PhoneNumber = updateTenantDto.Tenant.PhoneNumber;
                     tenant.Email = updateTenantDto.Tenant.Email;
 
@@ -192,7 +192,7 @@ namespace Services.Sql.Tenant
                 tenant.Name = updateTenantDto.Tenant.Name;
                 tenant.Surname = updateTenantDto.Tenant.Surname;
                 tenant.PersonalCode = updateTenantDto.Tenant.PersonalCode;
-                tenant.DateOfBirth = updateTenantDto.Tenant.DateOfBirth;
+                tenant.DateOfBirth = Convert.ToDateTime(updateTenantDto.Tenant.DateOfBirth);
                 tenant.PhoneNumber = updateTenantDto.Tenant.PhoneNumber;
                 tenant.Email = updateTenantDto.Tenant.Email;
 
@@ -258,7 +258,7 @@ namespace Services.Sql.Tenant
             _dbContext.Tenants.FirstOrDefault(x =>
                 x.Name == createTenantDto.Tenant.Name &&
                 x.Surname == createTenantDto.Tenant.Surname &&
-                x.DateOfBirth == createTenantDto.Tenant.DateOfBirth &&
+                x.DateOfBirth.ToString("d") == createTenantDto.Tenant.DateOfBirth &&
                 x.Email == createTenantDto.Tenant.Email &&
                 x.PersonalCode == createTenantDto.Tenant.PersonalCode &&
                 x.PhoneNumber == createTenantDto.Tenant.PhoneNumber) != null;
@@ -291,7 +291,7 @@ namespace Services.Sql.Tenant
                 Name = createTenantDto.Tenant.Name,
                 Surname = createTenantDto.Tenant.Surname,
                 PersonalCode = createTenantDto.Tenant.PersonalCode,
-                DateOfBirth = createTenantDto.Tenant.DateOfBirth,
+                DateOfBirth = Convert.ToDateTime(createTenantDto.Tenant.DateOfBirth),
                 PhoneNumber = createTenantDto.Tenant.PhoneNumber,
                 Email = createTenantDto.Tenant.Email
             };

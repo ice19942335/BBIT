@@ -78,7 +78,8 @@ namespace Services.Sql.Flat
             {
                 var flatsDtoList = _dbContext.Flats
                     .Include(x => x.House)
-                    .ToList();
+                    .ToList()
+                    .OrderBy(x => x.House.HouseNumber);
 
                 return new AllFlatsDto
                 {

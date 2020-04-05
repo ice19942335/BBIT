@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using BBIT.DAL.Context;
 using BBIT.Domain.Entities.DTO.Flat;
@@ -10,7 +8,6 @@ using Interfaces.Flat;
 using Interfaces.Sql.Flat;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Services.Mappers.Flat;
 using Services.Mappers.Tenant;
 
 namespace Services.Flat

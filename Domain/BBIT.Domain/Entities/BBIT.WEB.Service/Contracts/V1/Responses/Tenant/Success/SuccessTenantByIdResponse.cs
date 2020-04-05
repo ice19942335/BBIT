@@ -13,7 +13,7 @@ namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant.Su
 
         public string PersonalCode { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
 
         public string PhoneNumber { get; set; }
 
