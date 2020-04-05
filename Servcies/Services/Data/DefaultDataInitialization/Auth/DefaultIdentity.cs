@@ -5,8 +5,8 @@
         public const string RoleAdmin = "Admin";
         public const string RoleUser = "User";
 
-        public const string DefaultAdminUserName = "admin@mail.com";
-        public const string DefaultAdminPassword = "AdminPassword123!";
-        public const string DefaultAdminName = "AdminName";
+        public const string DefaultAdminUserName = "sam.atkins@gmail.com";
+        public const string DefaultAdminPassword = "Password123!";
+        public const string DefaultAdminName = "Sam";
     }
 }
