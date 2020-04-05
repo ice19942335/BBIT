@@ -148,7 +148,7 @@ namespace Services.Sql.Flat
                     };
 
                 //Can not make Flat duplicate because of EF Core
-                flat = flat.FlatDtoToFlat(updateFlatDto);
+                flat = flat.UpdateFlatDtoToFlat(updateFlatDto);
 
                 _dbContext.Flats.Update(flat);
                 await _dbContext.SaveChangesAsync();
