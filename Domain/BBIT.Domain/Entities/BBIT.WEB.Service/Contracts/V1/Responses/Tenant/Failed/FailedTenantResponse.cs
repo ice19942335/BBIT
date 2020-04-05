@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Flat.Failed
+namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant.Failed
 {
-    public class FailedFlatTenantsResponse
+    public class FailedTenantResponse
     {
         public bool Status { get; set; }
 

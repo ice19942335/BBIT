@@ -37,12 +37,12 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
         /// <response code="400">Failed creation returns status and list of errors</response>
         /// <response code="500">Server error</response>
         [ProducesResponseType(typeof(SuccessFlatCreationResponse), 201)]
-        [ProducesResponseType(typeof(FailedFlatCreationResponse), 400)]
+        [ProducesResponseType(typeof(FailedFlatResponse), 400)]
         [HttpPost(ApiRoutes.FlatRoute.FlatV1)]
         public async Task<IActionResult> CreateFlat([FromServices] IConfiguration configuration, [FromBody] CreateFlatRequest request)
         {
             if (request is null)
-                return BadRequest(new FailedFlatCreationResponse
+                return BadRequest(new FailedFlatResponse
                 {
                     Status = false,
                     Errors = new[] { "Request should have a valid data." }
@@ -51,7 +51,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
             //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNull(request))
                 return BadRequest(
-                    new FailedFlatCreationResponse
+                    new FailedFlatResponse
                     {
                         Status = false,
                         Errors = new[] { "Some of properties are null." }
@@ -65,7 +65,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
                 if (creationResult.ServerError)
                     return StatusCode(500);
 
-                return BadRequest(new FailedFlatCreationResponse
+                return BadRequest(new FailedFlatResponse
                 {
                     Errors = creationResult.Errors,
                     Status = creationResult.Status
@@ -106,7 +106,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
         /// <response code="500">Server error</response>
         [AllowAnonymous]
         [ProducesResponseType(typeof(SuccessAllFlatResponse), 200)]
-        [ProducesResponseType(typeof(FailedAllFlatResponse), 400)]
+        [ProducesResponseType(typeof(FailedFlatResponse), 400)]
         [HttpGet(ApiRoutes.FlatRoute.FlatV1)]
         public IActionResult GetAllFlats()
         {
@@ -117,7 +117,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
                 if (allFlatsResult.ServerError)
                     return StatusCode(500);
 
-                return BadRequest(new FailedAllFlatResponse
+                return BadRequest(new FailedFlatResponse
                 {
                     Errors = allFlatsResult.Errors,
                     Status = allFlatsResult.Status
@@ -140,7 +140,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
         /// <response code="500">Server error</response>
         [AllowAnonymous]
         [ProducesResponseType(typeof(SuccessFlatByIdResponse), 200)]
-        [ProducesResponseType(typeof(FailedFlatByIdResponse), 400)]
+        [ProducesResponseType(typeof(FailedFlatResponse), 400)]
         [HttpGet(ApiRoutes.FlatRoute.FlatByIdV1)]
         public IActionResult GetFlatById(string id)
         {
@@ -154,7 +154,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
                 if (requestResult.Errors.Contains("Flat not found"))
                     return NotFound("Flat not found");
 
-                return BadRequest(new FailedFlatByIdResponse
+                return BadRequest(new FailedFlatResponse
                 {
                     Errors = requestResult.Errors,
                     Status = requestResult.Status
@@ -176,12 +176,12 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
         /// <response code="404">Item not found</response>
         /// <response code="500">Server error</response>
         [ProducesResponseType(typeof(SuccessUpdateFlatResponse), 200)]
-        [ProducesResponseType(typeof(FailedUpdateFlatResponse), 400)]
+        [ProducesResponseType(typeof(FailedFlatResponse), 400)]
         [HttpPut(ApiRoutes.FlatRoute.FlatV1)]
         public async Task<IActionResult> UpdateFlat([FromBody] UpdateFlatRequest request)
         {
             if (request is null)
-                return BadRequest(new FailedUpdateFlatResponse
+                return BadRequest(new FailedFlatResponse
                 {
                     Errors = new[] { "Request should have a valid data." },
                     Status = false
@@ -191,7 +191,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
             //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNull(request))
                 return BadRequest(
-                    new FailedUpdateFlatResponse
+                    new FailedFlatResponse
                     {
                         Status = false,
                         Errors = new[] { "Some of properties are null." }
@@ -206,13 +206,13 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
                     return StatusCode(500);
 
                 if (updateRequestResult.ItemNotFound)
-                    return BadRequest(new FailedUpdateFlatResponse
+                    return BadRequest(new FailedFlatResponse
                     {
                         Errors = new[] { "Flat not found" },
                         Status = false
                     });
 
-                return BadRequest(new FailedUpdateFlatResponse
+                return BadRequest(new FailedFlatResponse
                 {
                     Errors = updateRequestResult.Errors,
                     Status = updateRequestResult.Status
@@ -233,7 +233,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
         /// <response code="400">Failed request returns status and list of errors</response>
         /// <response code="404">Item not found</response>
         /// <response code="500">Server error</response>
-        [ProducesResponseType(typeof(FailedDeleteFlatResponse), 400)]
+        [ProducesResponseType(typeof(FailedFlatResponse), 400)]
         [HttpDelete(ApiRoutes.FlatRoute.FlatByIdV1)]
         public async Task<IActionResult> DeleteFlat(string id)
         {
@@ -245,7 +245,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
                     return StatusCode(500);
 
                 if (deleteRequestResult.Errors.Contains("Item not found."))
-                    return NotFound(new FailedDeleteFlatResponse
+                    return NotFound(new FailedFlatResponse
                     {
                         Status = false,
                         Errors = new[] { "Flat not found." }
@@ -270,7 +270,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
         /// <response code="500">Server error</response>
         [AllowAnonymous]
         [ProducesResponseType(typeof(SuccessFlatTenantsResponse), 200)]
-        [ProducesResponseType(typeof(FailedFlatTenantsResponse), 400)]
+        [ProducesResponseType(typeof(FailedFlatResponse), 400)]
         [HttpGet(ApiRoutes.FlatRoute.FlatTenantsV1)]
         public IActionResult FlatTenants(string id)
         {
@@ -282,13 +282,13 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
                     return StatusCode(500);
 
                 if (flatTenantsResult.ItemNotFound)
-                    return NotFound(new FailedFlatTenantsResponse
+                    return NotFound(new FailedFlatResponse
                     {
                         Status = false,
                         Errors = new[] { "House not found." }
                     });
 
-                return BadRequest(new FailedFlatTenantsResponse
+                return BadRequest(new FailedFlatResponse
                 {
                     Errors = flatTenantsResult.Errors,
                     Status = flatTenantsResult.Status

@@ -2,7 +2,7 @@
 
 namespace BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House.Failed
 {
-    public class FailedHouseFlatsResponse
+    public class FailedHouseResponse
     {
         public IEnumerable<string> Errors { get; set; }
 

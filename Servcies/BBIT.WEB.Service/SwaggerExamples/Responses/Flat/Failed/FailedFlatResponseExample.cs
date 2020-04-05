@@ -3,11 +3,11 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace BBIT.WEB.Service.SwaggerExamples.Responses.Flat.Failed
 {
-    public class FailedFlatByIdResponseExample : IExamplesProvider<FailedFlatByIdResponse>
+    public class FailedFlatResponseExample : IExamplesProvider<FailedFlatResponse>
     {
-        public FailedFlatByIdResponse GetExamples()
+        public FailedFlatResponse GetExamples()
         {
-            return new FailedFlatByIdResponse
+            return new FailedFlatResponse
             {
                 Errors = new[] { "Error message" },
                 Status = false

@@ -116,7 +116,7 @@ namespace Services.Mappers.Tenant
                     Name = request.Name,
                     Surname = request.Surname,
                     PersonalCode = request.PersonalCode,
-                    DateOfBirth = request.DateOfBirth.ToString("d"),
+                    DateOfBirth = request.DateOfBirth,
                     PhoneNumber = request.PhoneNumber,
                     Email = request.Email
                 },
