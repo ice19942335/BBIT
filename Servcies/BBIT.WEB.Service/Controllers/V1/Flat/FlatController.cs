@@ -268,10 +268,11 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
         /// <response code="400">Failed request returns status and list of errors</response>
         /// <response code="404">Item not found</response>
         /// <response code="500">Server error</response>
+        [AllowAnonymous]
         [ProducesResponseType(typeof(SuccessFlatTenantsResponse), 200)]
         [ProducesResponseType(typeof(FailedFlatTenantsResponse), 400)]
-        [HttpDelete(ApiRoutes.FlatRoute.FlatByIdV1)]
-        public async Task<IActionResult> FlatTenants(string id)
+        [HttpGet(ApiRoutes.FlatRoute.FlatTenantsV1)]
+        public IActionResult FlatTenants(string id)
         {
             var flatTenantsResult = _flatService.GetFlatTenants(id);
 
