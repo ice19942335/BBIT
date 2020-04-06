@@ -134,9 +134,9 @@ namespace Services.Mappers.Flat
 
         #endregion
 
-        #region FlatDtoToFlat
+        #region UpdateFlatDtoToFlat
 
-        public static BBIT.Domain.Entities.Flat.Flat FlatDtoToFlat(this BBIT.Domain.Entities.Flat.Flat flat, UpdateFlatDto updateFlatDto) =>
+        public static BBIT.Domain.Entities.Flat.Flat UpdateFlatDtoToFlat(this BBIT.Domain.Entities.Flat.Flat flat, UpdateFlatDto updateFlatDto) =>
             ConvertUpdateFlatRequestToUpdateFlatDto(ref flat, updateFlatDto);
 
         private static BBIT.Domain.Entities.Flat.Flat ConvertUpdateFlatRequestToUpdateFlatDto(ref BBIT.Domain.Entities.Flat.Flat flat, UpdateFlatDto updateFlatDto)
@@ -145,7 +145,6 @@ namespace Services.Mappers.Flat
             flat.FlatNumber = updateFlatDto.Flat.FlatNumber;
             flat.Floor = updateFlatDto.Flat.Level;
             flat.AmountOfRooms = updateFlatDto.Flat.AmountOfRooms;
-            flat.AmountOfTenants = updateFlatDto.Flat.AmountOfTenants;
             flat.TotalArea = updateFlatDto.Flat.TotalArea;
             flat.HouseRoom = updateFlatDto.Flat.HouseRoom;
 
@@ -179,7 +178,7 @@ namespace Services.Mappers.Flat
 
         #endregion
 
-        #region FlatDtoToFlat
+        #region UpdateFlatDtoToFlat
 
         public static BBIT.Domain.Entities.Flat.Flat FlatDtoToFlat(this FlatDto flatDto) =>
             ConvertFlatDtoToFlat(flatDto);

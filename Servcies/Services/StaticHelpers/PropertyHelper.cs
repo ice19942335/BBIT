@@ -23,7 +23,7 @@ namespace Services.StaticHelpers
             return obj.GetType().GetProperties()
                 .Where((PropertyInfo pi) =>
                 {
-                    if (pi.PropertyType == typeof(string) && pi.Name == nameof(CreateTenantRequest.FlatId))
+                    if (pi.PropertyType == typeof(string) && pi.Name == nameof(UpdateTenantRequest.NewFlatId))
                         return false;
 
                     return pi.PropertyType == typeof(string);

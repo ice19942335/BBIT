@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.House;
-using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House;
-using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.HouseExtended;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House.Failed;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House.Success;
 using Interfaces.House;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -35,20 +35,24 @@ namespace BBIT.WEB.Service.Controllers.V1.House
         /// <response code="400">Failed creation returns status and list of errors</response>
         /// <response code="500">Server error</response>
         [ProducesResponseType(typeof(SuccessHouseCreationResponse), 201)]
-        [ProducesResponseType(typeof(FailedHouseCreationResponse), 400)]
+        [ProducesResponseType(typeof(FailedHouseResponse), 400)]
         [HttpPost(ApiRoutes.HouseRoute.HouseV1)]
         public async Task<IActionResult> CreateHouse([FromServices] IConfiguration configuration, [FromBody] CreateHouseRequest request)
         {
             if (request is null)
-                return BadRequest("Request should have a valid data.");
+                return BadRequest(new FailedHouseResponse
+                {
+                    Status = false,
+                    Errors = new[] { "Request should have a valid data." }
+                });
 
             //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNull(request))
                 return BadRequest(
-                    new FailedHouseCreationResponse
+                    new FailedHouseResponse
                     {
                         Status = false,
-                        Errors = new[] { "Some of properties are null." }
+                        Errors = new[] { "House properties can not be null." }
                     }
                 );
 
@@ -59,7 +63,7 @@ namespace BBIT.WEB.Service.Controllers.V1.House
                 if (creationResult.ServerError)
                     return StatusCode(500);
 
-                return BadRequest(new FailedHouseCreationResponse
+                return BadRequest(new FailedHouseResponse
                 {
                     Status = creationResult.Status,
                     Errors = creationResult.Errors
@@ -91,7 +95,7 @@ namespace BBIT.WEB.Service.Controllers.V1.House
         [AllowAnonymous]
         [HttpGet(ApiRoutes.HouseRoute.HouseV1)]
         [ProducesResponseType(typeof(SuccessAllHousesResponse), 200)]
-        [ProducesResponseType(typeof(FailedAllHousesResponse), 400)]
+        [ProducesResponseType(typeof(FailedHouseResponse), 400)]
         public IActionResult GetAllHouses()
         {
             var requestResult = _houseService.GetAllHouses();
@@ -101,7 +105,7 @@ namespace BBIT.WEB.Service.Controllers.V1.House
                 if (requestResult.ServerError)
                     return StatusCode(500);
 
-                return BadRequest(new FailedAllHousesResponse
+                return BadRequest(new FailedHouseResponse
                 {
                     Status = requestResult.Status,
                     Errors = requestResult.Errors
@@ -124,7 +128,7 @@ namespace BBIT.WEB.Service.Controllers.V1.House
         [AllowAnonymous]
         [HttpGet(ApiRoutes.HouseRoute.HouseByIdV1)]
         [ProducesResponseType(typeof(SuccessHouseByIdResponse), 200)]
-        [ProducesResponseType(typeof(FailedHouseByIdResponse), 400)]
+        [ProducesResponseType(typeof(FailedHouseResponse), 400)]
         public IActionResult GetHouseById(string id)
         {
             var requestResult = _houseService.GetHouseById(id);
@@ -134,7 +138,7 @@ namespace BBIT.WEB.Service.Controllers.V1.House
                 if (requestResult.ServerError)
                     return StatusCode(500);
 
-                return BadRequest(new FailedHouseByIdResponse
+                return BadRequest(new FailedHouseResponse
                 {
                     Errors = requestResult.Errors,
                     Status = requestResult.Status
@@ -160,18 +164,23 @@ namespace BBIT.WEB.Service.Controllers.V1.House
         /// <response code="500">Server error</response>
         [HttpPut(ApiRoutes.HouseRoute.HouseV1)]
         [ProducesResponseType(typeof(SuccessUpdateHouseResponse), 200)]
-        [ProducesResponseType(typeof(FailedUpdateHouseResponse), 400)]
+        [ProducesResponseType(typeof(FailedHouseResponse), 400)]
         public async Task<IActionResult> UpdateHouse([FromBody] UpdateHouseRequest request)
         {
             if (request is null)
-                return BadRequest("Request should have a valid data.");
+                return BadRequest(new FailedHouseResponse
+                {
+                    Errors = new []{ "Request should have a valid data." },
+                    Status = false
+                });
 
+            //Checking all props have values
             if (PropertyHelper.IsAnyPropIsNull(request))
                 return BadRequest(
-                    new FailedHouseCreationResponse
+                    new FailedHouseResponse
                     {
                         Status = false,
-                        Errors = new[] { "Some of properties are null." }
+                        Errors = new[] { "House properties can not be null." }
                     }
                 );
 
@@ -185,7 +194,7 @@ namespace BBIT.WEB.Service.Controllers.V1.House
                 if (updateHouseResponse.Errors.Contains("Item not found"))
                     return NotFound("Item not found");
 
-                return BadRequest(new FailedUpdateHouseResponse
+                return BadRequest(new FailedHouseResponse
                 {
                     Errors = updateHouseResponse.Errors,
                     Status = updateHouseResponse.Status
@@ -207,7 +216,7 @@ namespace BBIT.WEB.Service.Controllers.V1.House
         /// <response code="404">Item not found</response>
         /// <response code="500">Server error</response>
         [HttpDelete(ApiRoutes.HouseRoute.HouseByIdV1)]
-        [ProducesResponseType(typeof(FailedDeleteHouseResponse), 400)]
+        [ProducesResponseType(typeof(FailedHouseResponse), 400)]
         public async Task<IActionResult> DeleteHouse(string id)
         {
             var deletionResult = await _houseService.DeleteHouseAsync(id);
@@ -220,7 +229,7 @@ namespace BBIT.WEB.Service.Controllers.V1.House
                 if (deletionResult.Errors.Contains("Item not found."))
                     return NotFound("Item not found");
 
-                return BadRequest(new FailedDeleteHouseResponse
+                return BadRequest(new FailedHouseResponse
                 {
                     Status = false,
                     Errors = deletionResult.Errors
@@ -238,10 +247,10 @@ namespace BBIT.WEB.Service.Controllers.V1.House
         /// <response code="404">House not found.</response>
         /// <response code="500">Server error</response>
         [AllowAnonymous]
-        [ProducesResponseType(typeof(SuccessAllFlatsInHouseByHouseIdResponse), 200)]
-        [ProducesResponseType(typeof(FailedAllFlatsInHouseByHouseIdResponse), 400)]
+        [ProducesResponseType(typeof(SuccessHouseFlatsResponse), 200)]
+        [ProducesResponseType(typeof(FailedHouseResponse), 400)]
         [HttpGet(ApiRoutes.HouseRoute.FlatsInHouseById)]
-        public IActionResult GetAllFlatsInHouseByHouseId(string id)
+        public IActionResult GetHouseFlats(string id)
         {
             var flatsInHouseResult = _houseService.GetHouseFlats(id);
 
@@ -253,14 +262,14 @@ namespace BBIT.WEB.Service.Controllers.V1.House
                 if (flatsInHouseResult.ItemNotFound)
                     return NotFound("House not found.");
 
-                return BadRequest(new FailedAllFlatsInHouseByHouseIdResponse
+                return BadRequest(new FailedHouseResponse
                 {
                     Errors = flatsInHouseResult.Errors,
                     Status = flatsInHouseResult.Status
                 });
             }
 
-            return Ok(new SuccessAllFlatsInHouseByHouseIdResponse
+            return Ok(new SuccessHouseFlatsResponse
             {
                 Status = flatsInHouseResult.Status,
                 Flats = flatsInHouseResult.Flats

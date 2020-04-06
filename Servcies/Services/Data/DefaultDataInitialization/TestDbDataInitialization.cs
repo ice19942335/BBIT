@@ -232,7 +232,7 @@ namespace Services.Data.DefaultDataInitialization
                     Email = "email@mail.com",
                     Flat = _dbContext.Flats
                         .Include(x => x.House)
-                        .First(x => x.House.HouseNumber =="2"&& x.FlatNumber == "2")
+                        .First(x => x.House.HouseNumber =="2"&& x.FlatNumber == "1")
                 },
                 new BBIT.Domain.Entities.Tenant.Tenant
                 {

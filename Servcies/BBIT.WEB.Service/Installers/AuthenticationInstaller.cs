@@ -20,11 +20,12 @@ namespace BBIT.WEB.Service.Installers
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
+                ValidateLifetime = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
                 ValidateIssuer = false,
                 ValidateAudience = false,
                 RequireExpirationTime = false,
-                ValidateLifetime = true
+                ClockSkew = TimeSpan.Zero
             };
 
             services.AddSingleton(tokenValidationParameters);

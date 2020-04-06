@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.Tenant;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant.Failed;
+using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.Tenant.Success;
+using BBIT.Domain.Entities.DTO.Tenant;
 using Interfaces.Tenant;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -35,22 +38,35 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
         /// <response code="404">House or Flat not found</response>
         /// <response code="500">Server error</response>
         [ProducesResponseType(typeof(SuccessTenantCreationResponse), 201)]
-        [ProducesResponseType(typeof(FailedTenantCreationResponse), 400)]
+        [ProducesResponseType(typeof(FailedTenantResponse), 400)]
         [HttpPost(ApiRoutes.TenantRoute.TenantV1)]
         public async Task<IActionResult> CreateTenant([FromServices] IConfiguration configuration, [FromBody] CreateTenantRequest request)
         {
             if (request is null)
-                return BadRequest("Request should have a valid data.");
+                return BadRequest(new FailedTenantResponse
+                {
+                    Status = false,
+                    Errors = new[] { "Request should have a valid data." }
+                });
 
             //Checking all props have values
-            if (PropertyHelper.IsAnyPropIsNullExceptFlatId(request))
+            if (PropertyHelper.IsAnyPropIsNull(request))
                 return BadRequest(
-                    new FailedTenantCreationResponse
+                    new FailedTenantResponse
                     {
                         Status = false,
-                        Errors = new[] { $"Some of properties except {nameof(CreateTenantRequest.FlatId)} are null." }
+                        Errors = new[] { $"Tenant properties can not be null." }
                     }
                 );
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new FailedTenantResponse
+                {
+                    Status = false,
+                    Errors = ModelState.Values.SelectMany(x => x.Errors.Select(xx => xx.ErrorMessage))
+                });
+            }
 
             var createTenantResult = await _tenantService.CreateTenantAsync(request.CreateTenantRequestToCreateTenantDto());
 
@@ -59,7 +75,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
                 if (createTenantResult.ServerError)
                     return StatusCode(500);
 
-                return BadRequest(new FailedTenantCreationResponse
+                return BadRequest(new FailedTenantResponse
                 {
                     Status = createTenantResult.Status,
                     Errors = createTenantResult.Errors
@@ -92,7 +108,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
         /// <response code="500">Server error</response>
         [AllowAnonymous]
         [ProducesResponseType(typeof(SuccessAllTenantsResponse), 200)]
-        [ProducesResponseType(typeof(FailedAllTenantsResponse), 400)]
+        [ProducesResponseType(typeof(FailedTenantResponse), 400)]
         [HttpGet(ApiRoutes.TenantRoute.TenantV1)]
         public IActionResult GetAllTenants()
         {
@@ -103,7 +119,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
                 if (getAllFlatsResult.ServerError)
                     return StatusCode(500);
 
-                return BadRequest(new FailedAllTenantsResponse
+                return BadRequest(new FailedTenantResponse
                 {
                     Status = getAllFlatsResult.Status,
                     Errors = getAllFlatsResult.Errors
@@ -126,7 +142,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
         /// <response code="500">Server error</response>
         [AllowAnonymous]
         [ProducesResponseType(typeof(SuccessTenantByIdResponse), 200)]
-        [ProducesResponseType(typeof(FailedTenantByIdResponse), 400)]
+        [ProducesResponseType(typeof(FailedTenantResponse), 400)]
         [HttpGet(ApiRoutes.TenantRoute.TenantByIdV1)]
         public IActionResult GetTenantById(string id)
         {
@@ -137,7 +153,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
                 if (tenantByIdResult.ServerError)
                     return StatusCode(500);
 
-                return BadRequest(new FailedTenantByIdResponse
+                return BadRequest(new FailedTenantResponse
                 {
                     Status = tenantByIdResult.Status,
                     Errors = tenantByIdResult.Errors
@@ -165,20 +181,19 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
         ///
         ///     PUT /With NewFlatId
         ///     {
-        ///       "flatId": "4644e41b-c19e-4f24-96f3-013103030c5a",
+        ///       "newFlatId": "4644e41b-c19e-4f24-96f3-013103030c5a",
         ///       "id": "486051a1-8867-47cd-b4c0-44c5a62f0e99"
         ///       "name": "Name",
         ///       "surname": "Surname",
         ///       "personalCode": "12345",
         ///       "dateOfBirth": "2020-03-30T00:00:00+01:00",
         ///       "phoneNumber": "+37112345678",
-        ///       "email": "email@mail.com",
-        ///       "flat": null
+        ///       "email": "email@mail.com"
         ///     }
         ///
         ///     PUT /Without NewFlatId
         ///     {
-        ///       "flatId": null,
+        ///       "newFlatId": null,
         ///       "id": "486051a1-8867-47cd-b4c0-44c5a62f0e99"
         ///       "name": "Name",
         ///       "surname": "Surname",
@@ -194,13 +209,36 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
         /// <response code="404">Tenant not found</response>
         /// <response code="500">Server error</response>
         [ProducesResponseType(typeof(SuccessUpdateTenantResponse), 200)]
-        [ProducesResponseType(typeof(FailedUpdateTenantResponse), 400)]
+        [ProducesResponseType(typeof(FailedTenantResponse), 400)]
         [HttpPut(ApiRoutes.TenantRoute.TenantV1)]
         public async Task<IActionResult> UpdateTenant([FromBody] UpdateTenantRequest request)
         {
             if (request is null)
-                return BadRequest("Request should have a valid data.");
+                return BadRequest(new FailedTenantResponse
+                {
+                    Status = false,
+                    Errors = new[] { "Request should have a valid data." }
+                });
 
+            //Checking all props have values
+            if (PropertyHelper.IsAnyPropIsNullExceptFlatId(request))
+                return BadRequest(
+                    new FailedTenantResponse
+                    {
+                        Status = false,
+                        Errors = new[] { $"Tenant properties can not be null." }
+                    }
+                );
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new FailedTenantResponse
+                {
+                    Status = false,
+                    Errors = ModelState.Values.SelectMany(x => x.Errors.Select(xx => xx.ErrorMessage))
+                });
+            }
+            
             var updateTenantResult = await _tenantService.UpdateTenantAsync(request.UpdateTenantRequestToUpdateTenantDto());
 
             if (!updateTenantResult.Status)
@@ -214,7 +252,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
                 if (updateTenantResult.Errors.Any(x => x.Contains($"Flat with Id: '{request.NewFlatId}' not found.")))
                     return NotFound($"Flat with Id: '{request.NewFlatId}' not found.");
 
-                return BadRequest(new FailedUpdateTenantResponse
+                return BadRequest(new FailedTenantResponse
                 {
                     Status = updateTenantResult.Status,
                     Errors = updateTenantResult.Errors
@@ -223,17 +261,20 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
 
             return Ok(new SuccessUpdateTenantResponse
             {
-                Id = updateTenantResult.Tenant.Id,
-                Name = updateTenantResult.Tenant.Name,
-                Surname = updateTenantResult.Tenant.Surname,
-                PersonalCode = updateTenantResult.Tenant.PersonalCode,
-                DateOfBirth = updateTenantResult.Tenant.DateOfBirth,
-                PhoneNumber = updateTenantResult.Tenant.PhoneNumber,
-                Email = updateTenantResult.Tenant.Email,
-                Flat = updateTenantResult.Tenant.Flat
+                Status = updateTenantResult.Status,
+                Tenant = new TenantDto
+                {
+                    Id = updateTenantResult.Tenant.Id,
+                    Name = updateTenantResult.Tenant.Name,
+                    Surname = updateTenantResult.Tenant.Surname,
+                    PersonalCode = updateTenantResult.Tenant.PersonalCode,
+                    DateOfBirth = updateTenantResult.Tenant.DateOfBirth,
+                    PhoneNumber = updateTenantResult.Tenant.PhoneNumber,
+                    Email = updateTenantResult.Tenant.Email,
+                    Flat = updateTenantResult.Tenant.Flat
+                }
             });
         }
-
 
         /// <summary>
         /// Delete Tenant endpoint. Deleting Tenant by provided Id
@@ -242,7 +283,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
         /// <response code="400">Returns status and list of errors</response>
         /// <response code="404">Tenant not found</response>
         /// <response code="500">Server error</response>
-        [ProducesResponseType(typeof(FailedDeleteTenantResponse), 400)]
+        [ProducesResponseType(typeof(FailedTenantResponse), 400)]
         [HttpDelete(ApiRoutes.TenantRoute.TenantByIdV1)]
         public async Task<IActionResult> DeleteTenant(string id)
         {
@@ -256,7 +297,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
                 if (deleteTenantResult.Errors.Contains($"Tenant with Id: '{id}' not found."))
                     return NotFound($"Tenant with Id: '{id}' not found.");
 
-                return BadRequest(new FailedDeleteTenantResponse
+                return BadRequest(new FailedTenantResponse
                 {
                     Status = deleteTenantResult.Status,
                     Errors = deleteTenantResult.Errors

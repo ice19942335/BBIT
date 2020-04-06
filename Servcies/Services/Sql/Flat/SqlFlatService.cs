@@ -78,7 +78,8 @@ namespace Services.Sql.Flat
             {
                 var flatsDtoList = _dbContext.Flats
                     .Include(x => x.House)
-                    .ToList();
+                    .ToList()
+                    .OrderBy(x => x.House.HouseNumber);
 
                 return new AllFlatsDto
                 {
@@ -143,12 +144,12 @@ namespace Services.Sql.Flat
                 if (_dbContext.Flats.FirstOrDefault(x => x.Id == Guid.Parse(updateFlatDto.Flat.Id)) is null)
                     return new UpdateFlatDto
                     {
-                        Errors = new[] { "Item not found" },
+                        ItemNotFound = true,
                         Status = false
                     };
 
                 //Can not make Flat duplicate because of EF Core
-                flat = flat.FlatDtoToFlat(updateFlatDto);
+                flat = flat.UpdateFlatDtoToFlat(updateFlatDto);
 
                 _dbContext.Flats.Update(flat);
                 await _dbContext.SaveChangesAsync();

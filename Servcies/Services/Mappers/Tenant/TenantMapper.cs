@@ -45,7 +45,7 @@ namespace Services.Mappers.Tenant
                 Name = createTenantDto.Tenant.Name,
                 Surname = createTenantDto.Tenant.Surname,
                 PersonalCode = createTenantDto.Tenant.PersonalCode,
-                DateOfBirth = createTenantDto.Tenant.DateOfBirth,
+                DateOfBirth = Convert.ToDateTime(createTenantDto.Tenant.DateOfBirth),
                 PhoneNumber = createTenantDto.Tenant.PhoneNumber,
                 Email = createTenantDto.Tenant.Email
             };
@@ -69,7 +69,7 @@ namespace Services.Mappers.Tenant
                     Name = tenant.Name,
                     Surname = tenant.Surname,
                     PersonalCode = tenant.PersonalCode,
-                    DateOfBirth = tenant.DateOfBirth,
+                    DateOfBirth = tenant.DateOfBirth.ToString("d"),
                     PhoneNumber = tenant.PhoneNumber,
                     Email = tenant.Email,
                     Flat = tenant.Flat?.FlatToFlatDto()
@@ -92,7 +92,7 @@ namespace Services.Mappers.Tenant
                 Name = tenant.Name,
                 Surname = tenant.Surname,
                 PersonalCode = tenant.PersonalCode,
-                DateOfBirth = tenant.DateOfBirth,
+                DateOfBirth = tenant.DateOfBirth.ToString("d"),
                 PhoneNumber = tenant.PhoneNumber,
                 Email = tenant.Email,
                 Flat = tenant.Flat?.FlatToFlatDto()
@@ -139,7 +139,7 @@ namespace Services.Mappers.Tenant
                 Name = updateTenantDto.Tenant.Name,
                 Surname = updateTenantDto.Tenant.Surname,
                 PersonalCode = updateTenantDto.Tenant.PersonalCode,
-                DateOfBirth = updateTenantDto.Tenant.DateOfBirth,
+                DateOfBirth = Convert.ToDateTime(updateTenantDto.Tenant.DateOfBirth),
                 PhoneNumber = updateTenantDto.Tenant.PhoneNumber,
                 Email = updateTenantDto.Tenant.Email
             }; 
