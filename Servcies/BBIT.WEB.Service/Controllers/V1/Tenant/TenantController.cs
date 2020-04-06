@@ -59,6 +59,15 @@ namespace BBIT.WEB.Service.Controllers.V1.Tenant
                     }
                 );
 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new FailedTenantResponse
+                {
+                    Status = false,
+                    Errors = ModelState.Values.SelectMany(x => x.Errors.Select(xx => xx.ErrorMessage))
+                });
+            }
+
             var createTenantResult = await _tenantService.CreateTenantAsync(request.CreateTenantRequestToCreateTenantDto());
 
             if (!createTenantResult.Status)

@@ -26,13 +26,15 @@ namespace Services.House
             _logger = logger;
         }
 
-        public async Task<CreateHouseDto> CreateHouseAsync(CreateHouseDto createHouseDto) => await _sqlHouseService.CreateHouseAsync(createHouseDto);
+        public async Task<CreateHouseDto> CreateHouseAsync(CreateHouseDto createHouseDto) =>
+            await _sqlHouseService.CreateHouseAsync(createHouseDto);
 
         public AllHousesDto GetAllHouses() => _sqlHouseService.GetAllHouses();
 
         public HouseByIdDto GetHouseById(string id) => _sqlHouseService.GetHouseById(id);
 
-        public async Task<UpdateHouseDto> UpdateHouseAsync(UpdateHouseDto updateHouseDto) => await _sqlHouseService.UpdateHouse(updateHouseDto);
+        public async Task<UpdateHouseDto> UpdateHouseAsync(UpdateHouseDto updateHouseDto) =>
+            await _sqlHouseService.UpdateHouse(updateHouseDto);
 
         public async Task<DeleteHouseDto> DeleteHouseAsync(string id) => await _sqlHouseService.DeleteHouseAsync(id);
 
@@ -45,7 +47,7 @@ namespace Services.House
                 if (house is null)
                     return new AllFlatsDto
                     {
-                        Errors = new[] { "House not found." },
+                        Errors = new[] {"House not found."},
                         ItemNotFound = true
                     };
 
@@ -63,10 +65,11 @@ namespace Services.House
             }
             catch (Exception e)
             {
-                _logger.LogError($"Error on fetching data from database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
+                _logger.LogError(
+                    $"Error on fetching data from database. Exception message: {e.Message};\nInner message: {e.InnerException?.Message}");
                 return new AllFlatsDto
                 {
-                    Errors = new[] { "Error on fetching data from database." },
+                    Errors = new[] {"Error on fetching data from database."},
                     ServerError = true,
                     Status = false
                 };

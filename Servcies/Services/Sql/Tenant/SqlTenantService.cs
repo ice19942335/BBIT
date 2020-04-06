@@ -254,14 +254,18 @@ namespace Services.Sql.Tenant
 
         #region PrivateMethods
 
-        private bool CheckTenantExist(CreateTenantDto createTenantDto) =>
-            _dbContext.Tenants.FirstOrDefault(x =>
+        private bool CheckTenantExist(CreateTenantDto createTenantDto)
+        {
+            var tenant = _dbContext.Tenants
+                .ToList()
+                .FirstOrDefault(x =>
                 x.Name == createTenantDto.Tenant.Name &&
                 x.Surname == createTenantDto.Tenant.Surname &&
-                x.DateOfBirth.ToString("d") == createTenantDto.Tenant.DateOfBirth &&
-                x.Email == createTenantDto.Tenant.Email &&
-                x.PersonalCode == createTenantDto.Tenant.PersonalCode &&
-                x.PhoneNumber == createTenantDto.Tenant.PhoneNumber) != null;
+                x.DateOfBirth.ToString("d") == Convert.ToDateTime(createTenantDto.Tenant.DateOfBirth).ToString("d") &&
+                x.PersonalCode == createTenantDto.Tenant.PersonalCode);
+
+            return tenant != null;
+        }
 
         private bool CheckFlatExist(string flatId) => _dbContext.Flats.FirstOrDefault(x => x.Id == Guid.Parse(flatId)) != null;
 

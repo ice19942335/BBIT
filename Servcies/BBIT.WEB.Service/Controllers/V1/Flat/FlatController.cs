@@ -54,7 +54,7 @@ namespace BBIT.WEB.Service.Controllers.V1.Flat
                     new FailedFlatResponse
                     {
                         Status = false,
-                        Errors = new[] { "Some of properties are null." }
+                        Errors = new[] { "Flat properties can not be null." }
                     }
                 );
 

@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Requests.House;
-using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House.Failed;
 using BBIT.Domain.Entities.BBIT.WEB.Service.Contracts.V1.Responses.House.Success;
 using Interfaces.House;
