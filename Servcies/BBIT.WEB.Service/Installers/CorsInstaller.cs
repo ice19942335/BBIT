@@ -17,10 +17,11 @@ namespace BBIT.WEB.Service.Installers
             //            .AllowCredentials());
             //});
 
+
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder => 
-                    builder.WithOrigins("http://localhost:4200")
+                    builder.WithOrigins("http://bbit.birula.online", "http://bbit-client.abirula.com")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());
