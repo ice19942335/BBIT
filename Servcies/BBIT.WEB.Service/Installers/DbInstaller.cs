@@ -10,8 +10,8 @@ namespace BBIT.WEB.Service.Installers
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<BBITContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DevelopmentConnection")));
-                //options.UseSqlServer(configuration.GetConnectionString("ProductionConnection")));
+                //options.UseSqlServer(configuration.GetConnectionString("DevelopmentConnection")));
+                options.UseSqlServer(configuration.GetConnectionString("ProductionConnection")));
         }
     }
 }
