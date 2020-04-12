@@ -13,6 +13,7 @@ namespace BBIT.WEB.Service.Installers
             services.AddDefaultIdentity<AppUser>(options => { options.Password.RequireNonAlphanumeric = false; })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<BBITContext>();
+
         }
     }
 }
